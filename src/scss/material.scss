@@ -1,0 +1,39 @@
+@import "variables";
+
+.btn {
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+}
+
+.btn.primary {
+  background-color: $primary_500;
+  color: white;
+}
+
+.btn.primary:hover {
+  background-color: $primary_A700;
+}
+
+.btn.accent {
+  background-color: $accent_500;
+}
+
+.btn.accent:hover {
+  background-color: $accent_A700;
+}
+
+.btn.floating {
+  box-shadow: $material_shadow_level1;
+  border-radius: 100%;
+  float: right;
+  height: 60px;
+  width: 60px;
+}
+
+.btn.floating:hover {
+  box-shadow: $material_shadow_level2;
+}
+
+.btn.accent.floating {
+  background-color: $accent_A700;
+  color: white;
+}

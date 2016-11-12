@@ -1,0 +1,30 @@
+<div *ngIf="!submitted">
+  <p>Bitte registriere Dich noch auf dieser Seite.</p>
+  <form #f="ngForm" (ngSubmit)="onSubmit($event)" validate>
+
+    <div class="form-group">
+      <label for="name">Dein Name</label>
+      <input required type="text" class="form-control" id="name"
+             [(ngModel)]="user.name" name="name" [placeholder]="user.name">
+    </div>
+
+    <div class="form-group">
+      <label for="email">Deine Email</label>
+      <input required type="email" class="form-control" id="email"
+             [(ngModel)]="user.email" name="email" [placeholder]="user.email">
+    </div>
+
+    <div class="form-group">
+      <label for="youthGroup">Deine Jugendgruppe</label>
+      <select required class="form-control" id="youthGroup"
+              [(ngModel)]="user.youthGroup" name="youthGroup">
+        <option value="Steinböcke">Steinböcke</option>
+        <option value="Eiskletterer">Eiskletterer</option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn primary" [disabled]="!f.form.valid">Registrieren</button>
+  </form>
+</div>
+
+<jgd-loading *ngIf="submitted"></jgd-loading>

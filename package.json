@@ -1,9 +1,21 @@
 {
-  "name": "gear-deposit2",
-  "version": "0.0.0",
+  "name": "gear-deposit",
+  "version": "1.0.0-alpha.2",
   "license": "MIT",
+  "description": "",
+  "author": "Johannes Gest <Johannes.Gest@haufe-lexware.com>",
+  "homepage": "http://www.jdav-freiburg.de/",
+  "keywords": [
+    "angular2",
+    "typescript",
+    "bootstrap4",
+    "scss",
+    "karma",
+    "protractor"
+  ],
   "angular-cli": {},
   "scripts": {
+    "setup:db": "node scripts/data.import.js",
     "start": "ng serve",
     "lint": "tslint \"src/**/*.ts\"",
     "test": "ng test",
@@ -20,8 +32,12 @@
     "@angular/platform-browser": "~2.1.0",
     "@angular/platform-browser-dynamic": "~2.1.0",
     "@angular/router": "~3.1.0",
+    "angularfire2": "^2.0.0-beta.5",
+    "bootstrap": "^4.0.0-alpha.5",
+    "bootstrap-loader": "^2.0.0-beta.12",
+    "resolve-url-loader": "^1.6.0",
     "core-js": "^2.4.1",
-    "rxjs": "5.0.0-beta.12",
+    "rxjs": "^5.0.0-rc.1",
     "ts-helpers": "^1.1.1",
     "zone.js": "^0.6.23"
   },
@@ -42,5 +58,12 @@
     "tslint": "3.13.0",
     "typescript": "~2.0.3",
     "webdriver-manager": "10.2.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jdav-freiburg/gear-deposit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jdav-freiburg/gear-deposit/issues"
   }
 }

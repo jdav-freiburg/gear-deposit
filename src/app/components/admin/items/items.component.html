@@ -1,0 +1,44 @@
+<div *ngIf="items && types">
+  <form class="form-inline">
+    <div class="form-group">
+      <label class="sr-only" for="type">Filtern nach Typ</label>
+      <select class="form-control" id="type" [(ngModel)]="type" name="type">
+        <option *ngFor="let type of types" [value]="type.$value">{{ type.$value }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label class="sr-only" for="description">Filtern</label>
+      <input class="form-control" type="search" id="description" [(ngModel)]="description" name="description"
+             placeholder="Suche">
+    </div>
+  </form>
+
+  <ul class="list-group">
+    <li *ngFor="let item of items | itemFilter:type:description" [class]="item.changed ? 'changed': ''">
+      <div class="row">
+        <div class="input-holder col-xs-5">
+          <input [value]="item.type" class="form-control"
+                 (change)="onItemTypeChanged(item, $event.target.value)">
+        </div>
+        <div class="input-holder col-xs-5">
+          <input [value]="item.description" class="form-control"
+                 (change)="onItemDescriptionChanged(item, $event.target.value)">
+        </div>
+        <div class="input-holder col-xs-2">
+          <input [value]="item.shape" class="form-control"
+                 (change)="onItemShapeChanged(item, $event.target.value)">
+        </div>
+        <!--span *ngFor="let label of item.labels"> {{ label }}, </span-->
+      </div>
+    </li>
+  </ul>
+
+  <jgd-nav-bar *ngIf="changed > 0">
+    <span>{{ changed }} Einträge geändert</span>
+    <button type="button" class="btn accent floating" (click)="saveChanged()"
+            title="Änderungen speichern">
+      <i class="material-icons md-36">save</i>
+    </button>
+  </jgd-nav-bar>
+</div>

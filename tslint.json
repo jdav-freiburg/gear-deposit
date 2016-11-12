@@ -31,11 +31,8 @@
     "no-bitwise": true,
     "no-console": [
       true,
-      "debug",
-      "info",
       "time",
-      "timeEnd",
-      "trace"
+      "timeEnd"
     ],
     "no-construct": true,
     "no-debugger": true,
@@ -92,13 +89,30 @@
       "check-separator",
       "check-type"
     ],
-
-    "directive-selector-prefix": [true, "app"],
-    "component-selector-prefix": [true, "app"],
-    "directive-selector-name": [true, "camelCase"],
-    "component-selector-name": [true, "kebab-case"],
-    "directive-selector-type": [true, "attribute"],
-    "component-selector-type": [true, "element"],
+    "directive-selector-prefix": [
+      true,
+      "jgd"
+    ],
+    "component-selector-prefix": [
+      true,
+      "jgd"
+    ],
+    "directive-selector-name": [
+      true,
+      "camelCase"
+    ],
+    "component-selector-name": [
+      true,
+      "kebab-case"
+    ],
+    "directive-selector-type": [
+      true,
+      "attribute"
+    ],
+    "component-selector-type": [
+      true,
+      "element"
+    ],
     "use-input-property-decorator": true,
     "use-output-property-decorator": true,
     "use-host-property-decorator": true,

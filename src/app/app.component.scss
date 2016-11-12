@@ -1,0 +1,19 @@
+@import "../scss/variables";
+
+jgd-header {
+  display: block;
+  height: 54px;
+  margin-bottom: 1rem;
+}
+
+jgd-info-message {
+  position: absolute;
+  right: $spacer;
+  z-index: $zindex-popover;
+
+  background-color: $primary_100;
+  border-radius: $btn-border-radius;
+  box-shadow: $material_shadow_level2;
+  cursor: pointer;
+  padding: ($spacer / 4) $spacer;
+}

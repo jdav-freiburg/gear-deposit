@@ -1,0 +1,31 @@
+<p class="lead mt-2">Bevor es losgehen kann, musst Du Dich anmelden.</p>
+
+<p class="lead">Solltest Du Dich das erste Mal anmelden, musst Du danach noch Daten vervollständigen.</p>
+
+<div class="row">
+  <form *ngIf="isFormVisible" class="col-sm-8 col-md-6 col-xl-4 offset-sm-2 offset-md-3 offset-xl-4"
+        #f="ngForm" (ngSubmit)="onSubmit($event, f)">
+    <div class="form-group">
+      <label for="email">Deine Email</label>
+      <input ngModel required type="email" class="form-control" id="email" name="email" placeholder="Deine Email">
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input ngModel required type="password" class="form-control" id="password" name="password">
+    </div>
+
+    <button type="submit" class="btn btn-success btn-block btn-lg my-2">
+      Anmelden
+    </button>
+  </form>
+
+  <div *ngIf="!isFormVisible" class="col-sm-8 col-md-6 col-xl-4 offset-sm-2 offset-md-3 offset-xl-4">
+    <button type="button" class="btn primary btn-block btn-lg my-2" (click)="loginGoogle()">
+      Mit Google anmelden
+    </button>
+    <button type="button" class="btn primary btn-block btn-lg my-2" (click)="showForm()">
+      Mit Email/PW anmelden
+    </button>
+  </div>
+</div>

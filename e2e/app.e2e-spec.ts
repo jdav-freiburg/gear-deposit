@@ -1,14 +1,15 @@
-import { GearDeposit2Page } from './app.po';
+import { GearDepositPage } from './app.po';
 
-describe('gear-deposit2 App', function() {
-  let page: GearDeposit2Page;
+describe('gear-deposit App', function () {
+    let page: GearDepositPage;
 
-  beforeEach(() => {
-    page = new GearDeposit2Page();
-  });
+    beforeEach(() => {
+        page = new GearDepositPage();
+    });
 
-  it('should display message saying app works', () => {
-    page.navigateTo();
-    expect(page.getParagraphText()).toEqual('app works!');
-  });
+    it('should have startpage link "Depot"', () => {
+        page.navigateTo();
+        expect(page.getStartpageLink()).not.toBeNull();
+        expect(page.getStartpageLink().getText()).toEqual('Depot');
+    });
 });

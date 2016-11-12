@@ -1,3 +1,14 @@
-<h1>
-  {{title}}
-</h1>
+<jgd-header></jgd-header>
+
+<jgd-loading *ngIf="loading"></jgd-loading>
+
+<div class="container-fluid">
+  <div class="col-xs-12 col-md-10 col-xl-8 offset-md-1 offset-xl-2">
+    <jgd-info-message *ngIf="showInfo" [message]="infoMessage" (click)="hideInfo()"></jgd-info-message>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>
+
+<footer></footer>

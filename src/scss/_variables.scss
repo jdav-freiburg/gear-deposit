@@ -1,0 +1,38 @@
+@import "../../node_modules/bootstrap/scss/variables";
+
+// https://material.google.com/style/color.html#color-color-palette
+
+// green
+$primary_50: #E8F5E9 !default;
+$primary_100: #C8E6C9 !default;
+$primary_200: #A5D6A7 !default;
+$primary_300: #81C784 !default;
+$primary_400: #66BB6A !default;
+$primary_500: #4CAF50 !default;
+$primary_600: #43A047 !default;
+$primary_700: #388E3C !default;
+$primary_800: #2E7D32 !default;
+$primary_900: #1B5E20 !default;
+$primary_A100: #B9F6CA !default;
+$primary_A200: #69F0AE !default;
+$primary_A400: #00E676 !default;
+$primary_A700: #00C853 !default;
+
+// orange
+$accent_50: #FFF3E0 !default;
+$accent_100: #FFE0B2 !default;
+$accent_200: #FFCC80 !default;
+$accent_300: #FFB74D !default;
+$accent_400: #FFA726 !default;
+$accent_500: #FF9800 !default;
+$accent_600: #FB8C00 !default;
+$accent_700: #F57C00 !default;
+$accent_800: #EF6C00 !default;
+$accent_900: #E65100 !default;
+$accent_A100: #FFD180 !default;
+$accent_A200: #FFAB40 !default;
+$accent_A400: #FF9100 !default;
+$accent_A700: #FF6D00 !default;
+
+$material_shadow_level1: 0 0 4px rgba(0, 0, 0, .14), 0 4px 8px rgba(0, 0, 0, .28);
+$material_shadow_level2: 0 0 6px rgba(0, 0, 0, .16), 0 6px 12px rgba(0, 0, 0, .32);

@@ -1,11 +1,12 @@
 import { browser, element, by } from 'protractor';
 
-export class GearDeposit2Page {
-  navigateTo() {
-    return browser.get('/');
-  }
+export class GearDepositPage {
+    navigateTo() {
+        return browser.get('/');
+    }
 
-  getParagraphText() {
-    return element(by.css('app-root h1')).getText();
-  }
+    getStartpageLink() {
+        return element(by.css('header a[routerLink="/home"]'));
+    }
+
 }
