@@ -1,16 +1,16 @@
 import { Routes } from '@angular/router';
-import { NoContentComponent } from './components/no-content/no-content.component';
+import { NoContentComponent } from './components/error/no-content/no-content.component';
 import { HomeComponent } from './components/home/home.component';
 import { ItemsComponent } from './components/admin/items/items.component';
 import { AdminUserGuard } from './services/guards/admin-user-guard.service';
 import { RegisterComponent } from './components/user/register/register.component';
 import { LoginComponent } from './components/user/login/login.component';
 import { AuthGuard } from './services/guards/auth-guard.service';
-import { NoAccessComponent } from './components/no-access/no-access.component';
+import { NoAccessComponent } from './components/error/no-access/no-access.component';
 import { StandardUserGuard } from './services/guards/standard-user-guard.service';
 import { LoginGuard } from './services/guards/login-guard.service';
 import { AlreadyRegisteredGuard } from './services/guards/already-registered-guard.service';
-import { NewReservationComponent } from './components/user/new-reservation/new-reservation.component';
+import { NewReservationComponent } from './components/reservation/new/new-reservation.component';
 
 export const ROUTES: Routes = [
     {

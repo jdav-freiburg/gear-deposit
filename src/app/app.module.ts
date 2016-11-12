@@ -6,13 +6,12 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { ROUTES } from './app.routes';
 import { AppComponent } from './app.component';
-import { NoContentComponent } from './components/no-content/no-content.component';
-import { NoAccessComponent } from './components/no-access/no-access.component';
+import { NoContentComponent } from './components/error/no-content/no-content.component';
+import { NoAccessComponent } from './components/error/no-access/no-access.component';
 import { HeaderComponent } from './components/header/header.component';
 import { LoginComponent } from './components/user/login/login.component';
 import { RegisterComponent } from './components/user/register/register.component';
 import { HomeComponent } from './components/home/home.component';
-import { ItemsComponent } from './components/admin/items';
 import { AuthService } from './services/auth.service';
 import { ItemService } from './services/item.service';
 import { UserService } from './services/user.service';
@@ -27,7 +26,9 @@ import { ItemFilterPipe } from './pipes/item-filter.pipe';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { InfoMessageComponent } from './components/ui-messages';
 import { UiMessageService } from './services/ui-message.service';
-import { NewReservationComponent } from './components/user/new-reservation/new-reservation.component';
+import { NewReservationComponent } from './components/reservation/new/new-reservation.component';
+import { ItemsComponent } from './components/items/items.component';
+import { ItemComponent } from './components/items/item.component';
 
 export const GUARDS = [
     AuthGuard,
@@ -61,6 +62,8 @@ export const SERVICES = [
         NavBarComponent,
         InfoMessageComponent,
         NewReservationComponent,
+        ItemsComponent,
+        ItemComponent,
     ],
     providers: [
         ...GUARDS,

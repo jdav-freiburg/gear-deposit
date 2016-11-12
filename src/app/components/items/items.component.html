@@ -1,0 +1,15 @@
+<form class="form-inline">
+  <div class="form-group">
+    <label class="sr-only" for="filter">Filtern</label>
+    <input class="form-control" type="search" id="filter" [(ngModel)]="filter" name="filter"
+           placeholder="Suche">
+  </div>
+</form>
+
+<ul class="list-group">
+  <li *ngFor="let item of items | itemFilter:type:description">
+    <div (click)="onClick(item)">
+      <jgd-item [item]="item"></jgd-item>
+    </div>
+  </li>
+</ul>

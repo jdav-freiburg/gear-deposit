@@ -1,0 +1,18 @@
+<form>
+  <div class="form-group">
+    <label for="reservationDescription">Beschreibung der Ausfahrt</label>
+    <input class="form-control" type="text" value="" id="reservationDescription">
+  </div>
+  <div class="form-group">
+    <label for="reservationStart">Beginn der Reservierung</label>
+    <input class="form-control" type="date" value="" id="reservationStart">
+  </div>
+  <div class="form-group">
+    <label for="reservationEnd">Ende der Reservierung</label>
+    <input class="form-control" type="date" value="" id="reservationEnd">
+  </div>
+
+
+  <jgd-items (selected)="onSelected($event)" [items]="items"></jgd-items>
+
+</form>
