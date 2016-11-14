@@ -2,7 +2,9 @@
 <p align="center">an app for borrowing common gear (like ropes, helmets, tents, ...)</p>
 <p align="center"><small>written for JDAV Freiburg</small></p>
 
-[![Build Status](https://travis-ci.org/jdav-freiburg/gear-deposit.svg?branch=master)](https://travis-ci.org/jdav-freiburg/gear-deposit)[![Dependencies Status](https://david-dm.org/jdav-freiburg/gear-deposit.svg)](https://david-dm.org/jdav-freiburg/gear-deposit)[![DevDependency Status](https://david-dm.org/jdav-freiburg/gear-deposit/dev-status.svg)](https://david-dm.org/jdav-freiburg/gear-deposit?type=dev)
+[![Build Status](https://travis-ci.org/jdav-freiburg/gear-deposit.svg?branch=master)](https://travis-ci.org/jdav-freiburg/gear-deposit)
+[![Dependencies Status](https://david-dm.org/jdav-freiburg/gear-deposit.svg)](https://david-dm.org/jdav-freiburg/gear-deposit)
+[![DevDependency Status](https://david-dm.org/jdav-freiburg/gear-deposit/dev-status.svg)](https://david-dm.org/jdav-freiburg/gear-deposit?type=dev)
 
 Status: Alpha
 
