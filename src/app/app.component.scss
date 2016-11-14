@@ -17,3 +17,7 @@ jgd-info-message {
   cursor: pointer;
   padding: ($spacer / 4) $spacer;
 }
+
+.flagged {
+  background-color: $accent_100;
+}

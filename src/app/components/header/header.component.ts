@@ -17,7 +17,6 @@ export class HeaderComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        console.trace('#ngOnInit();');
         this.userAuthStatusService.getUserAuthStatus().subscribe((userAuthStatus: UserAuthStatus) => {
             this.userAuthStatus = userAuthStatus;
         });

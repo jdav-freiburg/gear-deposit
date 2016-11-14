@@ -6,29 +6,20 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { ROUTES } from './app.routes';
 import { AppComponent } from './app.component';
-import { NoContentComponent } from './components/error/no-content/no-content.component';
-import { NoAccessComponent } from './components/error/no-access/no-access.component';
+import { NoAccessComponent, NoContentComponent } from './components/error';
+import { EditItemsComponent } from './components/admin';
+import { LoginComponent, RegisterComponent } from './components/user';
 import { HeaderComponent } from './components/header/header.component';
-import { LoginComponent } from './components/user/login/login.component';
-import { RegisterComponent } from './components/user/register/register.component';
 import { HomeComponent } from './components/home/home.component';
-import { AuthService } from './services/auth.service';
-import { ItemService } from './services/item.service';
-import { UserService } from './services/user.service';
-import { UserAuthStatusService } from './services/user-auth-status.service';
-import { AdminUserGuard } from './services/guards/admin-user-guard.service';
-import { AuthGuard } from './services/guards/auth-guard.service';
-import { StandardUserGuard } from './services/guards/standard-user-guard.service';
-import { LoginGuard } from './services/guards/login-guard.service';
 import { LoadingComponent } from './components/loading/loading.component';
-import { AlreadyRegisteredGuard } from './services/guards/already-registered-guard.service';
-import { ItemFilterPipe } from './pipes/item-filter.pipe';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { InfoMessageComponent } from './components/ui-messages';
-import { UiMessageService } from './services/ui-message.service';
-import { NewReservationComponent } from './components/reservation/new/new-reservation.component';
-import { ItemsComponent } from './components/items/items.component';
-import { ItemComponent } from './components/items/item.component';
+import { NewReservationComponent } from './components/reservation';
+import { ItemComponent, ItemsComponent } from './components/items';
+import { ItemFilterPipe } from './pipes';
+import { AuthService, ItemService, UserService, UserAuthStatusService, UiMessageService } from './services';
+import { AdminUserGuard, AlreadyRegisteredGuard, AuthGuard, StandardUserGuard, LoginGuard } from './services/guards';
+import { FooterComponent } from './components/footer/footer.component';
 
 export const GUARDS = [
     AuthGuard,
@@ -52,7 +43,7 @@ export const SERVICES = [
         AppComponent,
         NoContentComponent,
         HomeComponent,
-        ItemsComponent,
+        EditItemsComponent,
         HeaderComponent,
         RegisterComponent,
         LoginComponent,
@@ -64,6 +55,7 @@ export const SERVICES = [
         NewReservationComponent,
         ItemsComponent,
         ItemComponent,
+        FooterComponent,
     ],
     providers: [
         ...GUARDS,

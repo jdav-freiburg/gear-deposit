@@ -1,0 +1,46 @@
+@import "../../../../scss/variables";
+
+form {
+  margin-bottom: 1rem;
+}
+
+li {
+  display: block;
+  margin: .5rem 0;
+
+  .input-holder:first-child {
+    padding-right: 0;
+    .form-control {
+      border-right: none;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+  .input-holder:nth-child(2) {
+    padding-left: 0;
+    padding-right: 0;
+    .form-control {
+      border-radius: 0;
+    }
+  }
+  .input-holder:nth-child(3) {
+    padding-left: 0;
+    .form-control {
+      border-left: none;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+}
+
+li:first-child {
+  margin-top: 0;
+}
+
+.changed {
+  .form-control {
+    background-color: $accent_100;
+    border-color: $accent_300;
+    font-style: italic;
+  }
+}

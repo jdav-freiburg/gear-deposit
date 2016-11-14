@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { Item } from '../../model/item';
 
 @Component({
@@ -8,13 +8,12 @@ import { Item } from '../../model/item';
 })
 export class ItemsComponent {
 
+    @Input() private addFilter: boolean = false;
+    @Input() private flagged: boolean = false;
     @Input() private items: Item[];
     @Output() private selected: EventEmitter<Item> = new EventEmitter<Item>();
 
     private filter: string;
-
-    constructor() {
-    }
 
     private onClick(item: Item) {
         this.selected.emit(item);

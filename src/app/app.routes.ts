@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { NoContentComponent } from './components/error/no-content/no-content.component';
 import { HomeComponent } from './components/home/home.component';
-import { ItemsComponent } from './components/admin/items/items.component';
+import { EditItemsComponent } from './components/admin/items/edit-items.component';
 import { AdminUserGuard } from './services/guards/admin-user-guard.service';
 import { RegisterComponent } from './components/user/register/register.component';
 import { LoginComponent } from './components/user/login/login.component';
@@ -45,7 +45,7 @@ export const ROUTES: Routes = [
 
     {
         path: 'admin/items',
-        component: ItemsComponent,
+        component: EditItemsComponent,
         canActivate: [AuthGuard, AdminUserGuard]
     },
 

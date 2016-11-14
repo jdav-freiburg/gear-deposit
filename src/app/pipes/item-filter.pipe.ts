@@ -10,20 +10,21 @@ export class ItemFilterPipe implements PipeTransform {
         return target.toLocaleLowerCase().indexOf(text.toLocaleLowerCase()) !== -1;
     }
 
-    transform(items: Item[], type: string, description: string): any {
-        if ((type === undefined || type.trim().length === 0) &&
-            (description === undefined || description.trim().length === 0)) {
+    transform(items: Item[], filter: string, flagged: boolean): any {
+        if (items === undefined) {
             return items;
         }
 
-        let filterType = type !== undefined && type.trim().length > 0;
-        let filterDescription = description !== undefined && description.trim().length > 0;
+        if ((filter === undefined || filter.trim().length === 0) && !flagged) {
+            return items;
+        }
+
+        let filterStrings = filter !== undefined && filter.trim().length > 0;
         return items.filter((item: Item) => {
-            return (!filterType || (filterType && this.contains(item.type, type))) &&
-                (!filterDescription || (
-                    (filterDescription && this.contains(item.type, description)) ||
-                    (filterDescription && this.contains(item.description, description))
-                ));
+            return (!filterStrings || (
+                (filterStrings && this.contains(item.type, filter)) ||
+                (filterStrings && this.contains(item.description, filter))))
+                && (!flagged || (!!flagged && !!item.flagged));
         });
     }
 

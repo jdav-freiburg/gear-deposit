@@ -4,5 +4,5 @@ export interface Item {
     description: string;
     shape: string;
     labels: string[];
-    changed?: boolean;
+    flagged?: boolean;
 }
