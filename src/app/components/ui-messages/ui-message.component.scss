@@ -1,0 +1,14 @@
+@import "../../../scss/variables";
+
+div {
+  background-color: $blue_500;
+  border-radius: $btn-border-radius;
+  box-shadow: $material_shadow_level2;
+  color: white;
+  cursor: pointer;
+  padding: ($spacer / 4) $spacer;
+}
+
+.error {
+  background-color: $red_500;
+}

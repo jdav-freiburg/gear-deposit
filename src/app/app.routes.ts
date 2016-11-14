@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import { Routes, Route } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { EditItemsComponent } from './components/admin';
 import { LoginComponent, RegisterComponent } from './components/user';
@@ -6,45 +6,70 @@ import { NoAccessComponent, NoContentComponent } from './components/error';
 import { NewReservationComponent } from './components/reservation';
 import { AdminUserGuard, AlreadyRegisteredGuard, AuthGuard, LoginGuard, StandardUserGuard } from './services/guards';
 
+export interface AppRoute extends Route {
+}
+;
+
+export const ROUTE = {
+    HOME: <AppRoute>{
+        path: 'home'
+    },
+    RESERVATION_NEW: <AppRoute>{
+        path: 'reservation/new'
+    },
+    LOGIN: <AppRoute>{
+        path: 'login'
+    },
+    REGISTER: <AppRoute>{
+        path: 'register'
+    },
+    ITEMS_EDIT: <AppRoute>{
+        path: 'admin/items/edit'
+    },
+    NO_ACCESS: <AppRoute>{
+        path: 'no-access'
+    }
+};
+
 export const ROUTES: Routes = [
     {
         path: '',
-        redirectTo: '/home',
+        redirectTo: '/' + ROUTE.HOME.path,
         pathMatch: 'full'
     },
 
     {
-        path: 'home',
+        path: ROUTE.HOME.path,
         component: HomeComponent,
         canActivate: [AuthGuard, StandardUserGuard]
     },
 
     {
-        path: 'reservation/new',
+        path: ROUTE.RESERVATION_NEW.path,
         component: NewReservationComponent,
         canActivate: [AuthGuard, StandardUserGuard]
     },
 
     {
-        path: 'login',
+        path: ROUTE.LOGIN.path,
         component: LoginComponent,
         canActivate: [LoginGuard]
     },
 
     {
-        path: 'register',
+        path: ROUTE.REGISTER.path,
         component: RegisterComponent,
         canActivate: [AlreadyRegisteredGuard]
     },
 
     {
-        path: 'admin/items/edit',
+        path: ROUTE.ITEMS_EDIT.path,
         component: EditItemsComponent,
         canActivate: [AuthGuard, AdminUserGuard]
     },
 
     {
-        path: 'no-access',
+        path: ROUTE.NO_ACCESS.path,
         component: NoAccessComponent,
         canActivate: [AuthGuard]
     },

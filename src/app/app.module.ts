@@ -17,7 +17,15 @@ import { InfoMessageComponent } from './components/ui-messages';
 import { NewReservationComponent } from './components/reservation';
 import { ItemComponent, ItemsComponent } from './components/items';
 import { ItemFilterPipe } from './pipes';
-import { AuthService, ItemService, UserService, UserAuthStatusService, UiMessageService } from './services';
+import {
+    AppRouterService,
+    AuthService,
+    ItemService,
+    ReservationService,
+    UserService,
+    UserAuthStatusService,
+    UiMessageService
+} from './services';
 import { AdminUserGuard, AlreadyRegisteredGuard, AuthGuard, StandardUserGuard, LoginGuard } from './services/guards';
 import { FooterComponent } from './components/footer/footer.component';
 
@@ -30,11 +38,13 @@ export const GUARDS = [
 ];
 
 export const SERVICES = [
+    AppRouterService,
     AuthService,
+    ItemService,
+    ReservationService,
+    UiMessageService,
     UserService,
     UserAuthStatusService,
-    ItemService,
-    UiMessageService,
 ];
 
 @NgModule({

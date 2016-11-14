@@ -3,6 +3,7 @@ export enum Role {
 }
 
 export interface RegisteredUser {
+    uid: string;
     name: string;
     email: string;
     youthGroup: string;

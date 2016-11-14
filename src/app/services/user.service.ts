@@ -63,6 +63,7 @@ export class UserService {
             console.debug(`#getUser(); id=${id}, exists=${exists}`);
             if (exists) {
                 this.registeredUser = <RegisteredUser>{
+                    uid: id,
                     name: user.name,
                     email: user.email,
                     youthGroup: user.youthGroup,

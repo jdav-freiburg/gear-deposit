@@ -1,6 +1,7 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
-import { UiMessageService } from './services/ui-message.service';
+import { UiMessage } from './model';
+import { UiMessageService } from './services';
 
 @Component({
     selector: 'jgd-app',
@@ -12,19 +13,19 @@ export class AppComponent implements OnInit {
 
     private loading: boolean = true;
 
-    private showInfo: boolean = false;
-    private infoMessage: string = null;
+    private showMessage: boolean = false;
+    private message: UiMessage = null;
 
     constructor(private uiMessageService: UiMessageService, private router: Router) {
     }
 
     ngOnInit(): void {
-        this.uiMessageService.message.subscribe((message: string) => {
-            this.showInfo = true;
-            this.infoMessage = message;
+        this.uiMessageService.messages.subscribe((message: UiMessage) => {
+            this.showMessage = true;
+            this.message = message;
             setTimeout(() => {
-                this.showInfo = false;
-                this.infoMessage = null;
+                this.showMessage = false;
+                this.message = null;
             }, 2000);
         });
 
@@ -38,9 +39,9 @@ export class AppComponent implements OnInit {
         });
     }
 
-    private hideInfo(): void {
-        this.showInfo = false;
-        this.infoMessage = null;
+    private hideMessage(): void {
+        this.showMessage = false;
+        this.message = null;
     }
 
 }

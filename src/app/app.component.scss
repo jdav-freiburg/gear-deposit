@@ -6,16 +6,10 @@ jgd-header {
   margin-bottom: 1rem;
 }
 
-jgd-info-message {
+jgd-ui-message {
   position: absolute;
   right: $spacer;
   z-index: $zindex-popover;
-
-  background-color: $primary_100;
-  border-radius: $btn-border-radius;
-  box-shadow: $material_shadow_level2;
-  cursor: pointer;
-  padding: ($spacer / 4) $spacer;
 }
 
 .flagged {

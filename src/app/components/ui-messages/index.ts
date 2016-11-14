@@ -1,1 +1,1 @@
-export * from './info-message.component';
+export * from './ui-message.component';

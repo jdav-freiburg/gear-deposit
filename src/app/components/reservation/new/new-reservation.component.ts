@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ItemService } from '../../../services/item.service';
-import { Item } from '../../../model/item';
+import { Item, Reservation, RegisteredUser } from '../../../model';
+import { AppRouterService, ItemService, ReservationService, UiMessageService, UserService } from '../../../services';
+import { ROUTE } from '../../../app.routes';
 
 @Component({
     selector: 'jgd-new-reservation',
@@ -12,12 +13,25 @@ export class NewReservationComponent implements OnInit {
     private reserved: Set<Item> = new Set<Item>();
     private flagged: boolean = false;
 
+    private reservation: Reservation;
+
     private items: Item[];
 
-    constructor(private itemService: ItemService) {
+    constructor(private appRouter: AppRouterService, private reservationService: ReservationService,
+                private uiMessage: UiMessageService,
+                private userService: UserService, private itemService: ItemService) {
     }
 
     ngOnInit() {
+        this.userService.getRegisteredUser().subscribe((user: RegisteredUser) => {
+            this.reservation = <Reservation>{
+                uid: user.uid,
+                name: '',
+                begin: null,
+                end: null,
+                items: []
+            };
+        });
         this.itemService.items.subscribe((items: Item[]) => {
             this.items = items;
         });
@@ -39,6 +53,23 @@ export class NewReservationComponent implements OnInit {
 
     private reservedFilterOnClick(): void {
         this.flagged = !this.flagged;
+    }
+
+    private saveReservation(): void {
+        this.reservation.items = Array.from(this.reserved);
+        this.reservation.begin = new Date(this.reservation.begin);
+        this.reservation.end = new Date(this.reservation.end);
+        console.log('#saveReservation();', this.reservation);
+        this.reservationService.add(this.reservation)
+            .then(() => {
+                this.appRouter.navigate(ROUTE.HOME);
+                this.uiMessage.emitInfo('Reservierung gespeichert');
+            })
+            .catch((err: any) => {
+                console.error('#saveReservation(); got error while saving', err);
+                this.uiMessage.emitError('Unbekannter Fehler - Reservierung nicht gespeichert');
+            });
+
     }
 
 }

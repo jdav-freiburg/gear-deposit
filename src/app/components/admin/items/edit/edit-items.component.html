@@ -26,10 +26,6 @@
   </li>
 </ul>
 
-<jgd-footer *ngIf="changed > 0">
-  <span>{{ changed }} Einträge geändert</span>
-  <button type="button" class="btn accent floating" (click)="saveChanged()"
-          title="Änderungen speichern">
-    <i class="material-icons md-36">save</i>
-  </button>
-</jgd-footer>
+<jgd-footer *ngIf="changed > 0"
+            [description]="changed + ' Einträge geändert'"
+            (submitted)="saveChanged()"></jgd-footer>
