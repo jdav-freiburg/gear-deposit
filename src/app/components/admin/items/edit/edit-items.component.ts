@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ItemService } from '../../../services/item.service';
-import { Item } from '../../../model/item';
-import { UiMessageService } from '../../../services/ui-message.service';
+import { ItemService } from '../../../../services/item.service';
+import { Item } from '../../../../model/item';
+import { UiMessageService } from '../../../../services/ui-message.service';
 
 @Component({
     selector: 'jgd-edit-items',

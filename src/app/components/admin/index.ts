@@ -1,1 +1,1 @@
-export * from './items/edit-items.component';
+export * from './items/edit/edit-items.component';

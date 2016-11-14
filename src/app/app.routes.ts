@@ -1,16 +1,10 @@
 import { Routes } from '@angular/router';
-import { NoContentComponent } from './components/error/no-content/no-content.component';
 import { HomeComponent } from './components/home/home.component';
-import { EditItemsComponent } from './components/admin/items/edit-items.component';
-import { AdminUserGuard } from './services/guards/admin-user-guard.service';
-import { RegisterComponent } from './components/user/register/register.component';
-import { LoginComponent } from './components/user/login/login.component';
-import { AuthGuard } from './services/guards/auth-guard.service';
-import { NoAccessComponent } from './components/error/no-access/no-access.component';
-import { StandardUserGuard } from './services/guards/standard-user-guard.service';
-import { LoginGuard } from './services/guards/login-guard.service';
-import { AlreadyRegisteredGuard } from './services/guards/already-registered-guard.service';
-import { NewReservationComponent } from './components/reservation/new/new-reservation.component';
+import { EditItemsComponent } from './components/admin';
+import { LoginComponent, RegisterComponent } from './components/user';
+import { NoAccessComponent, NoContentComponent } from './components/error';
+import { NewReservationComponent } from './components/reservation';
+import { AdminUserGuard, AlreadyRegisteredGuard, AuthGuard, LoginGuard, StandardUserGuard } from './services/guards';
 
 export const ROUTES: Routes = [
     {
@@ -44,7 +38,7 @@ export const ROUTES: Routes = [
     },
 
     {
-        path: 'admin/items',
+        path: 'admin/items/edit',
         component: EditItemsComponent,
         canActivate: [AuthGuard, AdminUserGuard]
     },

@@ -7,7 +7,7 @@
         <a class="nav-link" routerLink="/reservation/new" routerLinkActive="active">Neue Reservierung</a>
       </li>
       <li class="nav-item" *ngIf="userAuthStatus?.hasAdminRole">
-        <a class="nav-link" routerLink="/admin/items" routerLinkActive="active">Material Liste</a>
+        <a class="nav-link" routerLink="/admin/items/edit" routerLinkActive="active">Material Liste</a>
       </li>
 
       <li class="nav-item float-xs-right" *ngIf="userAuthStatus?.isAuthorized">
