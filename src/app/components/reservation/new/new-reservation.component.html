@@ -12,7 +12,7 @@
   <input class="form-control" type="date" [(ngModel)]="reservation.end" id="reservationEnd">
 </div>
 
-<div (click)="reservedFilterOnClick()" [class]="flagged ? 'flagged': ''">
+<div (click)="reservedFilterOnClick()" [class.flagged]="flagged">
   {{reserved.size}} Gegenstände reserviert
 </div>
 
