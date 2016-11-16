@@ -28,6 +28,7 @@ import {
 } from './services';
 import { AdminUserGuard, AlreadyRegisteredGuard, AuthGuard, StandardUserGuard, LoginGuard } from './services/guards';
 import { FooterComponent } from './components/footer/footer.component';
+import { DropdownDirective } from './attribute-directives/dropdown.directive';
 
 export const GUARDS = [
     AuthGuard,
@@ -66,6 +67,7 @@ export const SERVICES = [
         ItemsComponent,
         ItemComponent,
         FooterComponent,
+        DropdownDirective,
     ],
     providers: [
         ...GUARDS,

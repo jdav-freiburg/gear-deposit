@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Item } from '../model/item';
 
 @Pipe({
-    name: 'itemFilter'
+    name: 'jgdItemFilter'
 })
 export class ItemFilterPipe implements PipeTransform {
 
