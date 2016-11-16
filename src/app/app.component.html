@@ -3,12 +3,12 @@
 <jgd-loading *ngIf="loading"></jgd-loading>
 
 <div class="container-fluid">
-  <div class="col-xs-12 col-md-10 col-xl-8 offset-md-1 offset-xl-2">
-    <jgd-ui-message *ngIf="showMessage" [message]="message" (click)="hideMessage()"></jgd-ui-message>
-    <main>
-      <router-outlet></router-outlet>
-    </main>
-  </div>
+    <div class="col-xs-12 col-md-10 col-xl-8 offset-md-1 offset-xl-2">
+        <jgd-ui-message *ngIf="showMessage" [message]="message" (click)="hideMessage()"></jgd-ui-message>
+        <main>
+            <router-outlet></router-outlet>
+        </main>
+    </div>
 </div>
 
 <footer></footer>

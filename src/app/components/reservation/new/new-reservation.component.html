@@ -1,19 +1,19 @@
 <div class="form-group">
-  <label for="reservationDescription">Beschreibung der Ausfahrt</label>
-  <input class="form-control" type="text" [(ngModel)]="reservation.name" id="reservationDescription"
-         placeholder="Name der Ausfahrt">
+    <label for="reservationDescription">Beschreibung der Ausfahrt</label>
+    <input class="form-control" type="text" [(ngModel)]="reservation.name" id="reservationDescription"
+           placeholder="Name der Ausfahrt">
 </div>
 <div class="form-group">
-  <label for="reservationStart">Beginn der Reservierung</label>
-  <input class="form-control" type="date" [(ngModel)]="reservation.begin" id="reservationStart">
+    <label for="reservationStart">Beginn der Reservierung</label>
+    <input class="form-control" type="date" [(ngModel)]="reservation.begin" id="reservationStart">
 </div>
 <div class="form-group">
-  <label for="reservationEnd">Ende der Reservierung</label>
-  <input class="form-control" type="date" [(ngModel)]="reservation.end" id="reservationEnd">
+    <label for="reservationEnd">Ende der Reservierung</label>
+    <input class="form-control" type="date" [(ngModel)]="reservation.end" id="reservationEnd">
 </div>
 
 <div (click)="reservedFilterOnClick()" [class.flagged]="flagged">
-  {{reserved.size}} Gegenstände reserviert
+    {{reserved.size}} Gegenstände reserviert
 </div>
 
 <jgd-items (selected)="addToReserved($event)" [items]="items" [addFilter]="true" [flagged]="flagged"></jgd-items>

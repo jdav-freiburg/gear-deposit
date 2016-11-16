@@ -1,29 +1,29 @@
 <form class="form-inline">
-  <div class="form-group">
-    <label class="sr-only" for="filter">Filtern</label>
-    <input class="form-control" type="search" id="filter" [(ngModel)]="filter" name="filter"
-           placeholder="Suche">
-  </div>
+    <div class="form-group">
+        <label class="sr-only" for="filter">Filtern</label>
+        <input class="form-control" type="search" id="filter" [(ngModel)]="filter" name="filter"
+               placeholder="Suche">
+    </div>
 </form>
 
 <ul class="list-group">
-  <li *ngFor="let item of items | itemFilter:filter" [class.changed]="item.flagged">
-    <div class="row">
-      <div class="input-holder col-xs-5">
-        <input [value]="item.type" class="form-control"
-               (change)="onItemTypeChanged(item, $event.target.value)">
-      </div>
-      <div class="input-holder col-xs-5">
-        <input [value]="item.description" class="form-control"
-               (change)="onItemDescriptionChanged(item, $event.target.value)">
-      </div>
-      <div class="input-holder col-xs-2">
-        <input [value]="item.shape" class="form-control"
-               (change)="onItemShapeChanged(item, $event.target.value)">
-      </div>
-      <!--span *ngFor="let label of item.labels"> {{ label }}, </span-->
-    </div>
-  </li>
+    <li *ngFor="let item of items | itemFilter:filter" [class.changed]="item.flagged">
+        <div class="row">
+            <div class="input-holder col-xs-5">
+                <input [value]="item.type" class="form-control"
+                       (change)="onItemTypeChanged(item, $event.target.value)">
+            </div>
+            <div class="input-holder col-xs-5">
+                <input [value]="item.description" class="form-control"
+                       (change)="onItemDescriptionChanged(item, $event.target.value)">
+            </div>
+            <div class="input-holder col-xs-2">
+                <input [value]="item.shape" class="form-control"
+                       (change)="onItemShapeChanged(item, $event.target.value)">
+            </div>
+            <!--span *ngFor="let label of item.labels"> {{ label }}, </span-->
+        </div>
+    </li>
 </ul>
 
 <jgd-footer *ngIf="changed > 0"
