@@ -46,6 +46,7 @@ export const SERVICES = [
     UiMessageService,
     UserService,
     UserAuthStatusService,
+    ItemFilterPipe
 ];
 
 @NgModule({

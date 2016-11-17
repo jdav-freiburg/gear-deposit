@@ -1,12 +1,18 @@
 <form class="form-inline" *ngIf="addFilter">
     <div class="form-group">
         <label class="sr-only" for="filter">Filtern</label>
-        <input class="form-control" type="search" id="filter" [(ngModel)]="filter" name="filter"
-               placeholder="Suche">
+        <input #filter (keyup)="filterChanged(filter.value)" class="form-control" type="search"
+               id="filter" name="filter" placeholder="Suche">
     </div>
 </form>
+<button type="button" class="btn btn-primary btn-sm" (click)="flagAll(true)" title="Alle hinzufügen">
+    <i class="material-icon md-18">add</i>
+</button>
+<button type="button" class="btn btn-secondary btn-sm" (click)="flagAll(false)" title="Alle entfernen">
+    <i class="material-icon md-18">remove</i>
+</button>
 <ul class="list-group">
-    <li *ngFor="let item of items | jgdItemFilter:filter:flagged" [class.flagged]="item.flagged">
+    <li *ngFor="let item of filteredItems" [class.flagged]="item.flagged">
         <div (click)="onClick(item)">
             <jgd-item [item]="item"></jgd-item>
         </div>

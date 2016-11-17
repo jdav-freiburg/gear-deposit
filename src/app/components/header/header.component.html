@@ -6,7 +6,7 @@
 
         <ul class="nav navbar-nav float-xs-right">
             <li jgdDropdown class="nav-item">
-                <i class="material-icons md-36" id="navDropdown"
+                <i class="material-icon" id="navDropdown"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">more_vert</i>
                 <div class="dropdown-menu" aria-labelledby="navDropdown">
                     <a *ngIf="userAuthStatus?.isRegistered"
@@ -16,7 +16,7 @@
                 </div>
             </li>
             <li class="nav-item" *ngIf="userAuthStatus?.isAuthorized">
-                <i class="material-icons md-36" (click)="logout()">power_settings_new</i>
+                <i class="material-icon" (click)="logout()">power_settings_new</i>
             </li>
         </ul>
     </jgd-nav-bar>

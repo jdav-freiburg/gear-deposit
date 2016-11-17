@@ -16,9 +16,12 @@
     {{reserved.size}} Gegenstände reserviert
 </div>
 
-<jgd-items (selected)="addToReserved($event)" [items]="items" [addFilter]="true" [flagged]="flagged"></jgd-items>
+<jgd-items [items]="items" [addFilter]="true" [flagged]="flagged"
+           (selected)="addToReserved($event)"
+           (deselected)="removeFromReserved($event)">
+</jgd-items>
 
 <jgd-footer *ngIf="reserved.size > 0"
-            [submitIcon]="'add'" [submitTitle]="'Reservierung speichern'"
+            [submitTitle]="'Reservierung speichern'"
             [description]="reservation.description"
             (submitted)="saveReservation()"></jgd-footer>

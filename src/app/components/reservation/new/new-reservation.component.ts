@@ -9,10 +9,9 @@ import { ROUTE } from '../../../app.routes';
     styleUrls: ['./new-reservation.component.scss']
 })
 export class NewReservationComponent implements OnInit {
-
     private reserved: Set<Item> = new Set<Item>();
-    private flagged: boolean = false;
 
+    private flagged: boolean = false;
     private reservation: Reservation;
 
     private items: Item[];
@@ -37,18 +36,16 @@ export class NewReservationComponent implements OnInit {
         });
     }
 
-    private addToReserved(item: Item): void {
-        if (item.flagged) {
-            this.removeFromReserved(item);
-        } else {
-            item.flagged = true;
+    private addToReserved(items: Set<Item>): void {
+        items.forEach((item: Item) => {
             this.reserved.add(item);
-        }
+        });
     }
 
-    private removeFromReserved(item: Item): void {
-        item.flagged = false;
-        this.reserved.delete(item);
+    private removeFromReserved(items: Set<Item>): void {
+        items.forEach((item: Item) => {
+            this.reserved.delete(item);
+        });
     }
 
     private reservedFilterOnClick(): void {
