@@ -3,7 +3,7 @@ import { HomeComponent } from './components/home/home.component';
 import { EditItemsComponent } from './components/admin';
 import { LoginComponent, RegisterComponent } from './components/user';
 import { NoAccessComponent, NoContentComponent } from './components/error';
-import { ReservationsComponent, EditReservationComponent, NewReservationComponent } from './components/reservation';
+import { ReservationsComponent, EditReservationComponent, NewReservationComponent } from './components/reservations';
 import { AdminUserGuard, AlreadyRegisteredGuard, AuthGuard, LoginGuard, StandardUserGuard } from './services/guards';
 
 export interface AppRoute extends Route {
