@@ -1,9 +1,9 @@
 @import "../../../scss/variables";
 
 div {
+  @include material-shadow(4);
   background-color: $blue_500;
   border-radius: $btn-border-radius;
-  box-shadow: $material_shadow_level2;
   color: white;
   cursor: pointer;
   padding: ($spacer / 4) $spacer;

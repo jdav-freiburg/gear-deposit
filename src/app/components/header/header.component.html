@@ -4,20 +4,35 @@
             <img src="/assets/edelweiss.svg" width="30" height="30" class="d-inline-block align-top" alt="">
             Depot</a>
 
-        <ul class="nav navbar-nav float-xs-right">
-            <li jgdDropdown class="nav-item">
+        <div class="nav float-xs-right" *ngIf="userAuthStatus?.isAuthorized">
+            <div jgdDropdown>
                 <i class="material-icon" id="navDropdown"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">more_vert</i>
                 <div class="dropdown-menu" aria-labelledby="navDropdown">
-                    <a *ngIf="userAuthStatus?.isRegistered"
-                       class="nav-link" routerLink="/reservation/new" routerLinkActive="active">Neue Reservierung</a>
-                    <a *ngIf="userAuthStatus?.hasAdminRole"
-                       class="nav-link" routerLink="/admin/items/edit" routerLinkActive="active">Material Liste</a>
+                    <ul class="nav">
+                        <li class="nav-item" *ngIf="userAuthStatus?.isRegistered">
+                            <a class="nav-link" routerLink="/reservations" routerLinkActive="active">
+                                Reservierungen
+                            </a>
+                        </li>
+                        <li class="nav-item" *ngIf="userAuthStatus?.isRegistered">
+                            <a class="nav-link" routerLink="/reservations/new" routerLinkActive="active">
+                                Neue Reservierung
+                            </a>
+                        </li>
+                        <li class="nav-item" *ngIf="userAuthStatus?.hasAdminRole">
+                            <a class="nav-link" routerLink="/admin/items/edit" routerLinkActive="active">
+                                Material Liste
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <p (click)="logout()" class="nav-link">
+                                Logout
+                            </p>
+                        </li>
+                    </ul>
                 </div>
-            </li>
-            <li class="nav-item" *ngIf="userAuthStatus?.isAuthorized">
-                <i class="material-icon" (click)="logout()">power_settings_new</i>
-            </li>
-        </ul>
+            </div>
+        </div>
     </jgd-nav-bar>
 </header>

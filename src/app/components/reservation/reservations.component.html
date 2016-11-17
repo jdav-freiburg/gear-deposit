@@ -1,0 +1,20 @@
+<div class="card" *ngFor="let reservation of reservations">
+    <span>{{reservation.begin | date:"dd.MM.yy"}}</span>
+    -
+    <span>{{reservation.end | date:"dd.MM.yy"}}</span>:
+    <span>{{reservation.name}}</span>
+    <button class="btn btn-flat" (click)="remove(reservation)">
+        <i class="material-icon">delete</i>
+    </button>
+    <button class="btn btn-flat" (click)="navigateToEdit(reservation)">
+        <i class="material-icon">edit</i>
+        Editieren
+    </button>
+    <ul class="list-group">
+        <li class="list-group-item" *ngFor="let item of reservation.items">
+            <jgd-item [item]="item"></jgd-item>
+        </li>
+    </ul>
+</div>
+
+<p *ngIf="!reservations || reservations?.size === 0">Keine aktuellen Reservierungen</p>

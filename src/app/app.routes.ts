@@ -3,19 +3,21 @@ import { HomeComponent } from './components/home/home.component';
 import { EditItemsComponent } from './components/admin';
 import { LoginComponent, RegisterComponent } from './components/user';
 import { NoAccessComponent, NoContentComponent } from './components/error';
-import { NewReservationComponent } from './components/reservation';
+import { ReservationsComponent, EditReservationComponent, NewReservationComponent } from './components/reservation';
 import { AdminUserGuard, AlreadyRegisteredGuard, AuthGuard, LoginGuard, StandardUserGuard } from './services/guards';
 
 export interface AppRoute extends Route {
 }
-;
 
 export const ROUTE = {
     HOME: <AppRoute>{
         path: 'home'
     },
+    RESERVATIONS: <AppRoute>{
+        path: 'reservations'
+    },
     RESERVATION_NEW: <AppRoute>{
-        path: 'reservation/new'
+        path: 'reservations/new'
     },
     LOGIN: <AppRoute>{
         path: 'login'
@@ -41,13 +43,37 @@ export const ROUTES: Routes = [
     {
         path: ROUTE.HOME.path,
         component: HomeComponent,
-        canActivate: [AuthGuard, StandardUserGuard]
+        canActivate: [
+            AuthGuard,
+            StandardUserGuard
+        ]
+    },
+
+    {
+        path: ROUTE.RESERVATIONS.path,
+        component: ReservationsComponent,
+        canActivate: [
+            AuthGuard,
+            StandardUserGuard
+        ]
     },
 
     {
         path: ROUTE.RESERVATION_NEW.path,
         component: NewReservationComponent,
-        canActivate: [AuthGuard, StandardUserGuard]
+        canActivate: [
+            AuthGuard,
+            StandardUserGuard
+        ]
+    },
+
+    {
+        path: 'reservations/:id/edit',
+        component: EditReservationComponent,
+        canActivate: [
+            AuthGuard,
+            StandardUserGuard
+        ]
     },
 
     {
@@ -65,7 +91,10 @@ export const ROUTES: Routes = [
     {
         path: ROUTE.ITEMS_EDIT.path,
         component: EditItemsComponent,
-        canActivate: [AuthGuard, AdminUserGuard]
+        canActivate: [
+            AuthGuard,
+            AdminUserGuard
+        ]
     },
 
     {

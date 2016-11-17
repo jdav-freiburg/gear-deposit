@@ -6,7 +6,11 @@ import { UiMessageService } from './services';
 @Component({
     selector: 'jgd-app',
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./app.component.scss', '../scss/material.scss', '../scss/material-icons.scss'],
+    styleUrls: [
+        './app.component.scss',
+        '../scss/material.scss',
+        '../scss/material-icons.scss'
+    ],
     templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
@@ -15,6 +19,7 @@ export class AppComponent implements OnInit {
 
     private showMessage: boolean = false;
     private message: UiMessage = null;
+    private delay: any;
 
     constructor(private uiMessageService: UiMessageService, private router: Router) {
     }
@@ -23,9 +28,15 @@ export class AppComponent implements OnInit {
         this.uiMessageService.messages.subscribe((message: UiMessage) => {
             this.showMessage = true;
             this.message = message;
-            setTimeout(() => {
+
+            if (this.delay !== undefined) {
+                clearTimeout(this.delay);
+            }
+
+            this.delay = setTimeout(() => {
                 this.showMessage = false;
                 this.message = null;
+                this.delay = undefined;
             }, 2000);
         });
 

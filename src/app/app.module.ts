@@ -14,7 +14,7 @@ import { HomeComponent } from './components/home/home.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { InfoMessageComponent } from './components/ui-messages';
-import { NewReservationComponent } from './components/reservation';
+import { ReservationsComponent, NewReservationComponent } from './components/reservation';
 import { ItemComponent, ItemsComponent } from './components/items';
 import { ItemFilterPipe } from './pipes';
 import {
@@ -29,6 +29,7 @@ import {
 import { AdminUserGuard, AlreadyRegisteredGuard, AuthGuard, StandardUserGuard, LoginGuard } from './services/guards';
 import { FooterComponent } from './components/footer/footer.component';
 import { DropdownDirective } from './attribute-directives/dropdown.directive';
+import { EditReservationComponent } from './components/reservation/edit/edit-reservation.component';
 
 export const GUARDS = [
     AuthGuard,
@@ -69,6 +70,8 @@ export const SERVICES = [
         ItemComponent,
         FooterComponent,
         DropdownDirective,
+        ReservationsComponent,
+        EditReservationComponent,
     ],
     providers: [
         ...GUARDS,

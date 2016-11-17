@@ -37,15 +37,21 @@ export class NewReservationComponent implements OnInit {
     }
 
     private addToReserved(items: Set<Item>): void {
+        let i: number = 0;
         items.forEach((item: Item) => {
             this.reserved.add(item);
+            i++;
         });
+        this.uiMessage.emitInfo(`${i} Gegenstände hinzugefügt.`);
     }
 
     private removeFromReserved(items: Set<Item>): void {
+        let i: number = 0;
         items.forEach((item: Item) => {
             this.reserved.delete(item);
+            i++;
         });
+        this.uiMessage.emitInfo(`${i} Gegenstände entfernt.`);
     }
 
     private reservedFilterOnClick(): void {
@@ -59,7 +65,7 @@ export class NewReservationComponent implements OnInit {
         console.log('#saveReservation();', this.reservation);
         this.reservationService.add(this.reservation)
             .then(() => {
-                this.appRouter.navigate(ROUTE.HOME);
+                this.appRouter.navigate(ROUTE.RESERVATIONS);
                 this.uiMessage.emitInfo('Reservierung gespeichert');
             })
             .catch((err: any) => {
