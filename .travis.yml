@@ -24,7 +24,7 @@ before_script:
 script:
   #- npm test
   #- npm run e2e
-  - ng build --prod -aot
+  - ng build --aot
   - firebase use --token $FIREBASE_DEPLOY_TOKEN $FIREBASE_PROJECT_DEV
   - firebase deploy --token $FIREBASE_DEPLOY_TOKEN -m "ci $TRAVIS_BRANCH build $TRAVIS_BUILD_NUMBER" --non-interactive
 cache:
