@@ -19,4 +19,3 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/from';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/observable/zip';
-import 'bootstrap-loader';

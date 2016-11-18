@@ -7,9 +7,10 @@ import { UiMessageService } from './services';
     selector: 'jgd-app',
     encapsulation: ViewEncapsulation.None,
     styleUrls: [
-        './app.component.scss',
+        '../scss/bootstrap/customized.scss',
         '../scss/material.scss',
-        '../scss/material-icons.scss'
+        '../scss/material-icons.scss',
+        './app.component.scss'
     ],
     templateUrl: './app.component.html'
 })

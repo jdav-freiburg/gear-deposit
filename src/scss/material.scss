@@ -58,6 +58,6 @@
 .card {
   @include material-shadow(1);
   border-radius: 2px;
-  margin: .5em 0;
+  border: none;
   padding: 1em;
 }
