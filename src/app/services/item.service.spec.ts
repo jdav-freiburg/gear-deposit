@@ -1,13 +1,14 @@
-/* tslint:disable:no-unused-variable */
-
 import { TestBed, inject } from '@angular/core/testing';
-import { ItemService } from './item.service';
 import { AngularFire } from 'angularfire2';
+import { ItemService } from '.';
 
 describe('Service: Item', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [ItemService, AngularFire]
+            providers: [
+                ItemService,
+                {provide: AngularFire, useValue: {}}
+            ]
         });
     });
 

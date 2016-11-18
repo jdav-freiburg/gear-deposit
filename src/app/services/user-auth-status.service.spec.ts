@@ -8,8 +8,13 @@ import { UserService } from './user.service';
 describe('Service: UserAuthStatus', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [UserAuthStatusService, AuthService, UserService]
-        });
+            providers: [
+                UserAuthStatusService,
+                {provide: AuthService, useValue: {}},
+                {provide: UserService, useValue: {}}
+            ]
+        })
+        ;
     });
 
     it('should ...', inject([UserAuthStatusService, AuthService, UserService], (service: UserAuthStatusService) => {

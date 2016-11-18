@@ -1,33 +1,55 @@
-/* tslint:disable:no-unused-variable */
-
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, async, ComponentFixture } from '@angular/core/testing';
+import { Router, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
+import { LoadingComponent } from './components/loading/loading.component';
+import { HeaderComponent } from './components/header/header.component';
+import { UiMessageComponent } from './components/ui-messages/ui-message.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { AuthService, UiMessageService, UserAuthStatusService } from './services';
+import { createUserAuthStatusServiceSpy } from '../test-helpers';
 
-describe('App: GearDeposit', () => {
-    beforeEach(() => {
+describe('AppComponent', () => {
+    let component: AppComponent;
+    let fixture: ComponentFixture<AppComponent>;
+
+    beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [
-                AppComponent
+                AppComponent,
+                LoadingComponent,
+                HeaderComponent,
+                NavBarComponent,
+                UiMessageComponent
             ],
+            providers: [
+                UiMessageService,
+                {provide: AuthService, useValue: {}},
+                {provide: UserAuthStatusService, useValue: createUserAuthStatusServiceSpy()},
+                {provide: Router, useValue: {}},
+            ],
+            imports: [
+                RouterModule
+            ]
         });
+    }));
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(AppComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
     });
 
-    it('should create the app', async(() => {
-        let fixture = TestBed.createComponent(AppComponent);
-        let app = fixture.debugElement.componentInstance;
-        expect(app).toBeTruthy();
-    }));
+    it('should create the app', () => {
+        expect(component).toBeTruthy();
+    });
 
-    it(`should have as title 'app works!'`, async(() => {
-        let fixture = TestBed.createComponent(AppComponent);
-        let app = fixture.debugElement.componentInstance;
-        expect(app.title).toEqual('app works!');
-    }));
+    it(`should be loading`, () => {
+        expect(component.loading).toEqual(true);
+    });
 
-    it('should render title in a h1 tag', async(() => {
-        let fixture = TestBed.createComponent(AppComponent);
-        fixture.detectChanges();
-        let compiled = fixture.debugElement.nativeElement;
-        expect(compiled.querySelector('h1').textContent).toContain('app works!');
-    }));
+    it('should not show message', () => {
+        expect(component.message).not.toBeDefined();
+        expect(component.showMessage).toEqual(false);
+    });
+
 });

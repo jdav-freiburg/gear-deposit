@@ -10,7 +10,7 @@ export interface RegisteredUser {
     roles?: Role[];
 }
 
-export interface AuthUser extends firebase.User {
+export interface AuthUser extends firebase.UserInfo {
 }
 
 export interface UserAuthStatus {

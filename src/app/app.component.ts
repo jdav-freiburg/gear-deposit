@@ -16,10 +16,11 @@ import { UiMessageService } from './services';
 })
 export class AppComponent implements OnInit {
 
-    private loading: boolean = true;
+    loading: boolean = true;
 
-    private showMessage: boolean = false;
-    private message: UiMessage = null;
+    showMessage: boolean = false;
+    message: UiMessage;
+
     private delay: any;
 
     constructor(private uiMessageService: UiMessageService, private router: Router) {

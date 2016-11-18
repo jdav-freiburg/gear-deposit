@@ -1,6 +1,6 @@
-/* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ItemsComponent } from './items.component';
+import { ItemFilterPipe } from '../../pipes';
 
 describe('EditItemsComponent', () => {
     let component: ItemsComponent;
@@ -8,9 +8,9 @@ describe('EditItemsComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ItemsComponent]
-        })
-            .compileComponents();
+            declarations: [ItemsComponent],
+            providers: [ItemFilterPipe]
+        }).compileComponents();
     }));
 
     beforeEach(() => {

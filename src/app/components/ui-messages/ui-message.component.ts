@@ -6,7 +6,7 @@ import { UiMessage, UiMessageType } from '../../model';
     templateUrl: './ui-message.component.html',
     styleUrls: ['./ui-message.component.scss']
 })
-export class InfoMessageComponent implements OnChanges {
+export class UiMessageComponent implements OnChanges {
 
     @Input() private message: UiMessage;
     @Output() private click = new EventEmitter<any>();

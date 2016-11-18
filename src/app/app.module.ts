@@ -13,7 +13,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
-import { InfoMessageComponent } from './components/ui-messages';
+import { UiMessageComponent } from './components/ui-messages';
 import { ReservationsComponent, NewReservationComponent } from './components/reservations';
 import { ItemComponent, ItemsComponent } from './components/items';
 import { ItemFilterPipe } from './pipes';
@@ -64,7 +64,7 @@ export const SERVICES = [
         LoadingComponent,
         ItemFilterPipe,
         NavBarComponent,
-        InfoMessageComponent,
+        UiMessageComponent,
         NewReservationComponent,
         ItemsComponent,
         ItemComponent,

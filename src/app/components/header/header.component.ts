@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
-import { UserAuthStatus } from '../../model/user';
-import { AuthService } from '../../services/auth.service';
-import { UserAuthStatusService } from '../../services/user-auth-status.service';
+import { UserAuthStatus } from '../../model';
+import { AuthService, UserAuthStatusService } from '../../services';
 
 @Component({
     selector: 'jgd-header',
@@ -13,7 +12,8 @@ import { UserAuthStatusService } from '../../services/user-auth-status.service';
 export class HeaderComponent implements OnInit {
     private userAuthStatus: UserAuthStatus;
 
-    constructor(private authService: AuthService, private userAuthStatusService: UserAuthStatusService, private router: Router) {
+    constructor(private authService: AuthService, private userAuthStatusService: UserAuthStatusService,
+                private router: Router) {
     }
 
     ngOnInit(): void {

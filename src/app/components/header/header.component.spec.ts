@@ -2,8 +2,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { HeaderComponent } from './header.component';
-import { AuthService } from '../../services/auth.service';
-import { UserAuthStatusService } from '../../services/user-auth-status.service';
+import { AuthService, UserAuthStatusService } from '../../services/';
+import { createUserAuthStatusServiceSpy } from '../../../test-helpers';
+import { NavBarComponent } from '../nav-bar/nav-bar.component';
 
 describe('HeaderComponent', () => {
     let component: HeaderComponent;
@@ -11,10 +12,16 @@ describe('HeaderComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            providers: [AuthService, UserAuthStatusService, Router],
-            declarations: [HeaderComponent]
-        })
-            .compileComponents();
+            declarations: [
+                HeaderComponent,
+                NavBarComponent
+            ],
+            providers: [
+                {provide: AuthService, useValue: {}},
+                {provide: UserAuthStatusService, useValue: createUserAuthStatusServiceSpy()},
+                {provide: Router, useValue: {}}
+            ]
+        }).compileComponents();
     }));
 
     beforeEach(() => {

@@ -1,16 +1,18 @@
-/* tslint:disable:no-unused-variable */
-
-import { TestBed, async, inject } from '@angular/core/testing';
-import { AppRouterService } from './app-router.service';
+import { TestBed, inject } from '@angular/core/testing';
+import { Router } from '@angular/router';
+import { AppRouterService } from './';
 
 describe('Service: AppRouter', () => {
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [AppRouterService]
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            providers: [
+                AppRouterService,
+                {provide: Router, useValue: {}}
+            ]
+        });
     });
-  });
 
-  it('should ...', inject([AppRouterService], (service: AppRouterService) => {
-    expect(service).toBeTruthy();
-  }));
+    it('should ...', inject([AppRouterService], (service: AppRouterService) => {
+        expect(service).toBeTruthy();
+    }));
 });
