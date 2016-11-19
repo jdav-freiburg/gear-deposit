@@ -11,15 +11,15 @@
         <div class="row">
             <div class="input-holder col-xs-5">
                 <input [value]="item.type" class="form-control"
-                       (change)="onItemTypeChanged(item, $event.target.value)">
+                       (input)="onItemTypeChanged(item, $event.target.value)">
             </div>
             <div class="input-holder col-xs-5">
                 <input [value]="item.description" class="form-control"
-                       (change)="onItemDescriptionChanged(item, $event.target.value)">
+                       (input)="onItemDescriptionChanged(item, $event.target.value)">
             </div>
             <div class="input-holder col-xs-2">
                 <input [value]="item.shape" class="form-control"
-                       (change)="onItemShapeChanged(item, $event.target.value)">
+                       (input)="onItemShapeChanged(item, $event.target.value)">
             </div>
             <!--span *ngFor="let label of item.labels"> {{ label }}, </span-->
         </div>
