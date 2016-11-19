@@ -24,25 +24,31 @@ describe('Pipe: ItemFilter', () => {
     });
 
     it('shouldn\'t filter anything when no filter specified', () => {
-        filtered = pipe.transform(items, undefined, undefined);
+        filtered = pipe.transform(items, undefined);
+        expect(filtered).toBeDefined();
+        expect(filtered).toEqual(items);
+    });
+
+    it('shouldn\'t filter anything when only empty filter specified', () => {
+        filtered = pipe.transform(items, '');
         expect(filtered).toBeDefined();
         expect(filtered).toEqual(items);
     });
 
     it('should filter based on description', () => {
-        items[1].description = '60m Halbseil';
+        items[1].description = '60m, blau';
 
-        filtered = pipe.transform(items, '60m', undefined);
+        filtered = pipe.transform(items, '60m');
         expect(filtered).toBeDefined();
         expect(filtered.length).toEqual(1);
         expect(filtered[0]).toBe(items[1]);
     });
 
     it('should filter based on description (combined filters)', () => {
-        items[1].description = '60m Halbseil (blau)';
-        items[2].description = '60m Halbseil (rot)';
+        items[1].description = '60m, blau';
+        items[2].description = '60m, rot';
 
-        filtered = pipe.transform(items, '60m blau', undefined);
+        filtered = pipe.transform(items, '60m blau');
         expect(filtered).toBeDefined();
         expect(filtered.length).toEqual(1);
         expect(filtered[0]).toBe(items[1]);
@@ -51,7 +57,58 @@ describe('Pipe: ItemFilter', () => {
     it('should filter based on type', () => {
         items[1].type = 'Seil';
 
-        filtered = pipe.transform(items, 'Se', undefined);
+        filtered = pipe.transform(items, 'Se');
+        expect(filtered).toBeDefined();
+        expect(filtered.length).toEqual(1);
+        expect(filtered[0]).toBe(items[1]);
+    });
+
+    it('should filter based on labels', () => {
+        items[1].labels = [
+            'Klettern',
+            'Sommer'
+        ];
+        items[2].labels = [
+            'Klettern',
+            'Hochtour',
+            'Sommer'
+        ];
+
+        filtered = pipe.transform(items, 'Kle Hoch');
+        expect(filtered).toBeDefined();
+        expect(filtered.length).toEqual(1);
+        expect(filtered[0]).toBe(items[2]);
+    });
+
+    it('should filter based on type and description (combined filters)', () => {
+        items[1].type = 'Halbseil';
+        items[1].description = '60m, blau';
+        items[2].type = 'Halbseil';
+        items[2].description = '60m, rot';
+
+        filtered = pipe.transform(items, 'Se blau');
+        expect(filtered).toBeDefined();
+        expect(filtered.length).toEqual(1);
+        expect(filtered[0]).toBe(items[1]);
+    });
+
+    it('should filter based on type, description and labels (combined filters)', () => {
+        items[1].type = 'Halbseil';
+        items[1].description = '60m, blau';
+        items[1].labels = [
+            'Klettern',
+            'Hochtour'
+        ];
+        items[2].type = 'Halbseil';
+        items[2].description = '60m, rot';
+        items[2].labels = [
+            'Klettern',
+            'Hochtour'
+        ];
+        items[3].type = 'Einfachseil';
+        items[3].description = '70m, blau';
+
+        filtered = pipe.transform(items, 'Se blau Kle');
         expect(filtered).toBeDefined();
         expect(filtered.length).toEqual(1);
         expect(filtered[0]).toBe(items[1]);
@@ -66,9 +123,9 @@ describe('Pipe: ItemFilter', () => {
     });
 
     it('should filter based on description (combined filters) and slice filtered items', () => {
-        items[1].description = '60m Halbseil (blau)';
-        items[2].description = '60m Halbseil (blau)';
-        items[3].description = '60m Halbseil (rot)';
+        items[1].description = '60m, blau';
+        items[2].description = '60m, blau';
+        items[3].description = '60m, rot';
 
         filtered = pipe.transform(items, '60m blau', 1);
         expect(filtered).toBeDefined();
