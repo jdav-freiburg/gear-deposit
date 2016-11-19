@@ -21,7 +21,5 @@ script:
   - ng build --prod
   - firebase use --token $FIREBASE_DEPLOY_TOKEN $FIREBASE_PROJECT_DEV
   - firebase deploy --token $FIREBASE_DEPLOY_TOKEN -m "ci $TRAVIS_BRANCH build $TRAVIS_BUILD_NUMBER" --non-interactive
-cache:
-  directories:
-  - $HOME/.yarn-cache
-sudo: required
+after_success:
+  - coveralls
