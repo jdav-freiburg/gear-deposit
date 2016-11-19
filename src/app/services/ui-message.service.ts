@@ -1,10 +1,10 @@
-import { Injectable, Output, EventEmitter } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { UiMessage, UiMessageType } from '../model';
 
 @Injectable()
 export class UiMessageService {
 
-    @Output() public messages: EventEmitter<UiMessage> = new EventEmitter<UiMessage>();
+    messages: EventEmitter<UiMessage> = new EventEmitter<UiMessage>();
 
     public emitInfo(message: string): void {
         console.debug(`#emitInfo(); will info: '${message}'`);

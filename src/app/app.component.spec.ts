@@ -1,5 +1,5 @@
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
-import { Router, RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 import { AppComponent } from './app.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -7,6 +7,8 @@ import { UiMessageComponent } from './components/ui-messages/ui-message.componen
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { AuthService, UiMessageService, UserAuthStatusService } from './services';
 import { createUserAuthStatusServiceSpy } from '../test-helpers';
+import { LoadingService } from './services/loading.service';
+import { SHARED_MODULES } from './app.module';
 
 describe('AppComponent', () => {
     let component: AppComponent;
@@ -23,12 +25,13 @@ describe('AppComponent', () => {
             ],
             providers: [
                 UiMessageService,
+                LoadingService,
                 {provide: AuthService, useValue: {}},
                 {provide: UserAuthStatusService, useValue: createUserAuthStatusServiceSpy()},
-                {provide: Router, useValue: {}},
+                {provide: Router, useValue: {}}
             ],
             imports: [
-                RouterModule
+                ...SHARED_MODULES
             ]
         });
     }));

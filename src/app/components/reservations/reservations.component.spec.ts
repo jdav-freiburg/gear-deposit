@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { ReservationsComponent } from './reservations.component';
 import { ItemComponent } from '../items';
-import { ReservationService, UiMessageService } from '../../services';
+import { LoadingService, ReservationService, UiMessageService } from '../../services';
 import { createReservationServiceSpy } from '../../../test-helpers';
 
 describe('ReservationsComponent', () => {
@@ -16,8 +16,9 @@ describe('ReservationsComponent', () => {
                 ItemComponent
             ],
             providers: [
+                UiMessageService,
+                LoadingService,
                 {provide: ReservationService, useValue: createReservationServiceSpy()},
-                {provide: UiMessageService, useValue: {}},
                 {provide: Router, useValue: {}}
             ]
         }).compileComponents();

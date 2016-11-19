@@ -1,6 +1,8 @@
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { EditItemsComponent } from './edit-items.component';
+import { FooterComponent } from '../../../footer/footer.component';
+import { NavBarComponent } from '../../../nav-bar/nav-bar.component';
 import { ItemService, UiMessageService } from '../../../../services';
 import { ItemFilterPipe } from '../../../../pipes';
 import { createItemServiceSpy } from '../../../../../test-helpers';
@@ -14,6 +16,8 @@ describe('EditItemsComponent', () => {
         TestBed.configureTestingModule({
             declarations: [
                 EditItemsComponent,
+                FooterComponent,
+                NavBarComponent,
                 ItemFilterPipe
             ],
             providers: [

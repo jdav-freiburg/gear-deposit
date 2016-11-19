@@ -1,8 +1,8 @@
-import { Item } from './item';
+import { Item, RegisteredUser } from './';
 
 export interface Reservation {
     id?: string;
-    uid?: string;
+    user: RegisteredUser;
     name: string;
     begin: Date;
     end: Date;

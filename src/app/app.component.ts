@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { UiMessage } from './model';
 import { UiMessageService } from './services';
+import { LoadingService } from './services/loading.service';
 
 @Component({
     selector: 'jgd-app',
@@ -23,7 +24,8 @@ export class AppComponent implements OnInit {
 
     private delay: any;
 
-    constructor(private uiMessageService: UiMessageService, private router: Router) {
+    constructor(private uiMessageService: UiMessageService, private loadingService: LoadingService,
+                private router: Router) {
     }
 
     ngOnInit(): void {
@@ -40,6 +42,10 @@ export class AppComponent implements OnInit {
                 this.message = null;
                 this.delay = undefined;
             }, 2000);
+        });
+
+        this.loadingService.loading.subscribe((loading: boolean) => {
+            this.loading = loading;
         });
 
         this.router.events.subscribe((event: any) => {

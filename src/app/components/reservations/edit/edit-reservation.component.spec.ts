@@ -3,6 +3,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { EditReservationComponent } from './edit-reservation.component';
 import { ReservationService } from '../../../services';
+import { createReservationServiceSpy } from '../../../../test-helpers';
 
 describe('EditReservationComponent', () => {
     let component: EditReservationComponent;
@@ -18,7 +19,7 @@ describe('EditReservationComponent', () => {
                         params: Observable.from([<Params>{id: 1}])
                     }
                 },
-                {provide: ReservationService, useValue: {}}
+                {provide: ReservationService, useValue: createReservationServiceSpy()}
             ]
         }).compileComponents();
     }));

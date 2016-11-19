@@ -21,6 +21,7 @@ import {
     AppRouterService,
     AuthService,
     ItemService,
+    LoadingService,
     ReservationService,
     UserService,
     UserAuthStatusService,
@@ -44,10 +45,18 @@ export const SERVICES = [
     AuthService,
     ItemService,
     ReservationService,
+    LoadingService,
     UiMessageService,
     UserService,
     UserAuthStatusService,
     ItemFilterPipe
+];
+
+export const SHARED_MODULES = [
+    BrowserModule,
+    FormsModule,
+    HttpModule,
+    RouterModule.forRoot(ROUTES, {useHash: true}),
 ];
 
 @NgModule({
@@ -85,11 +94,7 @@ export const SERVICES = [
             databaseURL: 'https://test-6b408.firebaseio.com',
             storageBucket: 'test-6b408.appspot.com'
         }),
-        // angular core
-        BrowserModule,
-        FormsModule,
-        HttpModule,
-        RouterModule.forRoot(ROUTES, {useHash: true}),
+        ...SHARED_MODULES
     ]
 })
 export class AppModule {

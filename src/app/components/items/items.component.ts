@@ -9,19 +9,17 @@ import { ItemFilterPipe } from '../../pipes/item-filter.pipe';
 })
 export class ItemsComponent implements OnChanges {
 
-    @Input() private addFilter: boolean = false;
-    @Input() private flagged: boolean = false;
-    @Input() private items: Item[];
+    @Input() addFilter: boolean = false;
+    @Input() flagged: boolean = false;
+    @Input() items: Item[];
 
-    @Output() private selected: EventEmitter<Set<Item>> = new EventEmitter<Set<Item>>();
-    @Output() private deselected: EventEmitter<Set<Item>> = new EventEmitter<Set<Item>>();
+    @Output() selected: EventEmitter<Set<Item>> = new EventEmitter<Set<Item>>();
+    @Output() deselected: EventEmitter<Set<Item>> = new EventEmitter<Set<Item>>();
 
     private filter: string;
-
     private filteredItems: Item[];
 
     constructor(private itemFilter: ItemFilterPipe) {
-
     }
 
     ngOnChanges(changes: SimpleChanges): void {

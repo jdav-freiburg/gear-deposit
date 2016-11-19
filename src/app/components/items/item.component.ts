@@ -8,6 +8,6 @@ import { Item } from '../../model/item';
 })
 export class ItemComponent {
 
-    @Input() private item: Item;
+    @Input() item: Item;
 
 }

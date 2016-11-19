@@ -24,7 +24,7 @@ export class NewReservationComponent implements OnInit {
     ngOnInit() {
         this.userService.getRegisteredUser().subscribe((user: RegisteredUser) => {
             this.reservation = <Reservation>{
-                uid: user.uid,
+                user: user,
                 name: '',
                 begin: null,
                 end: null,

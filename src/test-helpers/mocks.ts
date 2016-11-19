@@ -33,7 +33,7 @@ export function createMockItem(id: number) {
 export function createMockReservation(id: number) {
     return <Reservation>{
         id: `${id}`,
-        uid: MOCKED_AUTH_USER.uid,
+        user: MOCKED_REGISTERED_USER,
         name: `test-reservation-${id}`,
         begin: new Date(Date.now()),
         end: new Date(Date.now() + 1000000),
