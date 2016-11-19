@@ -12,11 +12,11 @@
     <input class="form-control" type="date" [(ngModel)]="reservation.end" id="reservationEnd">
 </div>
 
-<div (click)="reservedFilterOnClick()" [class.flagged]="flagged">
+<div>
     {{reserved.size}} Gegenstände reserviert
 </div>
 
-<jgd-items [items]="items" [addFilter]="true" [flagged]="flagged"
+<jgd-items [items]="items" [addFilter]="true"
            (selected)="addToReserved($event)"
            (deselected)="removeFromReserved($event)">
 </jgd-items>

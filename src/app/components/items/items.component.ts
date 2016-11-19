@@ -10,7 +10,6 @@ import { ItemFilterPipe } from '../../pipes/item-filter.pipe';
 export class ItemsComponent implements OnChanges {
 
     @Input() addFilter: boolean = false;
-    @Input() flagged: boolean = false;
     @Input() items: Item[];
 
     @Output() selected: EventEmitter<Set<Item>> = new EventEmitter<Set<Item>>();
@@ -32,7 +31,7 @@ export class ItemsComponent implements OnChanges {
     }
 
     private updateFilteredItems() {
-        this.filteredItems = this.itemFilter.transform(this.items, this.filter, this.flagged);
+        this.filteredItems = this.itemFilter.transform(this.items, this.filter);
     }
 
     private emit(selected: boolean, item?: Item) {
@@ -40,8 +39,8 @@ export class ItemsComponent implements OnChanges {
         if (item !== undefined) {
             event.emit(new Set<Item>([item]));
         } else {
-            event.emit(new Set<Item>(this.filteredItems.filter((item: Item) => {
-                return item.flagged === selected;
+            event.emit(new Set<Item>(this.filteredItems.filter((i: Item) => {
+                return i.flagged === selected;
             })));
         }
     }
@@ -55,7 +54,7 @@ export class ItemsComponent implements OnChanges {
     private flagAll(flagged: boolean) {
         this.filteredItems.forEach((item: Item) => {
             item.flagged = flagged;
-        })
+        });
         this.emit(flagged);
     }
 

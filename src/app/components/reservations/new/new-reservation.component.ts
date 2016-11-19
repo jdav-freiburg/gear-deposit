@@ -11,9 +11,7 @@ import { ROUTE } from '../../../app.routes';
 export class NewReservationComponent implements OnInit {
     private reserved: Set<Item> = new Set<Item>();
 
-    private flagged: boolean = false;
     private reservation: Reservation;
-
     private items: Item[];
 
     constructor(private appRouter: AppRouterService, private reservationService: ReservationService,
@@ -37,7 +35,7 @@ export class NewReservationComponent implements OnInit {
     }
 
     private addToReserved(items: Set<Item>): void {
-        let i: number = 0;
+        let i = 0;
         items.forEach((item: Item) => {
             this.reserved.add(item);
             i++;
@@ -46,16 +44,12 @@ export class NewReservationComponent implements OnInit {
     }
 
     private removeFromReserved(items: Set<Item>): void {
-        let i: number = 0;
+        let i = 0;
         items.forEach((item: Item) => {
             this.reserved.delete(item);
             i++;
         });
         this.uiMessage.emitInfo(`${i} Gegenstände entfernt.`);
-    }
-
-    private reservedFilterOnClick(): void {
-        this.flagged = !this.flagged;
     }
 
     private saveReservation(): void {

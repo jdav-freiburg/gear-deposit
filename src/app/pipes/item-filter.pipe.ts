@@ -1,47 +1,43 @@
 import { Pipe, PipeTransform, Injectable } from '@angular/core';
 import { Item } from '../model/item';
 
-export const MAX_ITEM_PATTERN = /((\d*)(x\s*))?(.*)/;
-
 @Injectable()
 @Pipe({
     name: 'jgdItemFilter'
 })
 export class ItemFilterPipe implements PipeTransform {
 
-    private contains(target: string, text: string): boolean {
-        return target.toLocaleLowerCase().indexOf(text.toLocaleLowerCase()) !== -1;
+    private contains(target: string, texts: string[]): boolean {
+        let contained = 0;
+        texts.forEach((text: string) => {
+            if (target.toLocaleLowerCase().indexOf(text.toLocaleLowerCase()) !== -1) {
+                contained++;
+            }
+        });
+        return contained === texts.length;
     }
 
-    transform(items: Item[], filter: string, flagged: boolean): any {
+    transform(items: Item[], filter: string, maxItems?: number): any {
         let filtered: Item[];
-        let filterStrings: boolean = false;
-        let splittedFilter: string[];
-        let maxItems: number = -1;
+        let filterStrings = false;
+        let filters: string[];
 
         if (items === undefined) {
             return items;
         }
 
-        if ((filter === undefined || filter.trim().length === 0) && !flagged) {
-            return items;
-        }
+        // ensuring valid filter params
+        filter = filter === undefined ? '' : filter;
+        maxItems = maxItems === undefined ? -1 : maxItems;
 
-        if (filter !== undefined) {
-            filter = filter.trim();
-            splittedFilter = MAX_ITEM_PATTERN.exec(filter);
-            if (splittedFilter[2] !== undefined) {
-                maxItems = Number.parseInt(splittedFilter[2]);
-                filter = splittedFilter[4];
-            }
-            filterStrings = filter.length > 0;
-        }
+        filter = filter.trim();
+        filterStrings = filter.length > 0;
+        filters = filter.split(' ');
 
         filtered = items.filter((item: Item) => {
             return (!filterStrings || (
-                (filterStrings && this.contains(item.type, filter)) ||
-                (filterStrings && this.contains(item.description, filter))))
-                && (!flagged || (!!flagged && !!item.flagged));
+            (filterStrings && this.contains(item.type, filters)) ||
+            (filterStrings && this.contains(item.description, filters))));
         });
 
         return (maxItems >= 0) ? filtered.slice(0, maxItems) : filtered;
