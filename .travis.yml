@@ -23,4 +23,4 @@ script:
   - firebase use --token $FIREBASE_DEPLOY_TOKEN $FIREBASE_PROJECT_DEV
   - firebase deploy --token $FIREBASE_DEPLOY_TOKEN -m "ci $TRAVIS_BRANCH build $TRAVIS_BUILD_NUMBER" --non-interactive
 after_script:
-  - cat ./coverage/coverage.lcov | coveralls
+  - coveralls < ./coverage/coverage.lcov
