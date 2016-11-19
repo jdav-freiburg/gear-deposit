@@ -7,9 +7,6 @@ export class DropdownDirective {
 
     private opened: boolean = false;
 
-    constructor() {
-    }
-
     @HostBinding('class.open') get isOpened() {
         return this.opened;
     }
