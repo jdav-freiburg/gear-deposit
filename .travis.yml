@@ -16,7 +16,7 @@ before_script:
   - npm start &
   - sleep 5
 script:
-  - ng test --watch=false
+  - ng test --watch=false --code-coverage=true
   #- npm run e2e
   - ng build --prod
   - firebase use --token $FIREBASE_DEPLOY_TOKEN $FIREBASE_PROJECT_DEV

@@ -5,6 +5,7 @@
 [![Build Status](https://travis-ci.org/jdav-freiburg/gear-deposit.svg?branch=master)](https://travis-ci.org/jdav-freiburg/gear-deposit)
 [![Dependencies Status](https://david-dm.org/jdav-freiburg/gear-deposit.svg)](https://david-dm.org/jdav-freiburg/gear-deposit)
 [![DevDependency Status](https://david-dm.org/jdav-freiburg/gear-deposit/dev-status.svg)](https://david-dm.org/jdav-freiburg/gear-deposit?type=dev)
+[![GitHub version](https://badge.fury.io/gh/jdav-freiburg%2Fgear-deposit.svg)](https://badge.fury.io/gh/jdav-freiburg%2Fgear-deposit)
 
 Status: Alpha
 
