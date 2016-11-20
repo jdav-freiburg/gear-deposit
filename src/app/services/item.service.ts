@@ -13,13 +13,13 @@ export class ItemService {
         return this.af.database.list('/items').map((items: any[]) => {
             let result: Item[] = [];
             items.forEach((item: any) => {
-                result.push(<Item>{
-                    id: item.$key,
-                    type: item.type,
-                    description: item.description,
-                    shape: item.shape,
-                    labels: item.labels
-                });
+                result.push(new Item(
+                    item.$key,
+                    item.type,
+                    item.description,
+                    item.shape,
+                    item.labels
+                ));
             });
             return result;
         });

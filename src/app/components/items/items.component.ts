@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { Item } from '../../model/item';
+import { Item, ItemStack } from '../../model/item';
 import { ItemFilterPipe } from '../../pipes/item-filter.pipe';
 
 @Component({
@@ -16,13 +16,15 @@ export class ItemsComponent implements OnChanges {
     @Output() deselected: EventEmitter<Set<Item>> = new EventEmitter<Set<Item>>();
 
     private filter: string;
-    private filteredItems: Item[];
+    private filteredStacks: ItemStack[];
 
     constructor(private itemFilter: ItemFilterPipe) {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        this.updateFilteredItems();
+        if (this.items !== undefined) {
+            this.updateFilteredItems();
+        }
     }
 
     private filterChanged(filter: string) {
@@ -31,31 +33,43 @@ export class ItemsComponent implements OnChanges {
     }
 
     private updateFilteredItems() {
-        this.filteredItems = this.itemFilter.transform(this.items, this.filter);
+        let filtered: Item[] = this.itemFilter.transform(this.items, this.filter);
+        let stacks: ItemStack[] = [];
+        let found: boolean;
+
+        filtered.forEach((item: Item) => {
+            found = false;
+            for (let stack of stacks) {
+                found = stack.add(item);
+                if (found) {
+                    break;
+                }
+            }
+            if (!found) {
+                stacks.push(new ItemStack(item));
+            }
+        });
+
+        stacks.sort((stack1: ItemStack, stack2: ItemStack)=> {
+            if ((stack1.items.length > stack2.items.length) ||
+                (stack1.items.length === stack2.items.length && stack1.type < stack2.type)) {
+                return -1;
+            }
+            if ((stack1.items.length < stack2.items.length) ||
+                (stack1.items.length === stack2.items.length && stack1.type > stack2.type)) {
+                return 1;
+            }
+            return 0;
+        });
+
+        this.filteredStacks = stacks;
     }
 
-    private emit(selected: boolean, item?: Item) {
-        let event: EventEmitter<Set<Item>> = selected ? this.selected : this.deselected;
-        if (item !== undefined) {
-            event.emit(new Set<Item>([item]));
-        } else {
-            event.emit(new Set<Item>(this.filteredItems.filter((i: Item) => {
-                return i.flagged === selected;
-            })));
-        }
-    }
-
-    private onClick(item: Item) {
+    private onClick(stack: ItemStack) {
+        let item: Item = stack.items[0];
         let selected: boolean = !item.flagged;
         item.flagged = selected;
-        this.emit(selected, item);
-    }
-
-    private flagAll(flagged: boolean) {
-        this.filteredItems.forEach((item: Item) => {
-            item.flagged = flagged;
-        });
-        this.emit(flagged);
+        (selected ? this.selected : this.deselected).emit(new Set<Item>([item]));
     }
 
 }

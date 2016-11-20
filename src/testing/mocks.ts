@@ -20,17 +20,17 @@ export const MOCKED_USER_AUTH_STATUS = <UserAuthStatus>{
     hasAdminRole: true
 };
 
-export function createMockItem(id: number) {
-    return <Item> {
-        id: `${id}`,
-        type: 'test-item-type',
-        description: 'test-item-description',
-        shape: 'ok',
-        labels: []
-    };
+export function createMockItem(id: number): Item {
+    return new Item(
+        `${id}`,
+        'test-item-type',
+        'test-item-description',
+        'ok',
+        []
+    );
 }
 
-export function createMockReservation(id: number) {
+export function createMockReservation(id: number): Reservation {
     return <Reservation>{
         id: `${id}`,
         user: MOCKED_REGISTERED_USER,

@@ -5,16 +5,11 @@
                id="filter" name="filter" placeholder="Suche">
     </div>
 </form>
-<button type="button" class="btn btn-primary btn-sm" (click)="flagAll(true)" title="Alle hinzufügen">
-    <i class="material-icon md-18">add</i>
-</button>
-<button type="button" class="btn btn-secondary btn-sm" (click)="flagAll(false)" title="Alle entfernen">
-    <i class="material-icon md-18">remove</i>
-</button>
 <ul class="list-group">
-    <li *ngFor="let item of filteredItems" [class.flagged]="item.flagged">
-        <div (click)="onClick(item)">
-            <jgd-item [item]="item"></jgd-item>
+    <li *ngFor="let stack of filteredStacks" [class.flagged]="stack.items[0].flagged">
+        <div (click)="onClick(stack)">
+            <span>{{stack.items.length}}</span>
+            <jgd-item [item]="stack.items[0]"></jgd-item>
         </div>
     </li>
 </ul>

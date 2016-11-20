@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ItemService } from '../../../../services/item.service';
+import { ItemService, UiMessageService } from '../../../../services';
 import { Item } from '../../../../model/item';
-import { UiMessageService } from '../../../../services/ui-message.service';
 
 @Component({
     selector: 'jgd-edit-items',
@@ -40,12 +39,13 @@ export class EditItemsComponent implements OnInit {
                 item.flagged = false;
             }
         } else {
-            this.changedItems.set(item.id, <Item>{
-                type: value,
-                description: item.description,
-                shape: item.shape,
-                labels: item.labels
-            });
+            this.changedItems.set(item.id, new Item(
+                item.id,
+                value,
+                item.description,
+                item.shape,
+                item.labels
+            ));
         }
         this.changed = this.changedItems.size;
     }
@@ -60,12 +60,13 @@ export class EditItemsComponent implements OnInit {
                 item.flagged = false;
             }
         } else {
-            this.changedItems.set(item.id, <Item>{
-                type: item.type,
-                description: value,
-                shape: item.shape,
-                labels: item.labels
-            });
+            this.changedItems.set(item.id, new Item(
+                item.id,
+                item.type,
+                value,
+                item.shape,
+                item.labels
+            ));
         }
         this.changed = this.changedItems.size;
     }
@@ -80,12 +81,13 @@ export class EditItemsComponent implements OnInit {
                 item.flagged = false;
             }
         } else {
-            this.changedItems.set(item.id, <Item>{
-                type: item.type,
-                description: item.description,
-                shape: value,
-                labels: item.labels
-            });
+            this.changedItems.set(item.id, new Item(
+                item.id,
+                item.type,
+                item.description,
+                value,
+                item.labels
+            ));
         }
         this.changed = this.changedItems.size;
     }
