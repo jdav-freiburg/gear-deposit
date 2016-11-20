@@ -9,10 +9,11 @@ import { ROUTE } from '../../../app.routes';
     styleUrls: ['./new-reservation.component.scss']
 })
 export class NewReservationComponent implements OnInit {
-    private reserved: Set<Item> = new Set<Item>();
-
     private reservation: Reservation;
-    private items: Item[];
+    private items: Set<Item>;
+
+    private selected: Set<Item> = new Set();
+    private reserved: Set<Item> = new Set();
 
     constructor(private appRouter: AppRouterService, private reservationService: ReservationService,
                 private uiMessage: UiMessageService,
@@ -30,26 +31,29 @@ export class NewReservationComponent implements OnInit {
             };
         });
         this.itemService.items$().subscribe((items: Item[]) => {
-            this.items = items;
+            this.items = new Set(items);
         });
     }
 
-    private addToReserved(items: Set<Item>): void {
-        let i = 0;
+    private addToSelected(items: Set<Item>): void {
         items.forEach((item: Item) => {
+            this.selected.add(item);
+        });
+    }
+
+    private removeFromSelected(items: Set<Item>): void {
+        items.forEach((item: Item) => {
+            this.selected.delete(item);
+        });
+    }
+
+    private addSelectedToReservation(): void {
+        this.selected.forEach((item: Item) => {
+            item.flagged = false;
+            this.items.delete(item);
             this.reserved.add(item);
-            i++;
         });
-        this.uiMessage.emitInfo(`${i} Gegenstände hinzugefügt.`);
-    }
-
-    private removeFromReserved(items: Set<Item>): void {
-        let i = 0;
-        items.forEach((item: Item) => {
-            this.reserved.delete(item);
-            i++;
-        });
-        this.uiMessage.emitInfo(`${i} Gegenstände entfernt.`);
+        this.selected.clear();
     }
 
     private saveReservation(): void {

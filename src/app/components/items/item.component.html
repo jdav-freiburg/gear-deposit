@@ -1,9 +1,9 @@
+<div [class]="item.shape | lowercase">
+    <i *ngIf="!item.isOk()" class="material-icon md-18" [title]="item.shape">priority_high</i>
+</div>
 <span>
     {{item.type}}
 </span>
 <span>
     ({{item.description}})
-</span>
-<span>
-    {{item.shape}}
 </span>

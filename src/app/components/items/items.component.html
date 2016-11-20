@@ -1,15 +1,16 @@
-<form class="form-inline" *ngIf="addFilter">
+<form class="form-inline">
     <div class="form-group">
+        <i class="material-icon">search</i>
         <label class="sr-only" for="filter">Filtern</label>
         <input #filter (keyup)="filterChanged(filter.value)" class="form-control" type="search"
                id="filter" name="filter" placeholder="Suche">
     </div>
 </form>
 <ul class="list-group">
-    <li *ngFor="let stack of filteredStacks" [class.flagged]="stack.items[0].flagged">
+    <li *ngFor="let stack of filteredStacks">
         <div (click)="onClick(stack)">
-            <span>{{stack.items.length}}</span>
-            <jgd-item [item]="stack.items[0]"></jgd-item>
+            <div class="count">{{stack.items.length}}</div>
+            <jgd-item [item]="stack.items[0]" [class.flagged]="stack.items[0].flagged"></jgd-item>
         </div>
     </li>
 </ul>

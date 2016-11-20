@@ -1,7 +1,8 @@
 <jgd-nav-bar>
     <span>{{description}}</span>
-    <button type="button" class="btn btn-accent btn-floating" (click)="submit()"
-            title="submitTitle">
+    <button type="button" class="btn btn-accent btn-floating"
+            (click)="submit()"
+            [title]="submitTitle">
         <i class="material-icon">{{submitIcon}}</i>
     </button>
 </jgd-nav-bar>

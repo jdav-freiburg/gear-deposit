@@ -12,16 +12,19 @@
     <input class="form-control" type="date" [(ngModel)]="reservation.end" id="reservationEnd">
 </div>
 
-<div>
-    {{reserved.size}} Gegenstände reserviert
-</div>
-
-<jgd-items [items]="items" [addFilter]="true"
-           (selected)="addToReserved($event)"
-           (deselected)="removeFromReserved($event)">
+<jgd-items #hackedItemsComponent [items]="items"
+           (selected)="addToSelected($event)"
+           (deselected)="removeFromSelected($event)">
 </jgd-items>
 
-<jgd-footer *ngIf="reserved.size > 0"
+<jgd-footer *ngIf="selected.size > 0"
+            [submitIcon]="'add'"
+            [submitTitle]="(selected.size > 1 ? 'Gegenstände ' : 'Gegenstand ') + 'hinzufügen'"
+            [description]="selected.size + (selected.size > 1 ? ' Gegenstände ' : ' Gegenstand ') + 'ausgewählt'"
+            (submitted)="addSelectedToReservation(); hackedItemsComponent.items = items;"></jgd-footer>
+
+<jgd-footer *ngIf="selected.size === 0 && reserved.size > 0"
+            [submitIcon]="'save'"
             [submitTitle]="'Reservierung speichern'"
-            [description]="reservation.description"
+            [description]="'Du hast bereits ' + reserved.size + (reserved.size > 1 ? ' Gegenstände ' : ' Gegenstand ') + 'hinzugefügt.'"
             (submitted)="saveReservation()"></jgd-footer>

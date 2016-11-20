@@ -21,6 +21,10 @@ export class Item extends ItemMetadata {
         this.id = id;
         this.flagged = flagged;
     }
+
+    isOk(): boolean {
+        return this.shape.trim().toLocaleLowerCase() === 'ok';
+    }
 }
 
 export class ItemStack extends ItemMetadata {
