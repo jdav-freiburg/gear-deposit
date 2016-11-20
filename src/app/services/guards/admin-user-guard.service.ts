@@ -11,7 +11,7 @@ export class AdminUserGuard implements CanActivate {
     }
 
     canActivate(): Observable<boolean> {
-        let hasAdminRole: Observable<boolean> = this.userService.getRegisteredUser()
+        let hasAdminRole: Observable<boolean> = this.userService.getRegisteredUser$()
             .map((user: RegisteredUser) => {
                 return user.roles !== undefined && !!user.roles.find((role: Role) => {
                         return role === Role.ADMIN;

@@ -8,14 +8,14 @@ import { UserService } from './user.service';
 @Injectable()
 export class ReservationService {
 
-    private items: Item[];
-    private user: RegisteredUser;
+    items: Item[];
+    user: RegisteredUser;
 
     constructor(private af: AngularFire, itemService: ItemService, userService: UserService) {
-        userService.getRegisteredUser().subscribe((user: RegisteredUser) => {
+        userService.getRegisteredUser$().subscribe((user: RegisteredUser) => {
             this.user = user;
         });
-        itemService.items.subscribe((items: Item[]) => {
+        itemService.items$().subscribe((items: Item[]) => {
             this.items = items;
         });
     }
@@ -47,7 +47,7 @@ export class ReservationService {
         };
     }
 
-    public all(): Observable<Set<Reservation>> {
+    public all$(): Observable<Set<Reservation>> {
         let now: number = Date.now();
 
         return this.af.database.list('/reservations').map((reservations: any[]) => {
@@ -63,7 +63,7 @@ export class ReservationService {
         });
     }
 
-    public get(id: string): Observable<Reservation> {
+    public get$(id: string): Observable<Reservation> {
         return this.af.database.object(`/reservations/${id}`).map((reservation: any) => {
             return this.convertFromDB(reservation);
         });

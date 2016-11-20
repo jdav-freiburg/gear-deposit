@@ -17,7 +17,7 @@ export class EditReservationComponent implements OnInit {
 
     ngOnInit() {
         this.activatedRoute.params.subscribe((params: Params) => {
-            this.reservationService.get(params['id']).subscribe(r => this.reservation = r);
+            this.reservationService.get$(params['id']).subscribe(r => this.reservation = r);
         });
     }
 

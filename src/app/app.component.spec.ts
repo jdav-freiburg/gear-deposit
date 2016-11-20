@@ -1,14 +1,12 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { AppComponent } from './app.component';
-import { LoadingComponent } from './components/loading/loading.component';
-import { HeaderComponent } from './components/header/header.component';
-import { UiMessageComponent } from './components/ui-messages/ui-message.component';
-import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { AuthService, UiMessageService, UserAuthStatusService } from './services';
-import { createUserAuthStatusServiceSpy } from '../test-helpers';
 import { LoadingService } from './services/loading.service';
-import { SHARED_MODULES } from './app.module';
+import { LoadingComponent } from './components/loading/loading.component';
+import { UiMessageComponent } from './components/ui-messages/ui-message.component';
+import { RouterStub } from '../testing/router-stubs';
 
 describe('AppComponent', () => {
     let component: AppComponent;
@@ -19,20 +17,16 @@ describe('AppComponent', () => {
             declarations: [
                 AppComponent,
                 LoadingComponent,
-                HeaderComponent,
-                NavBarComponent,
                 UiMessageComponent
             ],
             providers: [
                 UiMessageService,
                 LoadingService,
                 {provide: AuthService, useValue: {}},
-                {provide: UserAuthStatusService, useValue: createUserAuthStatusServiceSpy()},
-                {provide: Router, useValue: {}}
+                {provide: UserAuthStatusService, useValue: {}},
+                {provide: Router, useClass: RouterStub}
             ],
-            imports: [
-                ...SHARED_MODULES
-            ]
+            schemas: [NO_ERRORS_SCHEMA]
         });
     }));
 

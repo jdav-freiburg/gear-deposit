@@ -20,7 +20,7 @@ export class NewReservationComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.userService.getRegisteredUser().subscribe((user: RegisteredUser) => {
+        this.userService.getRegisteredUser$().subscribe((user: RegisteredUser) => {
             this.reservation = <Reservation>{
                 user: user,
                 name: '',
@@ -29,7 +29,7 @@ export class NewReservationComponent implements OnInit {
                 items: []
             };
         });
-        this.itemService.items.subscribe((items: Item[]) => {
+        this.itemService.items$().subscribe((items: Item[]) => {
             this.items = items;
         });
     }

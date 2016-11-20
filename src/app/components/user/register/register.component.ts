@@ -19,7 +19,7 @@ export class RegisterComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.authService.getAuthUser().subscribe((authUser: AuthUser) => {
+        this.authService.getAuthUser$().subscribe((authUser: AuthUser) => {
             if (authUser !== undefined) {
                 this.uid = authUser.uid;
                 this.user = <RegisteredUser>{

@@ -10,7 +10,7 @@ export class LoginGuard implements CanActivate {
     }
 
     canActivate(): Observable<boolean> {
-        let notAuthorized: Observable<boolean> = this.authService.isAuthorized().first().map((authorized: boolean) => {
+        let notAuthorized: Observable<boolean> = this.authService.isAuthorized$().first().map((authorized: boolean) => {
             return !authorized;
         });
         notAuthorized.subscribe((isNotAuthorized: boolean) => {

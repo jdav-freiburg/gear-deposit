@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { HeaderComponent } from './header.component';
 import { AuthService, UserAuthStatusService } from '../../services/';
-import { createUserAuthStatusServiceSpy } from '../../../test-helpers';
+import { createUserAuthStatusServiceFake } from '../../../testing';
 import { NavBarComponent } from '../nav-bar/nav-bar.component';
 
 describe('HeaderComponent', () => {
@@ -18,7 +18,7 @@ describe('HeaderComponent', () => {
             ],
             providers: [
                 {provide: AuthService, useValue: {}},
-                {provide: UserAuthStatusService, useValue: createUserAuthStatusServiceSpy()},
+                {provide: UserAuthStatusService, useValue: createUserAuthStatusServiceFake()},
                 {provide: Router, useValue: {}}
             ]
         }).compileComponents();

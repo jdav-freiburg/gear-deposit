@@ -11,7 +11,7 @@ export class AlreadyRegisteredGuard implements CanActivate {
     }
 
     canActivate(): Observable<boolean> {
-        let userAuthStatus: Observable<boolean> = this.userAuthStatusService.getUserAuthStatus().first().map(
+        let userAuthStatus: Observable<boolean> = this.userAuthStatusService.getUserAuthStatus$().first().map(
             (uAS: UserAuthStatus) => {
                 return uAS.isAuthorized && !uAS.isRegistered;
             });

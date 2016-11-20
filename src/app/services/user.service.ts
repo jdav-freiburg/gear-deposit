@@ -17,9 +17,9 @@ export class UserService {
         this.registerUser = undefined;
     }
 
-    public isRegistered(): Observable<boolean> {
+    public isRegistered$(): Observable<boolean> {
         if (this.registeredUser === undefined) {
-            return this.getRegisteredUser().map((user: RegisteredUser) => {
+            return this.getRegisteredUser$().map((user: RegisteredUser) => {
                 return user !== undefined;
             });
         }
@@ -27,20 +27,20 @@ export class UserService {
         return Observable.from([this.registeredUser !== undefined]);
     }
 
-    public getRegisteredUser(): Observable<RegisteredUser> {
+    public getRegisteredUser$(): Observable<RegisteredUser> {
         if (this.registeredUser === undefined) {
-            console.trace('#getRegisteredUser();');
+            console.trace('#getRegisteredUser$();');
 
             let subject: Subject<RegisteredUser> = new Subject<RegisteredUser>();
 
-            this.authService.getAuthUser().subscribe((authUser: AuthUser) => {
-                console.debug('getRegisteredUser(); authUser=', authUser);
+            this.authService.getAuthUser$().subscribe((authUser: AuthUser) => {
+                console.debug('getRegisteredUser$(); authUser=', authUser);
                 if (authUser === null) {
-                    console.warn('getRegisteredUser(); will emit nothing');
+                    console.warn('getRegisteredUser$(); will emit nothing');
                     subject.complete();
                 } else {
                     this.getUser(authUser.uid).subscribe((user: RegisteredUser) => {
-                        console.debug('getRegisteredUser(); will emit ', user);
+                        console.debug('getRegisteredUser$(); will emit ', user);
                         subject.next(user);
                         subject.complete();
                     });

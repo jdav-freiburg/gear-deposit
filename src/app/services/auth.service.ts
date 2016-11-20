@@ -12,12 +12,12 @@ export class AuthService {
     constructor(private af: AngularFire) {
     }
 
-    public getAuthUser(): Observable<AuthUser> {
+    public getAuthUser$(): Observable<AuthUser> {
         if (this.authUser === undefined) {
-            console.trace('#getAuthUser();');
+            console.trace('#getAuthUser$();');
             return this.af.auth.map((authState: FirebaseAuthState) => {
                 this.authUser = (authState != null && authState.auth !== undefined) ? authState.auth : null;
-                console.trace('#getAuthUser(); authUser=', this.authUser);
+                console.trace('#getAuthUser$(); authUser=', this.authUser);
                 return this.authUser;
             });
         }
@@ -25,9 +25,9 @@ export class AuthService {
         return Observable.from([this.authUser]);
     }
 
-    public isAuthorized(): Observable<boolean> {
+    public isAuthorized$(): Observable<boolean> {
         if (this.authorized === undefined) {
-            console.trace('#isAuthorized();');
+            console.trace('#isAuthorized$();');
             return this.af.auth.map((authState: FirebaseAuthState) => {
                 this.authorized = authState != null && authState.auth !== undefined;
                 console.trace(`#isAuthorized(); authorized=${this.authorized}`);

@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HomeComponent } from './home.component';
 import { UserService } from '../../services';
-import { createUserServiceSpy } from '../../../test-helpers';
+import { createUserServiceFake } from '../../../testing';
 
 describe('HomeComponent', () => {
     let component: HomeComponent;
@@ -11,7 +11,7 @@ describe('HomeComponent', () => {
         TestBed.configureTestingModule({
             declarations: [HomeComponent],
             providers: [
-                {provide: UserService, useValue: createUserServiceSpy()}
+                {provide: UserService, useValue: createUserServiceFake()}
             ]
         }).compileComponents();
     }));

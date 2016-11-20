@@ -24,7 +24,7 @@ export class ReservationsComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.loadingService.emitLoading(this.loading);
-        this.subscription = this.reservationService.all().subscribe((reservations: Set<Reservation>) => {
+        this.subscription = this.reservationService.all$().subscribe((reservations: Set<Reservation>) => {
             this.loading = false;
             this.loadingService.emitLoading(this.loading);
             this.reservations = reservations;

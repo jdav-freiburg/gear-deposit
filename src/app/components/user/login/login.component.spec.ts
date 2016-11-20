@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { LoginComponent } from './login.component';
 import { AuthService } from '../../../services';
-import { createAuthServiceSpy } from '../../../../test-helpers';
+import { createAuthServiceFake } from '../../../../testing';
 
 describe('LoginComponent', () => {
     let component: LoginComponent;
@@ -13,7 +13,7 @@ describe('LoginComponent', () => {
         TestBed.configureTestingModule({
             declarations: [LoginComponent],
             providers: [
-                {provide: AuthService, useValue: createAuthServiceSpy()}
+                {provide: AuthService, useValue: createAuthServiceFake()}
             ],
             imports: [
                 FormsModule

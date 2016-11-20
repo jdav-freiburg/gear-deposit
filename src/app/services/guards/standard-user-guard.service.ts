@@ -10,7 +10,7 @@ export class StandardUserGuard implements CanActivate {
     }
 
     canActivate(): Observable<boolean> {
-        let registered: Observable<boolean> = this.userService.isRegistered().first();
+        let registered: Observable<boolean> = this.userService.isRegistered$().first();
         registered.subscribe((isRegistered: boolean) => {
             if (!isRegistered) {
                 console.warn('authorized but not yet registered -> redirect to register');

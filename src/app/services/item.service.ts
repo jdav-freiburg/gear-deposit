@@ -9,7 +9,7 @@ export class ItemService {
     constructor(private af: AngularFire) {
     }
 
-    public get items(): Observable<Item[]> {
+    public items$(): Observable<Item[]> {
         return this.af.database.list('/items').map((items: any[]) => {
             let result: Item[] = [];
             items.forEach((item: any) => {
@@ -25,7 +25,7 @@ export class ItemService {
         });
     }
 
-    public get types(): Observable<string[]> {
+    public types$(): Observable<string[]> {
         return this.af.database.list('/types');
     }
 

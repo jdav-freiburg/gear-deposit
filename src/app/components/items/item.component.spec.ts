@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ItemComponent } from './item.component';
-import { createMockItem } from '../../../test-helpers';
+import { createMockItem } from '../../../testing';
 
 describe('ItemComponent', () => {
     let component: ItemComponent;

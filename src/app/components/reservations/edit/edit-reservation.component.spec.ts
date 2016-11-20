@@ -1,25 +1,25 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute, Params } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { ActivatedRoute } from '@angular/router';
 import { EditReservationComponent } from './edit-reservation.component';
 import { ReservationService } from '../../../services';
-import { createReservationServiceSpy } from '../../../../test-helpers';
+import { ActivatedRouteStub, createReservationServiceFake, MOCKED_RESERVATIONS } from '../../../../testing';
 
 describe('EditReservationComponent', () => {
+    let activatedRoute: ActivatedRouteStub;
     let component: EditReservationComponent;
     let fixture: ComponentFixture<EditReservationComponent>;
+
+    beforeEach(() => {
+        activatedRoute = new ActivatedRouteStub();
+        activatedRoute.testParams = {id: Array.from(MOCKED_RESERVATIONS)[0].id};
+    });
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [EditReservationComponent],
             providers: [
-                {
-                    provide: ActivatedRoute,
-                    useValue: <ActivatedRoute>{
-                        params: Observable.from([<Params>{id: 1}])
-                    }
-                },
-                {provide: ReservationService, useValue: createReservationServiceSpy()}
+                {provide: ActivatedRoute, useValue: activatedRoute},
+                {provide: ReservationService, useValue: createReservationServiceFake()}
             ]
         }).compileComponents();
     }));

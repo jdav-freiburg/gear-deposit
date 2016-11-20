@@ -21,7 +21,7 @@ export class EditItemsComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.itemService.items.subscribe((items: Item[]) => {
+        this.itemService.items$().subscribe((items: Item[]) => {
             this.items = items;
         });
     }

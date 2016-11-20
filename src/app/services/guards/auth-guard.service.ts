@@ -10,7 +10,7 @@ export class AuthGuard implements CanActivate {
     }
 
     canActivate(): Observable<boolean> {
-        let authorized: Observable<boolean> = this.authService.isAuthorized().first();
+        let authorized: Observable<boolean> = this.authService.isAuthorized$().first();
         authorized.subscribe((isAuthorized: boolean) => {
             if (!isAuthorized) {
                 console.warn('not authorized -> redirect to login');

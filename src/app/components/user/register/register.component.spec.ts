@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { RegisterComponent } from './register.component';
 import { AuthService, UserService } from '../../../services';
 import { LoadingComponent } from '../../loading/loading.component';
-import { MOCKED_AUTH_USER, createAuthServiceSpy } from '../../../../test-helpers';
+import { MOCKED_AUTH_USER, createAuthServiceFake } from '../../../../testing';
 
 describe('RegisterComponent', () => {
     let component: RegisterComponent;
@@ -18,7 +18,7 @@ describe('RegisterComponent', () => {
                 LoadingComponent
             ],
             providers: [
-                {provide: AuthService, useValue: createAuthServiceSpy()},
+                {provide: AuthService, useValue: createAuthServiceFake()},
                 {provide: UserService, useValue: {}},
                 {provide: Router, useValue: {}}
             ],

@@ -1,5 +1,5 @@
 import { ItemFilterPipe } from './item-filter.pipe';
-import { createMockItem } from '../../test-helpers/mocks';
+import { createMockItem } from '../../testing/mocks';
 import { Item } from '../model/item';
 
 describe('Pipe: ItemFilter', () => {

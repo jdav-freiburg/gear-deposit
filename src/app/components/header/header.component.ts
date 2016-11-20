@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.userAuthStatusService.getUserAuthStatus().subscribe((userAuthStatus: UserAuthStatus) => {
+        this.userAuthStatusService.getUserAuthStatus$().subscribe((userAuthStatus: UserAuthStatus) => {
             this.userAuthStatus = userAuthStatus;
         });
     }
@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit {
         this.userAuthStatus = undefined;
         this.userAuthStatusService.reset();
 
-        let sub: Subscription = this.authService.isAuthorized().subscribe((isAuthorized: boolean) => {
+        let sub: Subscription = this.authService.isAuthorized$().subscribe((isAuthorized: boolean) => {
             if (!isAuthorized) {
                 sub.unsubscribe();
                 this.router.navigate(['/login']);

@@ -6,7 +6,7 @@ import { FooterComponent } from '../../footer/footer.component';
 import { NavBarComponent } from '../../nav-bar/nav-bar.component';
 import { ItemFilterPipe } from '../../../pipes';
 import { AppRouterService, ItemService, ReservationService, UiMessageService, UserService } from '../../../services';
-import { createItemServiceSpy, createUserServiceSpy } from '../../../../test-helpers';
+import { createItemServiceFake, createUserServiceFake } from '../../../../testing';
 
 describe('NewReservationComponent', () => {
     let component: NewReservationComponent;
@@ -22,10 +22,10 @@ describe('NewReservationComponent', () => {
                 FooterComponent],
             providers: [
                 {provide: AppRouterService, useValue: {}},
-                {provide: ItemService, useValue: createItemServiceSpy()},
+                {provide: ItemService, useValue: createItemServiceFake()},
                 {provide: ReservationService, useValue: {}},
                 {provide: UiMessageService, useValue: {}},
-                {provide: UserService, useValue: createUserServiceSpy()},
+                {provide: UserService, useValue: createUserServiceFake()},
                 ItemFilterPipe
             ],
             imports: [

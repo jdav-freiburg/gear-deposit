@@ -1,22 +1,39 @@
-import { TestBed, inject } from '@angular/core/testing';
-import { AngularFire } from 'angularfire2';
-import { ItemService, ReservationService, UserService } from './';
-import { createItemServiceSpy, createUserServiceSpy } from '../../test-helpers/spies';
+import { Observable } from 'rxjs/Observable';
+import { ReservationService } from './';
+import { createAngularFireFake, createUserServiceFake, createItemServiceFake } from '../../testing/fakes';
+import { MOCKED_REGISTERED_USER, createMockItem } from '../../testing/mocks';
+import { Item } from '../model/item';
 
 describe('Service: Reservation', () => {
 
+    let service: ReservationService;
+
     beforeEach(() => {
-        TestBed.configureTestingModule({
-            providers: [
-                ReservationService,
-                {provide: AngularFire, useValue: {}},
-                {provide: ItemService, useValue: createItemServiceSpy()},
-                {provide: UserService, useValue: createUserServiceSpy()}
-            ]
-        });
+        service = new ReservationService(
+            createAngularFireFake(),
+            createItemServiceFake(),
+            createUserServiceFake());
     });
 
-    it('should ...', inject([ReservationService], (service: ReservationService) => {
-        expect(service).toBeTruthy();
-    }));
+    it('should get registered user', () => {
+        expect(service.user).toBe(MOCKED_REGISTERED_USER);
+    });
+
+    it('should get items', () => {
+        let service;
+        let itemService = createItemServiceFake();
+        let items: Item[] = [
+            createMockItem(1),
+            createMockItem(2)
+        ];
+        spyOn(itemService, 'items$').and.returnValue(Observable.from([items]));
+
+        service = new ReservationService(
+            createAngularFireFake(),
+            itemService,
+            createUserServiceFake());
+
+        expect(service.items).toEqual(items);
+    });
+
 });

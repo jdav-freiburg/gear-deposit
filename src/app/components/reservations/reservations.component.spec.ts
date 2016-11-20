@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ReservationsComponent } from './reservations.component';
 import { ItemComponent } from '../items';
 import { LoadingService, ReservationService, UiMessageService } from '../../services';
-import { createReservationServiceSpy } from '../../../test-helpers';
+import { createReservationServiceFake } from '../../../testing';
 
 describe('ReservationsComponent', () => {
     let component: ReservationsComponent;
@@ -18,7 +18,7 @@ describe('ReservationsComponent', () => {
             providers: [
                 UiMessageService,
                 LoadingService,
-                {provide: ReservationService, useValue: createReservationServiceSpy()},
+                {provide: ReservationService, useValue: createReservationServiceFake()},
                 {provide: Router, useValue: {}}
             ]
         }).compileComponents();

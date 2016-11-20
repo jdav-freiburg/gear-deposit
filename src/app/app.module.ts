@@ -32,7 +32,29 @@ import { FooterComponent } from './components/footer/footer.component';
 import { DropdownDirective } from './attribute-directives/dropdown.directive';
 import { EditReservationComponent } from './components/reservations/edit/edit-reservation.component';
 
-export const GUARDS = [
+export const SHARED_DECLARATIONS = [
+    AppComponent,
+    NoContentComponent,
+    HomeComponent,
+    EditItemsComponent,
+    HeaderComponent,
+    RegisterComponent,
+    LoginComponent,
+    NoAccessComponent,
+    LoadingComponent,
+    ItemFilterPipe,
+    NavBarComponent,
+    UiMessageComponent,
+    NewReservationComponent,
+    ItemsComponent,
+    ItemComponent,
+    FooterComponent,
+    DropdownDirective,
+    ReservationsComponent,
+    EditReservationComponent,
+];
+
+export const SHARED_GUARDS = [
     AuthGuard,
     LoginGuard,
     StandardUserGuard,
@@ -40,7 +62,7 @@ export const GUARDS = [
     AdminUserGuard
 ];
 
-export const SERVICES = [
+export const SHARED_SERVICES = [
     AppRouterService,
     AuthService,
     ItemService,
@@ -52,39 +74,14 @@ export const SERVICES = [
     ItemFilterPipe
 ];
 
-export const SHARED_MODULES = [
-    BrowserModule,
-    FormsModule,
-    HttpModule,
-    RouterModule.forRoot(ROUTES, {useHash: true}),
-];
-
 @NgModule({
     bootstrap: [AppComponent],
     declarations: [
-        AppComponent,
-        NoContentComponent,
-        HomeComponent,
-        EditItemsComponent,
-        HeaderComponent,
-        RegisterComponent,
-        LoginComponent,
-        NoAccessComponent,
-        LoadingComponent,
-        ItemFilterPipe,
-        NavBarComponent,
-        UiMessageComponent,
-        NewReservationComponent,
-        ItemsComponent,
-        ItemComponent,
-        FooterComponent,
-        DropdownDirective,
-        ReservationsComponent,
-        EditReservationComponent,
+        ...SHARED_DECLARATIONS
     ],
     providers: [
-        ...GUARDS,
-        ...SERVICES
+        ...SHARED_GUARDS,
+        ...SHARED_SERVICES
     ],
     imports: [
         // https://github.com/angular/angularfire2
@@ -94,7 +91,11 @@ export const SHARED_MODULES = [
             databaseURL: 'https://test-6b408.firebaseio.com',
             storageBucket: 'test-6b408.appspot.com'
         }),
-        ...SHARED_MODULES
+
+        BrowserModule,
+        FormsModule,
+        HttpModule,
+        RouterModule.forRoot(ROUTES, {useHash: true}),
     ]
 })
 export class AppModule {

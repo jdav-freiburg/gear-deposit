@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ItemsComponent } from './items.component';
 import { ItemFilterPipe } from '../../pipes';
-import { createMockItem } from '../../../test-helpers';
+import { createMockItem } from '../../../testing';
 import { ItemComponent } from './item.component';
 
 describe('ItemsComponent', () => {

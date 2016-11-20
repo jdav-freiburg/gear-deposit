@@ -5,7 +5,7 @@ import { FooterComponent } from '../../../footer/footer.component';
 import { NavBarComponent } from '../../../nav-bar/nav-bar.component';
 import { ItemService, UiMessageService } from '../../../../services';
 import { ItemFilterPipe } from '../../../../pipes';
-import { createItemServiceSpy } from '../../../../../test-helpers';
+import { createItemServiceFake } from '../../../../../testing';
 
 describe('EditItemsComponent', () => {
 
@@ -21,7 +21,7 @@ describe('EditItemsComponent', () => {
                 ItemFilterPipe
             ],
             providers: [
-                {provide: ItemService, useValue: createItemServiceSpy()},
+                {provide: ItemService, useValue: createItemServiceFake()},
                 UiMessageService
             ],
             imports: [

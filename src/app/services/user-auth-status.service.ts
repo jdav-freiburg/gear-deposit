@@ -15,13 +15,13 @@ export class UserAuthStatusService {
     constructor(private authService: AuthService, private userService: UserService) {
     }
 
-    public getUserAuthStatus(): Observable<UserAuthStatus> {
+    public getUserAuthStatus$(): Observable<UserAuthStatus> {
         return Observable.merge(//
-            this.authService.isAuthorized().map((isAuthorized: boolean) => {
+            this.authService.isAuthorized$().map((isAuthorized: boolean) => {
                 this.userAuthStatus.isAuthorized = isAuthorized;
                 return this.userAuthStatus;
             }),
-            this.userService.getRegisteredUser().map((user: RegisteredUser) => {
+            this.userService.getRegisteredUser$().map((user: RegisteredUser) => {
                 if (user !== undefined) {
                     let roles = user.roles ? user.roles : [];
                     this.userAuthStatus.isRegistered = true;
