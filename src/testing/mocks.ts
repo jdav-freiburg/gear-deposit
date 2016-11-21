@@ -20,13 +20,20 @@ export const MOCKED_USER_AUTH_STATUS = <UserAuthStatus>{
     hasAdminRole: true
 };
 
+export const MOCK_ITEM_TYPE = 'test-item-type';
+export const MOCK_ITEM_DESCRIPTION = 'test-item-description';
+export const MOCK_ITEM_SHAPE = 'ok';
+export const MOCK_ITEM_LABELS = [
+    'test-item-label1',
+    'test-item-label2'
+];
 export function createMockItem(id: number): Item {
     return new Item(
         `${id}`,
-        'test-item-type',
-        'test-item-description',
-        'ok',
-        []
+        MOCK_ITEM_TYPE,
+        MOCK_ITEM_DESCRIPTION,
+        MOCK_ITEM_SHAPE,
+        MOCK_ITEM_LABELS
     );
 }
 

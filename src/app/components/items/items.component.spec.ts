@@ -21,10 +21,10 @@ describe('ItemsComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(ItemsComponent);
         component = fixture.componentInstance;
-        component.items = [
+        component.items = new Set([
             createMockItem(1),
             createMockItem(2)
-        ];
+        ]);
         fixture.detectChanges();
     });
 

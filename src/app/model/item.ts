@@ -49,4 +49,5 @@ export class ItemStack extends ItemMetadata {
             this.shape === item.shape;
         //FIXME labels missing...
     }
+
 }
