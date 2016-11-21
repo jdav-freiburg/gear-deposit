@@ -11,9 +11,11 @@ header {
   a {
     color: white;
   }
-  .nav-item {
+
+  .nav, .nav-item {
     cursor: pointer;
   }
+  
   i:hover {
     color: $accent_700;
   }

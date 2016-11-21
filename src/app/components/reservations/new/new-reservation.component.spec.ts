@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NewReservationComponent } from './new-reservation.component';
 import { FormsModule } from '@angular/forms';
-import { ItemComponent, ItemsComponent } from '../../items';
+import { ItemStackComponent, ItemsComponent } from '../../items';
 import { FooterComponent } from '../../footer/footer.component';
 import { NavBarComponent } from '../../nav-bar/nav-bar.component';
 import { ItemFilterPipe } from '../../../pipes';
@@ -18,7 +18,7 @@ describe('NewReservationComponent', () => {
                 NewReservationComponent,
                 NavBarComponent,
                 ItemsComponent,
-                ItemComponent,
+                ItemStackComponent,
                 FooterComponent],
             providers: [
                 {provide: AppRouterService, useValue: {}},

@@ -2,28 +2,30 @@
 
 ul {
   margin-top: 1em;
+
   li {
-    display: block;
+    border-bottom: 1px solid $grey_200;
+    display: flex;
+    align-items: baseline;
   }
 }
 
-.count {
-  padding: .25em .2em .25em 0;
-  text-align: right;
-  width: 1.5em;
+input[name="itemCount"] {
+  padding: .25em 0 .25em .25em;
+  width: 2em;
+
+  &[disabled] {
+    opacity: .6;
+  }
 }
 
-.count, jgd-item {
-  float: left;
-  margin: 1px 0;
-}
-
-jgd-item {
+jgd-item-stack {
   border-radius: 1pt;
   cursor: pointer;
-  padding: .25em .5em;
+  margin-left: 2px;
+  padding: .5em;
   transition: background-color 50ms ease-in-out;
-  width: calc(100% - 1.5em);
+  width: 100%;
 
   &:hover {
     background-color: $accent_100;

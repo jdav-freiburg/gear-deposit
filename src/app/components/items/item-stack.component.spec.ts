@@ -1,21 +1,22 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ItemComponent } from './item.component';
+import { ItemStackComponent } from './item-stack.component';
 import { createMockItem } from '../../../testing';
+import { ItemStack } from '../../model/item';
 
-describe('ItemComponent', () => {
-    let component: ItemComponent;
-    let fixture: ComponentFixture<ItemComponent>;
+describe('ItemStackComponent', () => {
+    let component: ItemStackComponent;
+    let fixture: ComponentFixture<ItemStackComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ItemComponent]
+            declarations: [ItemStackComponent]
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(ItemComponent);
+        fixture = TestBed.createComponent(ItemStackComponent);
         component = fixture.componentInstance;
-        component.item = createMockItem(1);
+        component.itemStack = new ItemStack(createMockItem(1));
         fixture.detectChanges();
     });
 

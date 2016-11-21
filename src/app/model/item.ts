@@ -29,6 +29,7 @@ export class Item extends ItemMetadata {
 
 export class ItemStack extends ItemMetadata {
     items: Item[];
+    selected?: number;
 
     constructor(item: Item) {
         super(item.type, item.description, item.shape, item.labels);

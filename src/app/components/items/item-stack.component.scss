@@ -1,0 +1,22 @@
+@import "../../../scss/variables";
+
+div {
+  color: $red_900;
+  float: left;
+}
+
+.tag {
+  background-color: $primary_400;
+  transition: background-color 50ms ease-in-out;
+
+  &:hover {
+    background-color: $primary_700;
+  }
+
+  &.one {
+    opacity: .6;
+    &:hover {
+      background-color: $primary_400;
+    }
+  }
+}

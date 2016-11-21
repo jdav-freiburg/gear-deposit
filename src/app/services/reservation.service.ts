@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { Item, RegisteredUser, Reservation } from '../model';
 import { ItemService } from './item.service';
 import { UserService } from './user.service';
+import { ItemStack } from '../model/item';
 
 @Injectable()
 export class ReservationService {
@@ -21,29 +22,55 @@ export class ReservationService {
     }
 
     public add(reservation: Reservation): firebase.Promise<void> {
+        let itemIds: string[] = [];
+        reservation.itemStacks.forEach((itemStack: ItemStack) => {
+            itemIds = itemIds.concat(itemStack.items.map(i => i.id));
+        });
+
         return this.af.database.list('/reservations').push({
             uid: reservation.user.uid,
             name: reservation.name,
             begin: reservation.begin.getTime(),
             end: reservation.end.getTime(),
-            items: reservation.items.map((item: Item) => {
-                return item.id;
-            })
+            items: itemIds
         });
     }
 
     private convertFromDB(dbReservation: any): Reservation {
+
+        // FIXME refactor...
+        let stacks: ItemStack[] = [];
+        let found: boolean;
+
+        dbReservation.items.forEach((itemId: string) => {
+            let item = this.items.find((item: Item) => {
+                return itemId === item.id;
+            });
+            found = false;
+            for (let stack of stacks) {
+                found = stack.add(item);
+                if (found) {
+                    break;
+                }
+            }
+            if (!found) {
+                stacks.push(new ItemStack(item));
+            }
+        });
+
         return <Reservation>{
             id: dbReservation.$key,
             user: this.user,
             name: dbReservation.name,
             begin: new Date(dbReservation.begin),
             end: new Date(dbReservation.end),
-            items: this.items.filter((item: Item) => {
-                return !!dbReservation.items.find((id: string) => {
-                    return id === item.id;
-                });
-            })
+            // items: this.items.filter((item: Item) => {
+            //     return !!dbReservation.items.find((id: string) => {
+            //         return id === item.id;
+            //     });
+            // })
+            itemStacks: stacks
+
         };
     }
 

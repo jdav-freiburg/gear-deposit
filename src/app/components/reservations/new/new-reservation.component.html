@@ -23,7 +23,15 @@
             [description]="selected.size + (selected.size > 1 ? ' Gegenstände ' : ' Gegenstand ') + 'ausgewählt'"
             (submitted)="addSelectedToReservation(); hackedItemsComponent.items = items;"></jgd-footer>
 
-<jgd-footer *ngIf="selected.size === 0 && reserved.size > 0"
+<jgd-footer class="hidden-sm-up"
+            *ngIf="selected.size === 0 && reserved.size > 0"
+            [submitIcon]="'save'"
+            [submitTitle]="'Reservierung speichern'"
+            [description]="reserved.size + (reserved.size > 1 ? ' Gegenstände ' : ' Gegenstand ') + 'in Reservierung'"
+            (submitted)="saveReservation()"></jgd-footer>
+
+<jgd-footer class="hidden-xs-down"
+            *ngIf="selected.size === 0 && reserved.size > 0"
             [submitIcon]="'save'"
             [submitTitle]="'Reservierung speichern'"
             [description]="'Du hast bereits ' + reserved.size + (reserved.size > 1 ? ' Gegenstände ' : ' Gegenstand ') + 'hinzugefügt.'"

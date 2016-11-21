@@ -1,4 +1,5 @@
-import { Item, RegisteredUser } from './';
+import { RegisteredUser } from './';
+import { ItemStack } from './item';
 
 export interface Reservation {
     id?: string;
@@ -6,5 +7,5 @@ export interface Reservation {
     name: string;
     begin: Date;
     end: Date;
-    items: Item[];
+    itemStacks: ItemStack[];
 }

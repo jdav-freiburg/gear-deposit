@@ -15,7 +15,7 @@ import { LoadingComponent } from './components/loading/loading.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { UiMessageComponent } from './components/ui-messages';
 import { ReservationsComponent, NewReservationComponent } from './components/reservations';
-import { ItemComponent, ItemsComponent } from './components/items';
+import { ItemStackComponent, ItemsComponent } from './components/items';
 import { ItemFilterPipe } from './pipes';
 import {
     AppRouterService,
@@ -47,7 +47,7 @@ export const SHARED_DECLARATIONS = [
     UiMessageComponent,
     NewReservationComponent,
     ItemsComponent,
-    ItemComponent,
+    ItemStackComponent,
     FooterComponent,
     DropdownDirective,
     ReservationsComponent,

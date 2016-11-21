@@ -40,6 +40,8 @@ export class ItemsComponent {
     private updateFilteredItems() {
         console.debug('#updateFilteredItems();');
         let filtered: Item[] = this.itemFilter.transform(Array.from(this._items), this.filter);
+
+        // FIXME refactor...
         let stacks: ItemStack[] = [];
         let found: boolean;
 
@@ -57,25 +59,55 @@ export class ItemsComponent {
         });
 
         stacks.sort((stack1: ItemStack, stack2: ItemStack)=> {
-            if ((stack1.items.length > stack2.items.length) ||
-                (stack1.items.length === stack2.items.length && stack1.type < stack2.type)) {
+            // FIXME remove not needed code, decide which ordering...
+            // stack count + type ordering
+            // if ((stack1.items.length > stack2.items.length) ||
+            //     (stack1.items.length === stack2.items.length && stack1.type < stack2.type)) {
+            //     return -1;
+            // }
+            // if ((stack1.items.length < stack2.items.length) ||
+            //     (stack1.items.length === stack2.items.length && stack1.type > stack2.type)) {
+            //     return 1;
+            // }
+
+            // type + description ordering
+            if ((stack1.type < stack2.type) ||
+                (stack1.type === stack2.type && stack1.description < stack2.description)) {
                 return -1;
             }
-            if ((stack1.items.length < stack2.items.length) ||
-                (stack1.items.length === stack2.items.length && stack1.type > stack2.type)) {
+            if ((stack1.type > stack2.type) ||
+                (stack1.type === stack2.type && stack1.description > stack2.description)) {
                 return 1;
             }
+
             return 0;
         });
 
         this.filteredStacks = stacks;
     }
 
+    private stackSelectedChanged(stack: ItemStack, count: number) {
+        stack.selected = count;
+        if (stack.items[0].flagged) {
+            this.emitSelectedChange(stack, true);
+        }
+    }
+
     private onClick(stack: ItemStack) {
-        let item: Item = stack.items[0];
-        let selected: boolean = !item.flagged;
-        item.flagged = selected;
-        (selected ? this.selected : this.deselected).emit(new Set<Item>([item]));
+        this.emitSelectedChange(stack);
+    }
+
+    private emitSelectedChange(stack: ItemStack, ignoreFlagged?: boolean) {
+        let count = stack.selected > 1 ? stack.selected : 1;
+        let items: Item[] = stack.items.slice(0, count);
+
+        // when selected change was only triggered by increasing the item count, we must not deselect the stack before
+        // we emit the event... deselect or changing the selected state must only be triggered by click on the stack...
+        let selected: boolean = ignoreFlagged ? true : !items[0].flagged;
+        items[0].flagged = selected;
+
+        console.debug(`will emit ${selected ? 'selected' : 'deselected'} change`, items);
+        (selected ? this.selected : this.deselected).emit(new Set<Item>(items));
     }
 
 }

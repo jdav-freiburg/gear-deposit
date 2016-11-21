@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { ReservationsComponent } from './reservations.component';
-import { ItemComponent } from '../items';
+import { ItemStackComponent } from '../items';
 import { LoadingService, ReservationService, UiMessageService } from '../../services';
 import { createReservationServiceFake } from '../../../testing';
 
@@ -13,7 +13,7 @@ describe('ReservationsComponent', () => {
         TestBed.configureTestingModule({
             declarations: [
                 ReservationsComponent,
-                ItemComponent
+                ItemStackComponent
             ],
             providers: [
                 UiMessageService,

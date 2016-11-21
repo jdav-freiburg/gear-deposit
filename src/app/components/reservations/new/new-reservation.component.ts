@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Item, Reservation, RegisteredUser } from '../../../model';
 import { AppRouterService, ItemService, ReservationService, UiMessageService, UserService } from '../../../services';
 import { ROUTE } from '../../../app.routes';
+import { ItemStack } from '../../../model/item';
 
 @Component({
     selector: 'jgd-new-reservation',
@@ -27,7 +28,7 @@ export class NewReservationComponent implements OnInit {
                 name: '',
                 begin: null,
                 end: null,
-                items: []
+                itemStacks: []
             };
         });
         this.itemService.items$().subscribe((items: Item[]) => {
@@ -36,28 +37,49 @@ export class NewReservationComponent implements OnInit {
     }
 
     private addToSelected(items: Set<Item>): void {
+        console.debug('#addToSelected();', Array.from(items));
         items.forEach((item: Item) => {
             this.selected.add(item);
         });
     }
 
     private removeFromSelected(items: Set<Item>): void {
+        console.debug('#removeFromSelected();', Array.from(items));
         items.forEach((item: Item) => {
             this.selected.delete(item);
         });
     }
 
     private addSelectedToReservation(): void {
+        console.debug('#addSelectedToReservation();');
         this.selected.forEach((item: Item) => {
             item.flagged = false;
             this.items.delete(item);
             this.reserved.add(item);
         });
         this.selected.clear();
+        console.debug('#addSelectedToReservation(); new reserved:', Array.from(this.reserved));
     }
 
     private saveReservation(): void {
-        this.reservation.items = Array.from(this.reserved);
+        let stacks: ItemStack[] = [];
+        let found: boolean;
+
+        // FIXME refactor...
+        this.reserved.forEach((item: Item) => {
+            found = false;
+            for (let stack of stacks) {
+                found = stack.add(item);
+                if (found) {
+                    break;
+                }
+            }
+            if (!found) {
+                stacks.push(new ItemStack(item));
+            }
+        });
+
+        this.reservation.itemStacks = stacks;
         this.reservation.begin = new Date(this.reservation.begin);
         this.reservation.end = new Date(this.reservation.end);
         console.log('#saveReservation();', this.reservation);
