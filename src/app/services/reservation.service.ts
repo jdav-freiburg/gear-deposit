@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFire } from 'angularfire2';
 import { Observable } from 'rxjs/Observable';
-import { Item, RegisteredUser, Reservation } from '../model';
+import { Item, ItemStacks, RegisteredUser, Reservation } from '../model';
 import { ItemService } from './item.service';
 import { UserService } from './user.service';
-import { ItemStack } from '../model/item';
 
 @Injectable()
 export class ReservationService {
@@ -23,8 +22,8 @@ export class ReservationService {
 
     public add(reservation: Reservation): firebase.Promise<void> {
         let itemIds: string[] = [];
-        reservation.itemStacks.forEach((itemStack: ItemStack) => {
-            itemIds = itemIds.concat(itemStack.items.map(i => i.id));
+        reservation.itemStacks.items.forEach((item: Item) => {
+            itemIds.push(item.id);
         });
 
         return this.af.database.list('/reservations').push({
@@ -38,24 +37,12 @@ export class ReservationService {
 
     private convertFromDB(dbReservation: any): Reservation {
 
-        // FIXME refactor...
-        let stacks: ItemStack[] = [];
-        let found: boolean;
-
+        let stacks: ItemStacks = new ItemStacks();
         dbReservation.items.forEach((itemId: string) => {
             let item = this.items.find((item: Item) => {
                 return itemId === item.id;
             });
-            found = false;
-            for (let stack of stacks) {
-                found = stack.add(item);
-                if (found) {
-                    break;
-                }
-            }
-            if (!found) {
-                stacks.push(new ItemStack(item));
-            }
+            stacks.add(item);
         });
 
         return <Reservation>{
@@ -64,13 +51,7 @@ export class ReservationService {
             name: dbReservation.name,
             begin: new Date(dbReservation.begin),
             end: new Date(dbReservation.end),
-            // items: this.items.filter((item: Item) => {
-            //     return !!dbReservation.items.find((id: string) => {
-            //         return id === item.id;
-            //     });
-            // })
             itemStacks: stacks
-
         };
     }
 

@@ -99,7 +99,7 @@ export class ItemsComponent {
 
     private emitSelectedChange(stack: ItemStack, ignoreFlagged?: boolean) {
         let count = stack.selected > 1 ? stack.selected : 1;
-        let items: Item[] = stack.items.slice(0, count);
+        let items: Item[] = Array.from(stack.items).slice(0, count);
 
         // when selected change was only triggered by increasing the item count, we must not deselect the stack before
         // we emit the event... deselect or changing the selected state must only be triggered by click on the stack...

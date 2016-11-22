@@ -1,25 +1,13 @@
 export class ItemMetadata {
-    type: string;
-    description: string;
-    shape: string;
-    labels: string[];
-
-    constructor(type: string, description: string, shape: string, labels: string[]) {
-        this.type = type;
-        this.description = description;
-        this.shape = shape;
-        this.labels = labels;
+    constructor(public type: string, public description: string, public shape: string, public labels: string[]) {
     }
 }
 
 export class Item extends ItemMetadata {
-    id: string;
-    flagged: boolean;
 
-    constructor(id: string, type: string, description: string, shape: string, labels: string[], flagged?: boolean) {
+    constructor(public id: string, type: string, description: string, shape: string, labels: string[],
+                public flagged?: boolean) {
         super(type, description, shape, labels);
-        this.id = id;
-        this.flagged = flagged;
     }
 
     isOk(): boolean {
@@ -28,17 +16,17 @@ export class Item extends ItemMetadata {
 }
 
 export class ItemStack extends ItemMetadata {
-    items: Item[];
+    items: Set<Item>;
     selected?: number;
 
     constructor(item: Item) {
         super(item.type, item.description, item.shape, item.labels);
-        this.items = [item];
+        this.items = new Set([item]);
     }
 
     add(item: Item): boolean {
         if (this.canJoin(item)) {
-            this.items.push(item);
+            this.items.add(item);
             return true;
         }
         return false;
@@ -49,6 +37,34 @@ export class ItemStack extends ItemMetadata {
             this.description === item.description &&
             this.shape === item.shape;
         //FIXME labels missing...
+    }
+
+}
+
+export class ItemStacks {
+
+    list: ItemStack[] = [];
+    items: Set<Item> = new Set();
+
+    public add(item: Item) {
+        if (!this.items.has(item)) {
+            let stackFound = this.tryToAddToCorrespondingStack(item);
+            if (!stackFound) {
+                this.list.push(new ItemStack(item));
+            }
+            this.items.add(item);
+        }
+    }
+
+    private tryToAddToCorrespondingStack(item: Item): boolean {
+        let found = false;
+        for (let stack of this.list) {
+            found = stack.add(item);
+            if (found) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

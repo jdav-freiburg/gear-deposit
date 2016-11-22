@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Item, Reservation, RegisteredUser } from '../../../model';
 import { AppRouterService, ItemService, ReservationService, UiMessageService, UserService } from '../../../services';
 import { ROUTE } from '../../../app.routes';
-import { ItemStack } from '../../../model/item';
+import { ItemStacks } from '../../../model/item';
 
 @Component({
     selector: 'jgd-new-reservation',
@@ -13,8 +13,10 @@ export class NewReservationComponent implements OnInit {
     private reservation: Reservation;
     private items: Set<Item>;
 
+    private reservedListIsToggled = true;
+
     private selected: Set<Item> = new Set();
-    private reserved: Set<Item> = new Set();
+    private reserved: ItemStacks = new ItemStacks();
 
     constructor(private appRouter: AppRouterService, private reservationService: ReservationService,
                 private uiMessage: UiMessageService,
@@ -28,7 +30,7 @@ export class NewReservationComponent implements OnInit {
                 name: '',
                 begin: null,
                 end: null,
-                itemStacks: []
+                itemStacks: new ItemStacks()
             };
         });
         this.itemService.items$().subscribe((items: Item[]) => {
@@ -58,28 +60,10 @@ export class NewReservationComponent implements OnInit {
             this.reserved.add(item);
         });
         this.selected.clear();
-        console.debug('#addSelectedToReservation(); new reserved:', Array.from(this.reserved));
     }
 
     private saveReservation(): void {
-        let stacks: ItemStack[] = [];
-        let found: boolean;
-
-        // FIXME refactor...
-        this.reserved.forEach((item: Item) => {
-            found = false;
-            for (let stack of stacks) {
-                found = stack.add(item);
-                if (found) {
-                    break;
-                }
-            }
-            if (!found) {
-                stacks.push(new ItemStack(item));
-            }
-        });
-
-        this.reservation.itemStacks = stacks;
+        this.reservation.itemStacks = this.reserved;
         this.reservation.begin = new Date(this.reservation.begin);
         this.reservation.end = new Date(this.reservation.end);
         console.log('#saveReservation();', this.reservation);
@@ -92,7 +76,6 @@ export class NewReservationComponent implements OnInit {
                 console.error('#saveReservation(); got error while saving', err);
                 this.uiMessage.emitError('Unbekannter Fehler - Reservierung nicht gespeichert');
             });
-
     }
 
 }

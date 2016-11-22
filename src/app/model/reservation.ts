@@ -1,5 +1,5 @@
 import { RegisteredUser } from './';
-import { ItemStack } from './item';
+import { ItemStacks } from './item';
 
 export interface Reservation {
     id?: string;
@@ -7,5 +7,5 @@ export interface Reservation {
     name: string;
     begin: Date;
     end: Date;
-    itemStacks: ItemStack[];
+    itemStacks: ItemStacks;
 }
