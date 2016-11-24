@@ -1,4 +1,5 @@
 @import "../../../scss/variables";
+@import "variables";
 
 .container-fluid {
   padding: 0;
@@ -7,5 +8,6 @@
 nav {
   background-color: $primary_700;
   border-radius: 0;
-  color: white;
+  color: $navbar-color;
+  height: 100%; // needed for usage in footer combined with `mobile-maximized` state
 }

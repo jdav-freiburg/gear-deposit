@@ -1,4 +1,5 @@
-<jgd-nav-bar>
+<jgd-nav-bar [class]="state">
+    <i *ngIf="descriptionIcon" class="descriptionIcon material-icon">{{descriptionIcon}}</i>
     <span>{{description}}</span>
     <button type="button" class="btn btn-accent btn-floating"
             (click)="submit()"

@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
-import { Item, ItemStack } from '../../model/item';
+import { Item, ItemStack, ItemStacks } from '../../model/item';
 import { ItemFilterPipe } from '../../pipes/item-filter.pipe';
 
 @Component({
@@ -16,6 +16,8 @@ export class ItemsComponent {
 
     private filter: string;
     private filteredStacks: ItemStack[];
+
+    private selectedLast: ItemStack;
 
     constructor(private itemFilter: ItemFilterPipe) {
     }
@@ -39,26 +41,14 @@ export class ItemsComponent {
 
     private updateFilteredItems() {
         console.debug('#updateFilteredItems();');
+        let itemStacks: ItemStacks = new ItemStacks();
         let filtered: Item[] = this.itemFilter.transform(Array.from(this._items), this.filter);
 
-        // FIXME refactor...
-        let stacks: ItemStack[] = [];
-        let found: boolean;
-
         filtered.forEach((item: Item) => {
-            found = false;
-            for (let stack of stacks) {
-                found = stack.add(item);
-                if (found) {
-                    break;
-                }
-            }
-            if (!found) {
-                stacks.push(new ItemStack(item));
-            }
+            itemStacks.add(item);
         });
 
-        stacks.sort((stack1: ItemStack, stack2: ItemStack)=> {
+        itemStacks.list.sort((stack1: ItemStack, stack2: ItemStack)=> {
             // FIXME remove not needed code, decide which ordering...
             // stack count + type ordering
             // if ((stack1.items.length > stack2.items.length) ||
@@ -83,28 +73,51 @@ export class ItemsComponent {
             return 0;
         });
 
-        this.filteredStacks = stacks;
+        this.filteredStacks = itemStacks.list;
     }
 
     private stackSelectedChanged(stack: ItemStack, count: number) {
         stack.selected = count;
-        if (stack.items[0].flagged) {
-            this.emitSelectedChange(stack, true);
+        if (stack.flagged) {
+            this.emitSelectedChange([stack], true);
         }
     }
 
-    private onClick(stack: ItemStack) {
-        this.emitSelectedChange(stack);
+    private onClick(stack: ItemStack, event: MouseEvent) {
+        let selected = !stack.flagged;
+        let selectedStacks: ItemStack[] = [stack];
+
+        if (this.selectedLast !== undefined && !stack.flagged && event.shiftKey) {
+            selected = true;
+            let indexOfLastSelected = this.filteredStacks.indexOf(this.selectedLast);
+            let indexOfClickedStack = this.filteredStacks.indexOf(stack);
+            if (indexOfLastSelected < indexOfClickedStack) {
+                selectedStacks = this.filteredStacks.slice(indexOfLastSelected, indexOfClickedStack + 1);
+            } else {
+                selectedStacks = this.filteredStacks.slice(indexOfClickedStack, indexOfLastSelected + 1);
+            }
+        }
+
+        if (this.selectedLast === undefined && !stack.flagged) {
+            this.selectedLast = stack;
+        } else if (!stack.flagged && !event.shiftKey) {
+            this.selectedLast = stack;
+        } else if (stack.flagged && !event.shiftKey) {
+            this.selectedLast = undefined;
+            selected = false;
+        }
+
+        this.emitSelectedChange(selectedStacks, selected);
     }
 
-    private emitSelectedChange(stack: ItemStack, ignoreFlagged?: boolean) {
-        let count = stack.selected > 1 ? stack.selected : 1;
-        let items: Item[] = Array.from(stack.items).slice(0, count);
+    private emitSelectedChange(stacks: ItemStack[], selected: boolean) {
+        let items: Item[] = [];
 
-        // when selected change was only triggered by increasing the item count, we must not deselect the stack before
-        // we emit the event... deselect or changing the selected state must only be triggered by click on the stack...
-        let selected: boolean = ignoreFlagged ? true : !items[0].flagged;
-        items[0].flagged = selected;
+        stacks.forEach((stack: ItemStack) => {
+            let count = stack.selected > 1 ? stack.selected : 1;
+            items = items.concat(Array.from(stack.items).slice(0, count));
+            stack.flagged = selected;
+        });
 
         console.debug(`will emit ${selected ? 'selected' : 'deselected'} change`, items);
         (selected ? this.selected : this.deselected).emit(new Set<Item>(items));

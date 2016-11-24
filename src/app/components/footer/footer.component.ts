@@ -7,7 +7,14 @@ import { Component, Input, EventEmitter, Output } from '@angular/core';
 })
 export class FooterComponent {
 
+    /**
+     * Can be used for adding a css class to the footer which will lead to different styling.
+     * Supported in css right now: `mobile-maximized`
+     */
+    @Input() state?: string;
+
     @Input() description: string;
+    @Input() descriptionIcon?: string;
 
     @Input() submitIcon: string = 'save';
     @Input() submitTitle: string = 'Änderungen speichern';

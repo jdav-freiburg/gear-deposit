@@ -1,0 +1,45 @@
+@import "../../../../scss/variables";
+@import "../../footer/variables";
+@import "../../nav-bar/variables";
+
+@media (max-width: map_get($grid-breakpoints, "md")) {
+  p {
+    display: none;
+  }
+
+  .mobile-minimized {
+    jgd-toggleable-reserved-item-list {
+      display: none;
+    }
+  }
+
+  .mobile-maximized {
+    jgd-toggleable-reserved-item-list {
+      color: $navbar-color;
+      display: block;
+      max-height: calc(#{$mobile-footer-height-maximized} - #{$footer-navbar-height});
+      overflow: auto;
+
+      position: fixed;
+      bottom: 0;
+      z-index: $zindex-navbar-fixed;
+    }
+  }
+}
+
+@media (min-width: map_get($grid-breakpoints, "md")) {
+  jgd-items.aside {
+    float: left;
+    width: 60%;
+  }
+
+  .reserved-items {
+    float: right;
+    // FIXME get 71px from items.component.scss
+    margin-top: calc(71px + 1em);
+    padding-left: 1em;
+    width: 40%
+  }
+}
+
+

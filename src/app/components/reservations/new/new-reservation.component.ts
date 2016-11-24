@@ -13,7 +13,7 @@ export class NewReservationComponent implements OnInit {
     private reservation: Reservation;
     private items: Set<Item>;
 
-    private reservedListIsToggled = true;
+    private mobileToggled = true;
 
     private selected: Set<Item> = new Set();
     private reserved: ItemStacks = new ItemStacks();
@@ -55,7 +55,6 @@ export class NewReservationComponent implements OnInit {
     private addSelectedToReservation(): void {
         console.debug('#addSelectedToReservation();');
         this.selected.forEach((item: Item) => {
-            item.flagged = false;
             this.items.delete(item);
             this.reserved.add(item);
         });
@@ -76,6 +75,10 @@ export class NewReservationComponent implements OnInit {
                 console.error('#saveReservation(); got error while saving', err);
                 this.uiMessage.emitError('Unbekannter Fehler - Reservierung nicht gespeichert');
             });
+    }
+
+    private toggle(): void {
+        this.mobileToggled = !this.mobileToggled;
     }
 
 }

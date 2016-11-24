@@ -1,13 +1,6 @@
 export class ItemMetadata {
-    constructor(public type: string, public description: string, public shape: string, public labels: string[]) {
-    }
-}
-
-export class Item extends ItemMetadata {
-
-    constructor(public id: string, type: string, description: string, shape: string, labels: string[],
+    constructor(public type: string, public description: string, public shape: string, public labels: string[],
                 public flagged?: boolean) {
-        super(type, description, shape, labels);
     }
 
     isOk(): boolean {
@@ -15,12 +8,21 @@ export class Item extends ItemMetadata {
     }
 }
 
+export class Item extends ItemMetadata {
+
+    constructor(public id: string, type: string, description: string, shape: string, labels: string[],
+                flagged?: boolean) {
+        super(type, description, shape, labels, flagged);
+    }
+
+}
+
 export class ItemStack extends ItemMetadata {
     items: Set<Item>;
     selected?: number;
 
     constructor(item: Item) {
-        super(item.type, item.description, item.shape, item.labels);
+        super(item.type, item.description, item.shape, item.labels, item.flagged);
         this.items = new Set([item]);
     }
 

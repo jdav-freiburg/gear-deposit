@@ -1,7 +1,5 @@
-<i *ngIf="toggled" class="material-icon" (click)="toggleState()">keyboard_arrow_up</i>
-<i *ngIf="!toggled" class="material-icon" (click)="toggleState()">keyboard_arrow_down</i>
-<ul class="list-group">
-    <li *ngFor="let itemStack of reservedItems">
+<ul class="list-unstyled">
+    <li *ngFor="let itemStack of itemStacks.list">
         <jgd-item-stack [itemStack]="itemStack"></jgd-item-stack>
     </li>
 </ul>

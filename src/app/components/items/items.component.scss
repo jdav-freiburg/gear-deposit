@@ -1,7 +1,25 @@
 @import "../../../scss/variables";
 
+.form-group {
+  // FIXME calc from label + input line height
+  height: 71px;
+
+  label {
+    display: block;
+  }
+  i {
+    float: left;
+  }
+  input {
+    float: right;
+    // FIXME use variables for 36px (material icon font-size)
+    width: calc(100% - 36px);
+  }
+}
+
 ul {
   margin-top: 1em;
+  user-select: none;
 
   li {
     border-bottom: 1px solid $grey_200;

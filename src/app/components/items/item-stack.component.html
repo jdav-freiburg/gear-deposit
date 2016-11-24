@@ -1,18 +1,18 @@
-<div [class]="itemStack.items[0].shape | lowercase">
-    <i *ngIf="!itemStack.items[0].isOk()" class="material-icon"
-       [title]="itemStack.items[0].shape">
+<div [class]="itemStack.shape | lowercase">
+    <i *ngIf="!itemStack.isOk()" class="material-icon"
+       [title]="itemStack.shape">
         priority_high
     </i>
 </div>
-<span class="tag tag-pill float-xs-right {{itemStack.items.length === 1 ? 'one' : ''}}"
+<span class="tag tag-pill float-xs-right {{itemStack.items.size === 1 ? 'one' : ''}}"
       (click)="tagClicked.emit()">
-    {{itemStack.items.length}}
+    {{itemStack.items.size}}
 </span>
 <span>
-    {{itemStack.items[0].type}}
+    {{itemStack.type}}
 </span>
 <span>
     <em>
-        ({{itemStack.items[0].description}})
+        ({{itemStack.description}})
     </em>
 </span>

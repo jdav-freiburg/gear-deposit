@@ -1,20 +1,18 @@
-<form class="form-inline">
-    <div class="form-group">
-        <i class="material-icon">search</i>
-        <label class="sr-only" for="filter">Filtern</label>
-        <input #filter (input)="filterChanged(filter.value)" class="form-control" type="search"
-               id="filter" name="filter" placeholder="Suche">
-    </div>
-</form>
-<ul class="list-group">
+<div class="form-group">
+    <label for="filter">Gegenstände auswählen</label>
+    <i class="material-icon md-36">search</i>
+    <input #filter (input)="filterChanged(filter.value)" class="form-control" type="search"
+           id="filter" name="filter" placeholder="Filtern">
+</div>
+<ul class="list-unstyled">
     <li *ngFor="let stack of filteredStacks">
         <input #i class="form-control" type="number" name="itemCount" placeholder="1" value="1" min="1"
-               [max]="stack.items.length"
-               [disabled]="stack.items.length === 1"
+               [max]="stack.items.size"
+               [disabled]="stack.items.size === 1"
                (input)="stackSelectedChanged(stack, $event.target.value)">
-        <jgd-item-stack (click)="onClick(stack)"
-                        (tagClicked)="i.value = stack.items.length"
+        <jgd-item-stack (click)="onClick(stack, $event)"
+                        (tagClicked)="i.value = stack.items.size"
                         [itemStack]="stack"
-                        [class.flagged]="stack.items[0].flagged"></jgd-item-stack>
+                        [class.flagged]="stack.flagged"></jgd-item-stack>
     </li>
 </ul>
