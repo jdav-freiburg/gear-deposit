@@ -2,7 +2,7 @@
     <label for="filter">Gegenstände auswählen</label>
     <i class="material-icon md-36">search</i>
     <input #filter (input)="filterChanged(filter.value)" class="form-control" type="search"
-           id="filter" name="filter" placeholder="Filtern">
+           id="filter" name="filter" placeholder="Auswahl">
 </div>
 <ul class="list-unstyled">
     <li *ngFor="let stack of filteredStacks">

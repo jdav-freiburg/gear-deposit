@@ -1,8 +1,57 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Item, Reservation, RegisteredUser } from '../../../model';
 import { AppRouterService, ItemService, ReservationService, UiMessageService, UserService } from '../../../services';
 import { ROUTE } from '../../../app.routes';
 import { ItemStacks } from '../../../model/item';
+import { FooterComponent } from '../../footer/footer.component';
+import { UiMessage, UiMessageType } from '../../../model/ui-message';
+
+class ReservationValidation {
+
+    constructor(private reservation: Reservation) {
+    }
+
+    get valid(): boolean {
+        return this.reservation.name &&
+            this.reservation.begin && this.reservation.end &&
+            this.reservation.itemStacks.items.size > 0;
+    }
+
+    get messages(): any {
+        return {
+            invalidName: <UiMessage>{
+                message: '"Beschreibung" der Ausfahrt fehlt.',
+                type: UiMessageType.WARNING
+            },
+            invalidDate: <UiMessage>{
+                message: '"Beginn" und "Ende" der Ausfahrt fehlt.',
+                type: UiMessageType.WARNING
+            }
+        };
+    }
+}
+
+class FooterState {
+
+    constructor(private selected: Set<Item>, private reserved: ItemStacks) {
+    }
+
+    get submitIcon(): string {
+        return 'add';
+    }
+
+    get submitTitle(): string {
+        return (this.selected.size > 1 ? 'Gegenstände ' : 'Gegenstand ') + 'hinzufügen';
+    }
+
+    get description(): string {
+        if (this.reserved.items.size > 0) {
+            return this.reserved.items.size +
+                (this.reserved.items.size > 1 ? ' Gegenstände ' : ' Gegenstand ') + 'in Reservierung';
+        }
+    }
+
+}
 
 @Component({
     selector: 'jgd-new-reservation',
@@ -10,17 +59,22 @@ import { ItemStacks } from '../../../model/item';
     styleUrls: ['./new-reservation.component.scss']
 })
 export class NewReservationComponent implements OnInit {
+
+    @ViewChild('footer') private footer: FooterComponent;
+
     private reservation: Reservation;
     private items: Set<Item>;
-
-    private mobileToggled = true;
 
     private selected: Set<Item> = new Set();
     private reserved: ItemStacks = new ItemStacks();
 
+    private reservationValidation: ReservationValidation;
+    private footerState: FooterState;
+
     constructor(private appRouter: AppRouterService, private reservationService: ReservationService,
                 private uiMessage: UiMessageService,
                 private userService: UserService, private itemService: ItemService) {
+        this.footerState = new FooterState(this.selected, this.reserved);
     }
 
     ngOnInit() {
@@ -32,6 +86,7 @@ export class NewReservationComponent implements OnInit {
                 end: null,
                 itemStacks: new ItemStacks()
             };
+            this.reservationValidation = new ReservationValidation(this.reservation);
         });
         this.itemService.items$().subscribe((items: Item[]) => {
             this.items = new Set(items);
@@ -59,6 +114,7 @@ export class NewReservationComponent implements OnInit {
             this.reserved.add(item);
         });
         this.selected.clear();
+        this.footer.open();
     }
 
     private saveReservation(): void {
@@ -75,10 +131,6 @@ export class NewReservationComponent implements OnInit {
                 console.error('#saveReservation(); got error while saving', err);
                 this.uiMessage.emitError('Unbekannter Fehler - Reservierung nicht gespeichert');
             });
-    }
-
-    private toggle(): void {
-        this.mobileToggled = !this.mobileToggled;
     }
 
 }

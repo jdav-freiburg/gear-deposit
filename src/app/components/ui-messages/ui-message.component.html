@@ -1,5 +1,9 @@
-<div (click)="onClick()" [class]="!isError ? 'info': 'error'">
-    <i *ngIf="!isError" class="material-icon">info_outline</i>
-    <i *ngIf="isError" class="material-icon">warning</i>
+<div (click)="onClick()"
+     [class.popup]="asPopup"
+     [class.info]="isInfo"
+     [class.error]="isError"
+     [class.warning]="isWarning">
+    <i *ngIf="isInfo" class="material-icon">info_outline</i>
+    <i *ngIf="isError || isWarning" class="material-icon">warning</i>
     {{message.message}}
 </div>

@@ -14,19 +14,21 @@ jgd-nav-bar {
     position: relative;
   }
 
-  @media (max-width: map_get($grid-breakpoints, "md")) {
-    .descriptionIcon {
-      float: left;
-    }
-
-    &.mobile-maximized {
-      height: $mobile-footer-height-maximized;
-    }
+  .toggle {
+    cursor: pointer;
+    margin-bottom: 1em;
   }
 
-  @media (min-width: map_get($grid-breakpoints, "md")) {
-    .descriptionIcon {
-      display: none;
+  .toggleIcon {
+    float: left;
+    transition: transform 100ms ease-in-out;
+  }
+
+  &.open {
+    height: $footer-height-maximized;
+
+    .toggleIcon {
+      transform: rotate(180deg);
     }
   }
 }

@@ -18,6 +18,9 @@
     &:active {
       background-color: $primary_900;
     }
+    &[disabled] {
+      background-color: $primary_700;
+    }
   }
 
   &.btn-accent {
@@ -29,6 +32,9 @@
     &:active {
       background-color: $accent_900;
     }
+    &[disabled] {
+      background-color: $accent_700;
+    }
   }
 
   &.btn-floating {
@@ -39,6 +45,16 @@
     width: 60px;
     &:hover {
       @include material-shadow(5);
+    }
+    &[disabled] {
+      @include material-shadow(3);
+      background-color: $grey_200;
+      color: $grey_400;
+      opacity: 1;
+      transition: none;
+      .material-icon {
+        transition: none;
+      }
     }
   }
 
@@ -52,7 +68,6 @@
       background-color: $accent_200;
     }
   }
-
 }
 
 .card {

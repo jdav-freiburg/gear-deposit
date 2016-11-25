@@ -18,41 +18,33 @@
            (deselected)="removeFromSelected($event)">
 </jgd-items>
 
+<div *ngIf="selected.size > 0 || reserved.items.size > 0">
+    <jgd-footer #footer
+                [enableToggle]="reserved.items.size > 0"
+                [enableSubmit]="selected.size > 0"
+                [submitIcon]="footerState.submitIcon"
+                [submitTitle]="footerState.submitTitle"
+                (submitted)="addSelectedToReservation(); hackedItemsComponent.items = items;">
+        <div *ngIf="reserved.items.size > 0" class="reserved-items">
 
-<div *ngIf="selected.size > 0 || reserved.items.size > 0"
-     [class]="mobileToggled ? 'mobile-minimized': 'mobile-maximized'">
+            <jgd-ui-message *ngIf="!reservation.name"
+                            [message]="reservationValidation.messages.invalidName"></jgd-ui-message>
+            <p *ngIf="reservation.name">Ausfahrt: {{reservation.name}}</p>
 
-    <div class="reserved-items">
-        <p>Bereit hinzugefügt:</p>
-        <!-- FIXME refactor to simple-item-list -->
-        <jgd-toggleable-reserved-item-list [itemStacks]="reserved"></jgd-toggleable-reserved-item-list>
-    </div>
+            <jgd-ui-message *ngIf="!reservation.begin && !reservation.end"
+                            [message]="reservationValidation.messages.invalidDate"></jgd-ui-message>
+            <p *ngIf="reservation.begin && reservation.end">
+                Zeitraum: {{reservation.begin | date:"dd.MM.yy"}} - {{reservation.end | date:"dd.MM.yy"}}
+            </p>
 
-    <jgd-footer *ngIf="selected.size > 0"
-                (click)="toggle()"
-                [state]="mobileToggled ? 'mobile-minimized': 'mobile-maximized'"
-                [submitIcon]="'add'"
-                [submitTitle]="(selected.size > 1 ? 'Gegenstände ' : 'Gegenstand ') + 'hinzufügen'"
-                [description]="selected.size + (selected.size > 1 ? ' Gegenstände ' : ' Gegenstand ') + 'ausgewählt'"
-                [descriptionIcon]="mobileToggled ? 'keyboard_arrow_up' : 'keyboard_arrow_down'"
-                (submitted)="addSelectedToReservation(); hackedItemsComponent.items = items;"></jgd-footer>
+            <p>{{footerState.description}}:</p>
+            <jgd-simple-item-list [itemStacks]="reserved"></jgd-simple-item-list>
 
-    <jgd-footer *ngIf="selected.size === 0 && reserved.items.size > 0" class="hidden-sm-up"
-                (click)="toggle()"
-                [state]="mobileToggled ? 'mobile-minimized': 'mobile-maximized'"
-                [submitIcon]="'save'"
-                [submitTitle]="'Reservierung speichern'"
-                [description]="reserved.items.size + (reserved.items.size > 1 ? ' Gegenstände ' : ' Gegenstand ') + 'in Reservierung'"
-                [descriptionIcon]="mobileToggled ? 'keyboard_arrow_up' : 'keyboard_arrow_down'"
-                (submitted)="saveReservation()">
-    </jgd-footer>
-    <jgd-footer *ngIf="selected.size === 0 && reserved.items.size > 0" class="hidden-xs-down"
-                (click)="toggle()"
-                [state]="mobileToggled ? 'mobile-minimized': 'mobile-maximized'"
-                [submitIcon]="'save'"
-                [submitTitle]="'Reservierung speichern'"
-                [description]="'Du hast bereits ' + reserved.items.size + (reserved.items.size > 1 ? ' Gegenstände ' : ' Gegenstand ') + 'hinzugefügt.'"
-                [descriptionIcon]="mobileToggled ? 'keyboard_arrow_up' : 'keyboard_arrow_down'"
-                (submitted)="saveReservation()">
+            <button type="submit" class="btn btn-accent"
+                    (click)="saveReservation()"
+                    [disabled]="!reservation.name || !reservation.begin || !reservation.end">
+                Reservierung speichern
+            </button>
+        </div>
     </jgd-footer>
 </div>

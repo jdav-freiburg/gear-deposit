@@ -1,12 +1,20 @@
 @import "../../../scss/variables";
 
 div {
-  @include material-shadow(4);
   background-color: $blue_500;
   border-radius: $btn-border-radius;
   color: white;
   cursor: pointer;
+  margin-bottom: 1em;
   padding: ($spacer / 4) $spacer;
+
+  &.popup {
+    @include material-shadow(4);
+  }
+}
+
+.warning {
+  background-color: $accent_400;
 }
 
 .error {

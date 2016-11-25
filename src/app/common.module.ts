@@ -1,10 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule as AngularCommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ItemStackComponent, ItemsComponent } from './components/items';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { ItemService } from './services';
+import { LoadingComponent } from './components/loading/loading.component';
+import { UiMessageComponent } from './components/ui-messages';
+import { ItemStackComponent, ItemsComponent, SimpleItemListComponent } from './components/items';
+import { DropdownDirective } from './attribute-directives';
+import { GlobalClickDirective } from './directives';
+import { ItemFilterPipe } from './pipes';
+import { ItemService, LoadingService, UiMessageService } from './services';
 
 @NgModule({
     imports: [
@@ -14,17 +19,32 @@ import { ItemService } from './services';
     declarations: [
         NavBarComponent,
         FooterComponent,
+        SimpleItemListComponent,
         ItemStackComponent,
-        ItemsComponent
+        ItemsComponent,
+        LoadingComponent,
+        ItemFilterPipe,
+        UiMessageComponent,
+        DropdownDirective,
+        GlobalClickDirective
     ],
     providers: [
-        ItemService
+        ItemService,
+        ItemFilterPipe,
+        LoadingService,
+        UiMessageService
     ],
     exports: [
         NavBarComponent,
         FooterComponent,
+        SimpleItemListComponent,
         ItemStackComponent,
-        ItemsComponent
+        ItemsComponent,
+        LoadingComponent,
+        ItemFilterPipe,
+        UiMessageComponent,
+        DropdownDirective,
+        GlobalClickDirective
     ]
 })
 export class CommonModule {

@@ -4,7 +4,11 @@
         priority_high
     </i>
 </div>
-<span class="tag tag-pill float-xs-right {{itemStack.items.size === 1 ? 'one' : ''}}"
+<span *ngIf="countStyle === 0">
+    {{itemStack.items.size}}x
+</span>
+<span *ngIf="countStyle === 1" class="tag tag-pill float-xs-right"
+      [class.one]="itemStack.items.size === 1"
       (click)="tagClicked.emit()">
     {{itemStack.items.size}}
 </span>

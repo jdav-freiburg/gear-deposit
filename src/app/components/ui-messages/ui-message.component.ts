@@ -1,4 +1,4 @@
-import { Component, Input, EventEmitter, Output, OnChanges } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { UiMessage, UiMessageType } from '../../model';
 
 @Component({
@@ -6,17 +6,23 @@ import { UiMessage, UiMessageType } from '../../model';
     templateUrl: './ui-message.component.html',
     styleUrls: ['./ui-message.component.scss']
 })
-export class UiMessageComponent implements OnChanges {
+export class UiMessageComponent {
 
+    @Input() private asPopup: boolean = false;
     @Input() private message: UiMessage;
+
     @Output() private click = new EventEmitter<any>();
 
-    private isError: boolean = false;
+    get isInfo(): boolean {
+        return this.message !== undefined && this.message.type === UiMessageType.INFO;
+    }
 
-    ngOnChanges() {
-        if (this.message !== undefined && this.message !== null) {
-            this.isError = this.message.type === UiMessageType.ERROR;
-        }
+    get isWarning(): boolean {
+        return this.message !== undefined && this.message.type === UiMessageType.WARNING;
+    }
+
+    get isError(): boolean {
+        return this.message !== undefined && this.message.type === UiMessageType.ERROR;
     }
 
     private onClick(): void {

@@ -12,19 +12,8 @@ import { EditItemsComponent } from './components/admin';
 import { LoginComponent, RegisterComponent } from './components/user';
 import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
-import { LoadingComponent } from './components/loading/loading.component';
-import { UiMessageComponent } from './components/ui-messages';
-import { ItemFilterPipe } from './pipes';
-import {
-    AppRouterService,
-    AuthService,
-    LoadingService,
-    UserService,
-    UserAuthStatusService,
-    UiMessageService
-} from './services';
+import { AppRouterService, AuthService, UserService, UserAuthStatusService } from './services';
 import { AdminUserGuard, AlreadyRegisteredGuard, AuthGuard, StandardUserGuard, LoginGuard } from './services/guards';
-import { DropdownDirective } from './attribute-directives/dropdown.directive';
 import { ReservationModule } from './components/reservations/reservation.module';
 
 export const SHARED_DECLARATIONS = [
@@ -36,10 +25,7 @@ export const SHARED_DECLARATIONS = [
     RegisterComponent,
     LoginComponent,
     NoAccessComponent,
-    LoadingComponent,
-    ItemFilterPipe,
-    UiMessageComponent,
-    DropdownDirective,
+
 ];
 
 export const SHARED_GUARDS = [
@@ -53,11 +39,8 @@ export const SHARED_GUARDS = [
 export const SHARED_SERVICES = [
     AppRouterService,
     AuthService,
-    LoadingService,
-    UiMessageService,
     UserService,
-    UserAuthStatusService,
-    ItemFilterPipe
+    UserAuthStatusService
 ];
 
 @NgModule({

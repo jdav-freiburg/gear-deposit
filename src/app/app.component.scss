@@ -6,7 +6,7 @@ jgd-header {
   margin-bottom: 1rem;
 }
 
-jgd-ui-message {
+jgd-ui-message .popup {
   position: absolute;
   right: $spacer;
   z-index: $zindex-popover;

@@ -7,22 +7,34 @@ import { Component, Input, EventEmitter, Output } from '@angular/core';
 })
 export class FooterComponent {
 
-    /**
-     * Can be used for adding a css class to the footer which will lead to different styling.
-     * Supported in css right now: `mobile-maximized`
-     */
-    @Input() state?: string;
+    @Input() enableToggle?: boolean;
+    @Input() enableSubmit: boolean = true;
 
     @Input() description: string;
-    @Input() descriptionIcon?: string;
 
     @Input() submitIcon: string = 'save';
     @Input() submitTitle: string = 'Änderungen speichern';
 
     @Output() submitted: EventEmitter<any> = new EventEmitter<any>();
 
+    private toggled: boolean = true;
+
     private submit(): void {
         this.submitted.emit();
+    }
+
+    private toggle(): void {
+        this.toggled = !this.toggled;
+    }
+
+    private onGlobalClick(event: MouseEvent): void {
+        if (!this.toggled) {
+            console.log(event);
+        }
+    }
+
+    public open(): void {
+        this.toggled = false;
     }
 
 }

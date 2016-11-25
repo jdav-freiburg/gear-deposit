@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ItemsComponent } from './items.component';
 import { ItemFilterPipe } from '../../pipes';
 import { createMockItem } from '../../../testing';
-import { ItemStackComponent } from './item-stack.component';
+import { ItemStackComponent } from './item-stack/item-stack.component';
 
 describe('ItemsComponent', () => {
     let component: ItemsComponent;

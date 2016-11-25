@@ -1,5 +1,5 @@
 export enum UiMessageType {
-    INFO, ERROR
+    INFO, WARNING, ERROR
 }
 
 export interface UiMessage {

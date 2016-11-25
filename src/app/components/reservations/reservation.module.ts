@@ -6,7 +6,6 @@ import { ReservationService } from '../../services';
 import { ReservationsComponent } from './reservations.component';
 import { NewReservationComponent } from './new/new-reservation.component';
 import { EditReservationComponent } from './edit/edit-reservation.component';
-import { ToggleableReservedItemListComponent } from './toggleable-reserved-item-list/toggleable-reserved-item-list.component';
 
 @NgModule({
     imports: [
@@ -17,8 +16,7 @@ import { ToggleableReservedItemListComponent } from './toggleable-reserved-item-
     declarations: [
         ReservationsComponent,
         NewReservationComponent,
-        EditReservationComponent,
-        ToggleableReservedItemListComponent
+        EditReservationComponent
     ],
     providers: [
         ReservationService
