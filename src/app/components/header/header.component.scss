@@ -8,8 +8,17 @@ header {
   width: 100%;
   z-index: $zindex-navbar-fixed;
 
+  img {
+    position: absolute;
+    margin-top: -8px;
+  }
+
   a {
     color: white;
+  }
+
+  .navbar-brand {
+    margin-left: calc(40px + .5em);
   }
 
   .nav, .nav-item {
