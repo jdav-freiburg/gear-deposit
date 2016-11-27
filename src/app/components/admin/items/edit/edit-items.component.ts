@@ -16,12 +16,24 @@ export class EditItemsComponent implements OnInit {
     private changedItems: Map<string, Item> = new Map<string, Item>();
     private changed: number = 0;
 
-    constructor(private itemService: ItemService, private uiMessageService: UiMessageService) {
+    constructor(private itemService: ItemService, private uiMessage: UiMessageService) {
     }
 
     ngOnInit(): void {
         this.itemService.items$().subscribe((items: Item[]) => {
-            this.items = items;
+            this.items = items.sort((item1: Item, item2: Item) => {
+                // type + description ordering
+                if ((item1.type < item2.type) ||
+                    (item1.type === item2.type && item1.description < item2.description)) {
+                    return -1;
+                }
+                if ((item1.type > item2.type) ||
+                    (item1.type === item2.type && item1.description > item2.description)) {
+                    return 1;
+                }
+
+                return 0;
+            });
         });
     }
 
@@ -93,17 +105,33 @@ export class EditItemsComponent implements OnInit {
     }
 
     private saveChanged() {
-        console.trace('#saveChanged()');
+        console.time('#saveChanged');
+        let error: boolean = false;
+        let changedCount = this.changedItems.size;
+        let responseCount: number = 0;
         this.changedItems.forEach((item: Item, id: string, map: Map<string, Item>) => {
-            this.itemService.update(id, item);
+            this.itemService.update(id, item)
+                .then(() => {
+                    responseCount++;
+                    if (responseCount === changedCount) {
+                        console.info('#saveChanged(); done');
+                        console.timeEnd('#saveChanged');
+                    }
+                })
+                .catch((err: any) => {
+                    console.error('#saveChanged(); got error while saving', err);
+                    this.uiMessage.emitError(`Unbekannter Fehler - '${item.type}' nicht gespeichert`);
+                    responseCount++;
+                });
         });
         this.showSavedMessage();
         this.changedItems.clear();
         this.changed = 0;
+
     }
 
     private showSavedMessage() {
-        this.uiMessageService.emitInfo('Änderungen gespeichert');
+        this.uiMessage.emitInfo('Änderungen gespeichert');
     }
 
 }
