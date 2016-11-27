@@ -15,12 +15,21 @@ header {
   .nav, .nav-item {
     cursor: pointer;
   }
-  
+
   i:hover {
     color: $accent_700;
   }
 
-  .dropdown-menu a {
-    color: black;
+  .dropdown-menu {
+    @include material-shadow(3);
+    border: none;
+    left: auto;
+    margin: 0;
+    margin-left: -130px;
+    padding: .5em;
+
+    a {
+      color: black;
+    }
   }
 }
