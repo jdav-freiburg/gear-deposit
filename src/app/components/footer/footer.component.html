@@ -1,4 +1,6 @@
-<jgd-nav-bar #footer [class.open]="!toggled" (jgdGlobalClick)="onGlobalClick($event)">
+<jgd-nav-bar #footer (jgdGlobalClick)="onGlobalClick($event)"
+             [class.open]="!toggled"
+             [class.empty]="!enableToggle && !description">
     <button type="button" class="btn btn-accent btn-floating" (click)="submit()"
             [title]="submitTitle" [disabled]="!enableSubmit">
         <i class="material-icon">{{submitIcon}}</i>
@@ -7,6 +9,6 @@
         <i class="toggleIcon material-icon">keyboard_arrow_up</i>
         <span>{{toggled ? 'Öffnen': 'Schließen'}}</span>
     </div>
-    <span *ngIf="description"></span>
+    <div *ngIf="description" class="description">{{description}}</div>
     <ng-content *ngIf="!toggled"></ng-content>
 </jgd-nav-bar>

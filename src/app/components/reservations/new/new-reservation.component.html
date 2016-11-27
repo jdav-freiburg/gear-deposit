@@ -29,7 +29,7 @@
                 [submitIcon]="footerState.submitIcon"
                 [submitTitle]="footerState.submitTitle"
                 (submitted)="addSelectedToReservation(); itemsComponent.items = availableItems;">
-        <div *ngIf="reserved.items.size > 0" class="reserved-items">
+        <div *ngIf="reserved.items.size > 0" class="card reserved-items">
 
             <jgd-ui-message *ngIf="!reservation.name"
                             [message]="reservationValidation.messages.invalidName"></jgd-ui-message>

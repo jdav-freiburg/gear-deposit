@@ -9,14 +9,12 @@ jgd-nav-bar {
   width: 100%;
   transition: height 100ms ease-in;
 
-  .btn-floating {
-    margin-top: -$footer-navbar-height;
-    position: relative;
+  .toggle, .description {
+    margin-bottom: 1em;
   }
 
   .toggle {
     cursor: pointer;
-    margin-bottom: 1em;
   }
 
   .toggleIcon {
@@ -24,11 +22,19 @@ jgd-nav-bar {
     transition: transform 100ms ease-in-out;
   }
 
+  &.empty {
+    height: 0;
+  }
+
   &.open {
-    height: $footer-height-maximized;
+    height: calc(100% - 54px);
 
     .toggleIcon {
       transform: rotate(180deg);
+    }
+
+    .btn-floating {
+      bottom: -120%;
     }
   }
 }

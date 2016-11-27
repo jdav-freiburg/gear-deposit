@@ -10,4 +10,8 @@ nav {
   border-radius: 0;
   color: $navbar-color;
   height: 100%; // needed for usage in footer combined with `mobile-maximized` state
+
+  &.dark {
+    background-color: $primary_900;
+  }
 }

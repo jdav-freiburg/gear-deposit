@@ -40,9 +40,12 @@
   &.btn-floating {
     @include material-shadow(3);
     border-radius: 100%;
-    float: right;
     height: 60px;
     width: 60px;
+    position: absolute;
+    bottom: 20px;
+    right: .5em;
+    transition: all 250ms ease-in;
     &:hover {
       @include material-shadow(5);
     }
@@ -51,7 +54,7 @@
       background-color: $grey_200;
       color: $grey_400;
       opacity: 1;
-      transition: none;
+      transition: bottom 250ms ease-in;
       .material-icon {
         transition: none;
       }
@@ -72,6 +75,7 @@
 
 .card {
   @include material-shadow(1);
+  color: black;
   border-radius: 2px;
   border: none;
   padding: 1em;
