@@ -9,14 +9,16 @@ div {
   background-color: $primary_400;
   transition: background-color 50ms ease-in-out;
 
-  &:hover {
+  &.clickable:hover {
     background-color: $primary_700;
   }
 
   &.one {
     opacity: .6;
-    &:hover {
-      background-color: $primary_400;
-    }
+  }
+
+  &.blocked {
+    background-color: $red_400;
+    margin-right: .5em;
   }
 }

@@ -45,12 +45,17 @@ jgd-item-stack {
   transition: background-color 50ms ease-in-out;
   width: 100%;
 
-  &:hover {
+  &:hover:not(.disabled) {
     background-color: $accent_100;
   }
 
   &.flagged {
     background-color: $accent_300;
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+    opacity: .6;
   }
 }
 

@@ -6,13 +6,16 @@
 </div>
 <ul class="list-unstyled">
     <li *ngFor="let stack of filteredStacks">
-        <input #i class="form-control" type="number" name="itemCount" placeholder="1" value="1" min="1"
-               [max]="stack.items.size"
-               [disabled]="stack.items.size === 1"
+        <input #i class="form-control" type="number" name="itemCount" min="1"
+               [placeholder]="stack.blocked ? 0 : 1"
+               [value]="stack.blocked ? 0 : 1"
+               [max]="stack.availableItemCount"
+               [disabled]="stack.availableItemCount <= 1"
                (input)="stackSelectedChanged(stack, $event.target.value)">
-        <jgd-item-stack (click)="onClick(stack, $event)"
-                        (tagClicked)="i.value = stack.items.size"
+        <jgd-item-stack (click)="stack.blocked ? null : onClick(stack, $event)"
+                        (tagClicked)="i.value = stack.availableItemCount"
                         [itemStack]="stack"
-                        [class.flagged]="stack.flagged"></jgd-item-stack>
+                        [class.flagged]="stack.flagged"
+                        [class.disabled]="stack.blocked"></jgd-item-stack>
     </li>
 </ul>

@@ -1,4 +1,5 @@
 export class ItemMetadata {
+
     constructor(public type: string, public description: string, public shape: string, public labels: string[],
                 public flagged?: boolean) {
     }
@@ -10,6 +11,8 @@ export class ItemMetadata {
 
 export class Item extends ItemMetadata {
 
+    blocked?: boolean;
+
     constructor(public id: string, type: string, description: string, shape: string, labels: string[],
                 flagged?: boolean) {
         super(type, description, shape, labels, flagged);
@@ -18,12 +21,15 @@ export class Item extends ItemMetadata {
 }
 
 export class ItemStack extends ItemMetadata {
-    items: Set<Item>;
-    selected?: number;
+
+    blockedCount: number = 0;
+
+    items: Set<Item> = new Set<Item>();
+    selectedCount?: number;
 
     constructor(item: Item) {
         super(item.type, item.description, item.shape, item.labels, item.flagged);
-        this.items = new Set([item]);
+        this.items.add(item);
     }
 
     add(item: Item): boolean {
@@ -34,11 +40,19 @@ export class ItemStack extends ItemMetadata {
         return false;
     }
 
-    private canJoin(item: Item): boolean {
+    canJoin(item: Item): boolean {
         return this.type === item.type &&
             this.description === item.description &&
             this.shape === item.shape;
         //FIXME labels missing...
+    }
+
+    get blocked(): boolean {
+        return this.blockedCount === this.items.size;
+    }
+
+    get availableItemCount(): number {
+        return this.items.size - this.blockedCount;
     }
 
 }

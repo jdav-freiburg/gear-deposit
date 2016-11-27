@@ -8,9 +8,13 @@
     {{itemStack.items.size}}x
 </span>
 <span *ngIf="countStyle === 1" class="tag tag-pill float-xs-right"
-      [class.one]="itemStack.items.size === 1"
+      [class.one]="itemStack.availableItemCount === 1"
+      [class.clickable]="itemStack.availableItemCount > 1"
       (click)="tagClicked.emit()">
-    {{itemStack.items.size}}
+    {{itemStack.availableItemCount}}
+</span>
+<span *ngIf="countStyle === 1 && itemStack.blockedCount > 0" class="tag tag-pill float-xs-right blocked">
+    {{itemStack.blockedCount}}
 </span>
 <span>
     {{itemStack.type}}
