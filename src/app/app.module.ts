@@ -13,7 +13,13 @@ import { LoginComponent, RegisterComponent } from './components/user';
 import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
 import { AppRouterService, AuthService, UserService, UserAuthStatusService } from './services';
-import { AdminUserGuard, AlreadyRegisteredGuard, AuthGuard, StandardUserGuard, LoginGuard } from './services/guards';
+import {
+    AdminUserGuard,
+    IsAlreadyRegisteredGuard,
+    IsAuthorizedGuard,
+    StandardUserGuard,
+    IsAlreadyAuthorizedGuard
+} from './guards';
 import { ReservationModule } from './components/reservations/reservation.module';
 
 export const SHARED_DECLARATIONS = [
@@ -29,10 +35,10 @@ export const SHARED_DECLARATIONS = [
 ];
 
 export const SHARED_GUARDS = [
-    AuthGuard,
-    LoginGuard,
+    IsAuthorizedGuard,
+    IsAlreadyAuthorizedGuard,
     StandardUserGuard,
-    AlreadyRegisteredGuard,
+    IsAlreadyRegisteredGuard,
     AdminUserGuard
 ];
 

@@ -4,7 +4,13 @@ import { EditItemsComponent } from './components/admin';
 import { LoginComponent, RegisterComponent } from './components/user';
 import { NoAccessComponent, NoContentComponent } from './components/error';
 import { ReservationsComponent, EditReservationComponent, NewReservationComponent } from './components/reservations';
-import { AdminUserGuard, AlreadyRegisteredGuard, AuthGuard, LoginGuard, StandardUserGuard } from './services/guards';
+import {
+    AdminUserGuard,
+    IsAlreadyRegisteredGuard,
+    IsAuthorizedGuard,
+    IsAlreadyAuthorizedGuard,
+    StandardUserGuard
+} from './guards';
 
 export interface AppRoute extends Route {
 }
@@ -44,7 +50,7 @@ export const ROUTES: Routes = [
         path: ROUTE.HOME.path,
         component: HomeComponent,
         canActivate: [
-            AuthGuard,
+            IsAuthorizedGuard,
             StandardUserGuard
         ]
     },
@@ -53,7 +59,7 @@ export const ROUTES: Routes = [
         path: ROUTE.RESERVATIONS.path,
         component: ReservationsComponent,
         canActivate: [
-            AuthGuard,
+            IsAuthorizedGuard,
             StandardUserGuard
         ]
     },
@@ -62,7 +68,7 @@ export const ROUTES: Routes = [
         path: ROUTE.RESERVATION_NEW.path,
         component: NewReservationComponent,
         canActivate: [
-            AuthGuard,
+            IsAuthorizedGuard,
             StandardUserGuard
         ]
     },
@@ -71,7 +77,7 @@ export const ROUTES: Routes = [
         path: 'reservations/:id/edit',
         component: EditReservationComponent,
         canActivate: [
-            AuthGuard,
+            IsAuthorizedGuard,
             StandardUserGuard
         ]
     },
@@ -79,20 +85,20 @@ export const ROUTES: Routes = [
     {
         path: ROUTE.LOGIN.path,
         component: LoginComponent,
-        canActivate: [LoginGuard]
+        canActivate: [IsAlreadyAuthorizedGuard]
     },
 
     {
         path: ROUTE.REGISTER.path,
         component: RegisterComponent,
-        canActivate: [AlreadyRegisteredGuard]
+        canActivate: [IsAlreadyRegisteredGuard]
     },
 
     {
         path: ROUTE.ITEMS_EDIT.path,
         component: EditItemsComponent,
         canActivate: [
-            AuthGuard,
+            IsAuthorizedGuard,
             AdminUserGuard
         ]
     },
@@ -100,7 +106,7 @@ export const ROUTES: Routes = [
     {
         path: ROUTE.NO_ACCESS.path,
         component: NoAccessComponent,
-        canActivate: [AuthGuard]
+        canActivate: [IsAuthorizedGuard]
     },
 
     {path: '**', component: NoContentComponent},

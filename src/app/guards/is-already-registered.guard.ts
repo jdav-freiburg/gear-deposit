@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { UserAuthStatusService } from '../user-auth-status.service';
-import { UserAuthStatus } from '../../model/user';
+import { UserAuthStatusService } from '../services';
+import { UserAuthStatus } from '../model/user';
 
 @Injectable()
-export class AlreadyRegisteredGuard implements CanActivate {
+export class IsAlreadyRegisteredGuard implements CanActivate {
 
     constructor(private userAuthStatusService: UserAuthStatusService, private router: Router) {
     }
