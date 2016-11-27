@@ -29,12 +29,10 @@ export class UserService {
 
     public getRegisteredUser$(): Observable<RegisteredUser> {
         if (this.registeredUser === undefined) {
-            console.debug('#getRegisteredUser$();');
-
             let subject: Subject<RegisteredUser> = new Subject<RegisteredUser>();
 
             this.authService.getAuthUser$().subscribe((authUser: AuthUser) => {
-                console.debug('getRegisteredUser$(); authUser=', authUser);
+                console.debug('getRegisteredUser$(); authUser', authUser);
                 if (authUser === null) {
                     console.warn('getRegisteredUser$(); will emit nothing');
                     subject.complete();
