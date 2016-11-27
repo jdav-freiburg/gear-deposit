@@ -22,10 +22,7 @@ export class ReservationService {
 
     public add(reservation: Reservation): firebase.Promise<void> {
         let itemIds: string[] = [];
-        reservation.itemStacks.items.forEach((item: Item) => {
-            itemIds.push(item.id);
-        });
-
+        reservation.itemStacks.items.forEach(i => itemIds.push(i.id));
         return this.af.database.list('/reservations').push({
             uid: reservation.user.uid,
             name: reservation.name,
@@ -36,12 +33,9 @@ export class ReservationService {
     }
 
     private convertFromDB(dbReservation: any): Reservation {
-
         let stacks: ItemStacks = new ItemStacks();
         dbReservation.items.forEach((itemId: string) => {
-            let item = this.items.find((item: Item) => {
-                return itemId === item.id;
-            });
+            let item = this.items.find(i => itemId === i.id);
             stacks.add(item);
         });
 

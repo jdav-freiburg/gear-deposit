@@ -29,7 +29,7 @@ export class UserService {
 
     public getRegisteredUser$(): Observable<RegisteredUser> {
         if (this.registeredUser === undefined) {
-            console.trace('#getRegisteredUser$();');
+            console.debug('#getRegisteredUser$();');
 
             let subject: Subject<RegisteredUser> = new Subject<RegisteredUser>();
 
@@ -53,7 +53,7 @@ export class UserService {
     }
 
     public registerUser(id: string, user: RegisteredUser): firebase.Promise<void> {
-        console.trace(`#registerUser(); id=${id}, user=`, user);
+        console.debug(`#registerUser(); id=${id}, user=`, user);
         return this.af.database.object(`/users/${id}`).set(user);
     }
 

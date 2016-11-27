@@ -14,10 +14,9 @@ export class AuthService {
 
     public getAuthUser$(): Observable<AuthUser> {
         if (this.authUser === undefined) {
-            console.trace('#getAuthUser$();');
             return this.af.auth.map((authState: FirebaseAuthState) => {
                 this.authUser = (authState != null && authState.auth !== undefined) ? authState.auth : null;
-                console.trace('#getAuthUser$(); authUser=', this.authUser);
+                console.debug('#getAuthUser$(); authUser', this.authUser);
                 return this.authUser;
             });
         }
@@ -27,10 +26,8 @@ export class AuthService {
 
     public isAuthorized$(): Observable<boolean> {
         if (this.authorized === undefined) {
-            console.trace('#isAuthorized$();');
             return this.af.auth.map((authState: FirebaseAuthState) => {
                 this.authorized = authState != null && authState.auth !== undefined;
-                console.trace(`#isAuthorized(); authorized=${this.authorized}`);
                 return this.authorized;
             });
         }
@@ -39,7 +36,7 @@ export class AuthService {
     }
 
     public loginGoogle(): firebase.Promise<FirebaseAuthState> {
-        console.trace('#loginGoogle()');
+        console.debug('#loginGoogle()');
         return this.af.auth.login({
             provider: AuthProviders.Google,
             method: AuthMethods.Redirect
@@ -51,7 +48,7 @@ export class AuthService {
     }
 
     public loginPW(email: string, password: string): firebase.Promise<FirebaseAuthState> {
-        console.trace('#loginPW()');
+        console.debug('#loginPW()');
         if (!this.isSet(email) || !this.isSet(password)) {
             throw new Error(`email, password not set: ${email}, ${password}`);
         }
@@ -66,7 +63,7 @@ export class AuthService {
     }
 
     public logout(): void {
-        console.trace('#logout()');
+        console.log('#logout()');
         this.af.auth.logout();
     }
 

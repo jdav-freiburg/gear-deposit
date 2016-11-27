@@ -54,11 +54,11 @@ export class ItemFilterPipe implements PipeTransform {
         filterStrings = filter.length > 0;
         filters = filter.split(' ');
 
-        console.debug(`#transform(); will filter ${items.length} items based filters: [${filters}]`);
+        if (filterStrings) {
+            console.debug(`#transform(); will filter ${items.length} items based filters: [${filters}]`);
+        }
 
-        filtered = items.filter((item: Item) => {
-            return (!filterStrings || (filterStrings && this.isMatching(item, filters)) );
-        });
+        filtered = filterStrings ? items.filter(item => this.isMatching(item, filters)) : items;
 
         if (maxItems >= 0) {
             console.debug(`#transform(); will slice ${filtered.length} filtered items to max ${maxItems} items`);
