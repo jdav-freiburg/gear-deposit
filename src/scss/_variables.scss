@@ -75,6 +75,51 @@ $blue_A200: #448aff !default;
 $blue_A400: #2979ff !default;
 $blue_A700: #2962ff !default;
 
+$light_green_50: #F1F8E9 !default;
+$light_green_100: #DCEDC8 !default;
+$light_green_200: #C5E1A5 !default;
+$light_green_300: #AED581 !default;
+$light_green_400: #9CCC65 !default;
+$light_green_500: #8BC34A !default;
+$light_green_600: #7CB342 !default;
+$light_green_700: #689F38 !default;
+$light_green_800: #558B2F !default;
+$light_green_900: #33691E !default;
+$light_green_A100: #CCFF90 !default;
+$light_green_A200: #B2FF59 !default;
+$light_green_A400: #76FF03 !default;
+$light_green_A700: #64DD17 !default;
+
+$lime_50: #F9FBE7 !default;
+$lime_100: #F0F4C3 !default;
+$lime_200: #E6EE9C !default;
+$lime_300: #DCE775 !default;
+$lime_400: #D4E157 !default;
+$lime_500: #CDDC39 !default;
+$lime_600: #C0CA33 !default;
+$lime_700: #AFB42B !default;
+$lime_800: #9E9D24 !default;
+$lime_900: #827717 !default;
+$lime_A100: #F4FF81 !default;
+$lime_A200: #EEFF41 !default;
+$lime_A400: #C6FF00 !default;
+$lime_A700: #AEEA00 !default;
+
+$yellow_50: #FFFDE7 !default;
+$yellow_100: #FFF9C4 !default;
+$yellow_200: #FFF59D !default;
+$yellow_300: #FFF176 !default;
+$yellow_400: #FFEE58 !default;
+$yellow_500: #FFEB3B !default;
+$yellow_600: #FDD835 !default;
+$yellow_700: #FBC02D !default;
+$yellow_800: #F9A825 !default;
+$yellow_900: #F57F17 !default;
+$yellow_A100: #FFFF8D !default;
+$yellow_A200: #FFFF00 !default;
+$yellow_A400: #FFEA00 !default;
+$yellow_A700: #FFD600 !default;
+
 @mixin material-shadow($level: 1) {
   @if $level == 1 {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
