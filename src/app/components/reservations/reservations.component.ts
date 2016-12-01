@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs/Rx';
 import { ROUTE } from '../../app.routes';
 import { Reservation } from '../../model';
 import { LoadingService, ReservationService, UiMessageService } from '../../services';

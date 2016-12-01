@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFire } from 'angularfire2';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 import { Item, ItemStacks, RegisteredUser, Reservation } from '../model';
 import { ItemService } from './item.service';
 import { UserService } from './user.service';

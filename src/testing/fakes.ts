@@ -1,5 +1,5 @@
 import { AngularFire, AngularFireAuth, AngularFireDatabase } from 'angularfire2';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 import {
     MOCKED_AUTH_USER,
     MOCKED_REGISTERED_USER,

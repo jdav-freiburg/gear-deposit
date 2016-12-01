@@ -9,8 +9,7 @@ export { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/route
 
 import { Component, Directive, Injectable, Input } from '@angular/core';
 import { NavigationExtras, NavigationStart } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject, Observable } from 'rxjs/Rx';
 
 @Directive({
     selector: '[routerLink]',
@@ -52,6 +51,7 @@ export class ActivatedRouteStub {
 
     // Test parameters
     private _testParams: {};
+
     get testParams() {
         return this._testParams;
     }

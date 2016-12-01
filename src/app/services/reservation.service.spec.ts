@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 import { ReservationService } from './';
 import { createAngularFireFake, createUserServiceFake, createItemServiceFake } from '../../testing/fakes';
 import { MOCKED_REGISTERED_USER, createMockItem } from '../../testing/mocks';
