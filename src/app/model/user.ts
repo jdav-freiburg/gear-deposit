@@ -4,9 +4,12 @@ export enum Role {
 
 export interface RegisteredUser {
     uid: string;
+    registered: Date;
+    photoUrl: string;
     name: string;
     email: string;
     youthGroup: string;
+    confirmed?: boolean;
     roles?: Role[];
 }
 

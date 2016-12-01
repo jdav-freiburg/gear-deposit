@@ -13,15 +13,13 @@ export class UserAuthStatusService {
     };
 
     constructor(private authService: AuthService, private userService: UserService) {
+        this.init();
     }
 
-    public getUserAuthStatus$(): Observable<UserAuthStatus> {
-        return Observable.merge(//
-            this.authService.isAuthorized$().map((isAuthorized: boolean) => {
-                this.userAuthStatus.isAuthorized = isAuthorized;
-                return this.userAuthStatus;
-            }),
-            this.userService.getRegisteredUser$().map((user: RegisteredUser) => {
+    private init() {
+        this.authService.isAuthorized$().subscribe((isAuthorized: boolean) => {
+            this.userAuthStatus.isAuthorized = isAuthorized;
+            this.userService.getRegisteredUser$().subscribe((user: RegisteredUser) => {
                 if (user !== undefined) {
                     let roles = user.roles ? user.roles : [];
                     this.userAuthStatus.isRegistered = true;
@@ -31,8 +29,12 @@ export class UserAuthStatusService {
                 } else {
                     this.userAuthStatus.isRegistered = false;
                 }
-                return this.userAuthStatus;
-            }));
+            });
+        });
+    }
+
+    public getUserAuthStatus$(): Observable<UserAuthStatus> {
+        return Observable.from([this.userAuthStatus]);
     }
 
     public reset(): void {
@@ -42,4 +44,5 @@ export class UserAuthStatusService {
         this.authService.reset();
         this.userService.reset();
     }
+
 }

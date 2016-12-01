@@ -10,14 +10,14 @@ export class IsAuthorizedGuard implements CanActivate {
     }
 
     canActivate(): Observable<boolean> {
-        let authorized: Observable<boolean> = this.authService.isAuthorized$().first();
-        authorized.subscribe((isAuthorized: boolean) => {
+        this.authService.isAuthorized$().subscribe((isAuthorized: boolean) => {
+            console.debug(`#canActivate(); ${isAuthorized}`);
             if (!isAuthorized) {
                 console.warn('not authorized -> redirect to login');
                 this.router.navigate(['/login']);
             }
         });
-        return authorized;
+        return this.authService.isAuthorized$().first();
     }
 
 }

@@ -11,11 +11,13 @@ export class IsAlreadyRegisteredGuard implements CanActivate {
     }
 
     canActivate(): Observable<boolean> {
-        let userAuthStatus: Observable<boolean> = this.userAuthStatusService.getUserAuthStatus$().first().map(
-            (uAS: UserAuthStatus) => {
+        let userAuthStatus: Observable<boolean> = this.userAuthStatusService.getUserAuthStatus$()
+            .map((uAS: UserAuthStatus) => {
                 return uAS.isAuthorized && !uAS.isRegistered;
-            });
+            })
+            .first();
         userAuthStatus.subscribe((authorizedAndNotRegistered: boolean) => {
+            console.debug(`#canActivate(); ${authorizedAndNotRegistered}`);
             if (!authorizedAndNotRegistered) {
                 console.warn('already registered -> redirect to root');
                 this.router.navigate(['/']);

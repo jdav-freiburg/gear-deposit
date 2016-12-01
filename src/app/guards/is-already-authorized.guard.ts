@@ -10,16 +10,18 @@ export class IsAlreadyAuthorizedGuard implements CanActivate {
     }
 
     canActivate(): Observable<boolean> {
-        let notAuthorized: Observable<boolean> = this.authService.isAuthorized$().first().map((authorized: boolean) => {
-            return !authorized;
-        });
-        notAuthorized.subscribe((isNotAuthorized: boolean) => {
-            if (!isNotAuthorized) {
+        this.authService.isAuthorized$().subscribe((isAuthorized: boolean) => {
+            console.debug(`#canActivate(); ${!isAuthorized}`);
+            if (isAuthorized) {
                 console.warn('already authorized -> redirect to root');
                 this.router.navigate(['/']);
             }
         });
-        return notAuthorized;
+        return this.authService.isAuthorized$()
+            .map(
+                (authorized: boolean) => !authorized
+            )
+            .first();
     }
 
 }

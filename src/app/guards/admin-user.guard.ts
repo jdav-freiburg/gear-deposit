@@ -20,6 +20,7 @@ export class AdminUserGuard implements CanActivate {
             .first();
 
         hasAdminRole.subscribe((isAdmin: boolean) => {
+            console.debug(`#canActivate(); ${isAdmin}`);
             if (!isAdmin) {
                 this.router.navigate(['/no-access']);
             }

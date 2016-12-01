@@ -14,10 +14,11 @@ import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
 import { AppRouterService, AuthService, UserService, UserAuthStatusService } from './services';
 import {
+    ConfirmedUserGuard,
     AdminUserGuard,
     IsAlreadyRegisteredGuard,
     IsAuthorizedGuard,
-    StandardUserGuard,
+    IsRegisteredGuard,
     IsAlreadyAuthorizedGuard
 } from './guards';
 import { ReservationModule } from './components/reservations/reservation.module';
@@ -37,8 +38,9 @@ export const SHARED_DECLARATIONS = [
 export const SHARED_GUARDS = [
     IsAuthorizedGuard,
     IsAlreadyAuthorizedGuard,
-    StandardUserGuard,
+    IsRegisteredGuard,
     IsAlreadyRegisteredGuard,
+    ConfirmedUserGuard,
     AdminUserGuard
 ];
 

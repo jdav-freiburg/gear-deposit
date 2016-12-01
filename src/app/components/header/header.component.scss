@@ -20,6 +20,12 @@ header {
     margin-left: calc(38px + .5em);
   }
 
+  .navHolder {
+    display: flex;
+    align-items: center;
+    height: 38px;
+  }
+
   .nav, .nav-item {
     cursor: pointer;
   }

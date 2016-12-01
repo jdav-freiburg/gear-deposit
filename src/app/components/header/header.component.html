@@ -3,7 +3,7 @@
         <img src="/assets/edelweiss.svg" width="38" height="38" alt="">
         <a class="navbar-brand" routerLink="/home" routerLinkActive="active">JDAV Freiburg Depot</a>
         <div class="nav float-xs-right" *ngIf="userAuthStatus?.isAuthorized">
-            <div jgdDropdown>
+            <div jgdDropdown class="navHolder">
                 <i class="material-icon" id="navDropdown"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">more_vert</i>
                 <div class="dropdown-menu" aria-labelledby="navDropdown">

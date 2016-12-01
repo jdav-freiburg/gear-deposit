@@ -1,1 +1,27 @@
-<h1>Willkommen {{ registeredUser?.name}}!</h1>
+<p *ngIf="registeredUser" class="lead">Willkommen {{registeredUser.name}}.</p>
+
+<jgd-ui-message *ngIf="registeredUser && !registeredUser.confirmed"
+                [message]="messages.unconfirmedWarning"></jgd-ui-message>
+<jgd-ui-message *ngIf="registeredUser && !registeredUser?.confirmed"
+                [message]="messages.unconfirmedInfo"></jgd-ui-message>
+
+<div *ngIf="registeredUser?.confirmed && unconfirmedUsers">
+    <p *ngIf="unconfirmedUsers.length === 1">
+        Es gibt einen neuen Benutzer. Bitte schalte Ihn frei sofern Du ihn kennst.
+    </p>
+    <p *ngIf="unconfirmedUsers.length > 1">
+        Es gibt neue Benutzer. Bitte schalte die Benutzer frei die Du kennst.
+    </p>
+    <ul class="list-unstyled">
+        <li *ngFor="let user of unconfirmedUsers" class="card">
+            <img *ngIf="user.photoUrl" [src]="user.photoUrl" [alt]="'Avatar von ' + user.name">
+            <p>
+                <span>{{user.name}} ({{user.youthGroup}})</span><br />
+                <small>Registriert seit: {{user.registered | date:'dd.MM.yy HH:mm'}}</small>
+            </p>
+            <div class="text-xs-right">
+                <button type="submit" class="btn btn-primary" (click)="confirmUser(user)">Freischalten</button>
+            </div>
+        </li>
+    </ul>
+</div>

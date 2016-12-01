@@ -24,6 +24,7 @@ export class RegisterComponent implements OnInit {
                 this.uid = authUser.uid;
                 this.user = <RegisteredUser>{
                     name: authUser.displayName,
+                    photoUrl: authUser.photoURL,
                     email: authUser.email
                 };
             }

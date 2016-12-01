@@ -5,11 +5,12 @@ import { LoginComponent, RegisterComponent } from './components/user';
 import { NoAccessComponent, NoContentComponent } from './components/error';
 import { ReservationsComponent, EditReservationComponent, NewReservationComponent } from './components/reservations';
 import {
+    ConfirmedUserGuard,
     AdminUserGuard,
+    IsRegisteredGuard,
     IsAlreadyRegisteredGuard,
     IsAuthorizedGuard,
-    IsAlreadyAuthorizedGuard,
-    StandardUserGuard
+    IsAlreadyAuthorizedGuard
 } from './guards';
 
 export interface AppRoute extends Route {
@@ -51,7 +52,7 @@ export const ROUTES: Routes = [
         component: HomeComponent,
         canActivate: [
             IsAuthorizedGuard,
-            StandardUserGuard
+            IsRegisteredGuard
         ]
     },
 
@@ -60,7 +61,7 @@ export const ROUTES: Routes = [
         component: ReservationsComponent,
         canActivate: [
             IsAuthorizedGuard,
-            StandardUserGuard
+            ConfirmedUserGuard,
         ]
     },
 
@@ -69,7 +70,7 @@ export const ROUTES: Routes = [
         component: NewReservationComponent,
         canActivate: [
             IsAuthorizedGuard,
-            StandardUserGuard
+            ConfirmedUserGuard,
         ]
     },
 
@@ -78,7 +79,7 @@ export const ROUTES: Routes = [
         component: EditReservationComponent,
         canActivate: [
             IsAuthorizedGuard,
-            StandardUserGuard
+            ConfirmedUserGuard,
         ]
     },
 
@@ -91,7 +92,10 @@ export const ROUTES: Routes = [
     {
         path: ROUTE.REGISTER.path,
         component: RegisterComponent,
-        canActivate: [IsAlreadyRegisteredGuard]
+        canActivate: [
+            IsAuthorizedGuard,
+            IsAlreadyRegisteredGuard
+        ]
     },
 
     {
@@ -99,6 +103,7 @@ export const ROUTES: Routes = [
         component: EditItemsComponent,
         canActivate: [
             IsAuthorizedGuard,
+            ConfirmedUserGuard,
             AdminUserGuard
         ]
     },
