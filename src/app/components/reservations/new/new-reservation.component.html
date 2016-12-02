@@ -1,7 +1,7 @@
 <div class="form-group">
     <label for="reservationDescription">Beschreibung der Ausfahrt</label>
-    <input class="form-control" type="text" id="reservationDescription" placeholder="Name der Ausfahrt"
-           [(ngModel)]="reservation.name">
+    <input class="form-control" type="text" [(ngModel)]="reservation.name" id="reservationDescription"
+           placeholder="Name der Ausfahrt">
 </div>
 <div class="form-group">
     <label for="reservationStart">Beginn der Reservierung</label>
@@ -14,37 +14,39 @@
            [(ngModel)]="reservation.end" [min]="minDateValue">
 </div>
 
-<jgd-items (selected)="onSelected($event)"
-           (deselected)="onDeselected($event)">
+<!--div *ngIf="blockedItems.items.size > 0">{{blockedItems.items.size}} Gegenstände nicht verfügbar.</div-->
+
+<jgd-items #itemsComponent [items]="items"
+           [class]="reserved.items.size > 0 ? 'aside': ''"
+           (selected)="addToSelected($event)"
+           (deselected)="removeFromSelected($event)">
 </jgd-items>
 
-<div *ngIf="state.selected.size > 0 || state.added.length > 0">
-    <jgd-footer #footerComponent
-                [enableToggle]="state.added.length > 0"
-                [enableSubmit]="state.selected.size > 0"
-                [submitIcon]="footerState.submitIcon"
-                [submitTitle]="footerState.submitTitle"
-                (submitted)="onFooterSubmit()">
-        <div *ngIf="state.added.length > 0" class="card reserved-items">
+<jgd-footer #footerComponent
+            [enableToggle]="reserved.items.size > 0"
+            [showSubmit]="selected.size > 0"
+            [submitIcon]="footerState.submitIcon"
+            [submitTitle]="footerState.submitTitle"
+            (submitted)="addSelectedToReservation()">
+    <div *ngIf="reserved.items.size > 0" class="card reserved-items">
 
-            <jgd-ui-message *ngIf="!reservation.name"
-                            [message]="reservationValidation.messages.invalidName"></jgd-ui-message>
-            <p *ngIf="reservation.name">Ausfahrt: {{reservation.name}}</p>
+        <jgd-ui-message *ngIf="!reservation.name"
+                        [message]="reservationValidation.messages.invalidName"></jgd-ui-message>
+        <p *ngIf="reservation.name">Ausfahrt: {{reservation.name}}</p>
 
-            <jgd-ui-message *ngIf="!reservation.begin && !reservation.end"
-                            [message]="reservationValidation.messages.invalidDate"></jgd-ui-message>
-            <p *ngIf="reservation.begin && reservation.end">
-                Zeitraum: {{reservation.begin | date:"dd.MM.yy"}} - {{reservation.end | date:"dd.MM.yy"}}
-            </p>
+        <jgd-ui-message *ngIf="!reservation.begin && !reservation.end"
+                        [message]="reservationValidation.messages.invalidDate"></jgd-ui-message>
+        <p *ngIf="reservation.begin && reservation.end">
+            Zeitraum: {{reservation.begin | date:"dd.MM.yy"}} - {{reservation.end | date:"dd.MM.yy"}}
+        </p>
 
-            <p>{{footerState.description}}:</p>
-            <!--jgd-simple-item-list [itemStacks]="reserved"></jgd-simple-item-list-->
+        <p>{{footerState.description}}:</p>
+        <jgd-simple-item-list [itemStacks]="reserved"></jgd-simple-item-list>
 
-            <button type="submit" class="btn btn-accent"
-                    (click)="saveReservation()"
-                    [disabled]="!reservation.isValid()">
-                Reservierung speichern
-            </button>
-        </div>
-    </jgd-footer>
-</div>
+        <button type="submit" class="btn btn-accent"
+                (click)="saveReservation()"
+                [disabled]="!reservation.name || !reservation.begin || !reservation.end">
+            Reservierung speichern
+        </button>
+    </div>
+</jgd-footer>

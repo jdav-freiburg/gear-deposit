@@ -8,10 +8,10 @@ import { Component, Input, EventEmitter, Output } from '@angular/core';
 export class FooterComponent {
 
     @Input() enableToggle?: boolean;
-    @Input() enableSubmit: boolean = true;
 
     @Input() description: string;
 
+    @Input() showSubmit: boolean = false;
     @Input() submitIcon: string = 'save';
     @Input() submitTitle: string = 'Änderungen speichern';
 

@@ -1,8 +1,10 @@
 <jgd-nav-bar #footer (jgdGlobalClick)="onGlobalClick($event)"
              [class.open]="!toggled"
              [class.empty]="!enableToggle && !description">
-    <button type="button" class="btn btn-accent btn-floating" (click)="submit()"
-            [title]="submitTitle" [disabled]="!enableSubmit">
+    <button type="button" class="btn btn-accent btn-floating"
+            (click)="submit()"
+            [class.hide]="!showSubmit"
+            [title]="submitTitle">
         <i class="material-icon">{{submitIcon}}</i>
     </button>
     <div *ngIf="enableToggle" (click)="toggle()" class="toggle">

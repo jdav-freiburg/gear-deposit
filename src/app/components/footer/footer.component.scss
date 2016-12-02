@@ -7,7 +7,7 @@ jgd-nav-bar {
   left: 0;
   height: $footer-navbar-height;
   width: 100%;
-  transition: height 100ms ease-in;
+  transition: height 200ms ease-in;
 
   .toggle, .description {
     margin-bottom: 1em;
@@ -20,6 +20,11 @@ jgd-nav-bar {
   .toggleIcon {
     float: left;
     transition: transform 100ms ease-in-out;
+    transition-delay: 200ms;
+  }
+
+  .btn-floating.hide {
+    bottom: calc(-54px - 40px);
   }
 
   &.empty {
@@ -34,7 +39,7 @@ jgd-nav-bar {
     }
 
     .btn-floating {
-      bottom: -120%;
+      bottom: calc(-54px - 40px);
     }
   }
 }
