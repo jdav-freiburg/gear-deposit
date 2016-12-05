@@ -22,7 +22,7 @@ describe('Class: ItemStack', () => {
         expect(itemStack.description).toEqual(MOCK_ITEM_DESCRIPTION);
         expect(itemStack.shape).toEqual(MOCK_ITEM_SHAPE);
         expect(itemStack.labels).toEqual(MOCK_ITEM_LABELS);
-        expect(itemStack.items.length).toEqual(1);
+        expect(itemStack.items.size).toEqual(1);
         expect(itemStack.items[0]).toBe(item1);
     });
 
@@ -30,7 +30,7 @@ describe('Class: ItemStack', () => {
         let item2 = createMockItem(2);
         let added = itemStack.add(item2);
         expect(added).toBe(true);
-        expect(itemStack.items.length).toEqual(2);
+        expect(itemStack.items.size).toEqual(2);
         expect(itemStack.items[1]).toBe(item2);
     });
 
@@ -39,7 +39,7 @@ describe('Class: ItemStack', () => {
         item2.type = `changed ${MOCK_ITEM_TYPE}`;
         let added = itemStack.add(item2);
         expect(added).toBe(false);
-        expect(itemStack.items.length).toEqual(1);
+        expect(itemStack.items.size).toEqual(1);
         expect(itemStack.items[0]).toBe(item1);
     });
 

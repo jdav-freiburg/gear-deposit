@@ -56,31 +56,3 @@ export class ItemStack extends ItemMetadata {
     }
 
 }
-
-export class ItemStacks {
-
-    list: ItemStack[] = [];
-    items: Set<Item> = new Set();
-
-    public add(item: Item) {
-        if (!this.items.has(item)) {
-            let stackFound = this.tryToAddToCorrespondingStack(item);
-            if (!stackFound) {
-                this.list.push(new ItemStack(item));
-            }
-            this.items.add(item);
-        }
-    }
-
-    private tryToAddToCorrespondingStack(item: Item): boolean {
-        let found = false;
-        for (let stack of this.list) {
-            found = stack.add(item);
-            if (found) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-}

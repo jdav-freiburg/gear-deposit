@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFire } from 'angularfire2';
 import { Observable } from 'rxjs/Rx';
-import { Item, ItemStacks, RegisteredUser, Reservation } from '../model';
+import { Item, RegisteredUser, Reservation } from '../model';
 import { ItemService } from './item.service';
 import { UserService } from './user.service';
 
@@ -22,7 +22,7 @@ export class ReservationService {
 
     public add(reservation: Reservation): firebase.Promise<void> {
         let itemIds: string[] = [];
-        reservation.itemStacks.items.forEach(i => itemIds.push(i.id));
+        reservation.items.forEach(i => itemIds.push(i.id));
         return this.af.database.list('/reservations').push({
             uid: reservation.user.uid,
             name: reservation.name,
@@ -33,10 +33,10 @@ export class ReservationService {
     }
 
     private convertFromDB(dbReservation: any): Reservation {
-        let stacks: ItemStacks = new ItemStacks();
+        let items: Item[] = [];
         dbReservation.items.forEach((itemId: string) => {
             let item = this.items.find(i => itemId === i.id);
-            stacks.add(item);
+            items.push(item);
         });
 
         return <Reservation>{
@@ -45,7 +45,7 @@ export class ReservationService {
             name: dbReservation.name,
             begin: new Date(dbReservation.begin),
             end: new Date(dbReservation.end),
-            itemStacks: stacks
+            items: items
         };
     }
 

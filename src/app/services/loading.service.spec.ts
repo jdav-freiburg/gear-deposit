@@ -1,6 +1,6 @@
 import { LoadingService } from './loading.service';
 
-describe('Service: Loading', () => {
+describe('Service: LoadingService', () => {
     let service: LoadingService;
 
     beforeEach(() => {

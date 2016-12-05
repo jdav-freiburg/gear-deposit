@@ -1,19 +1,19 @@
-import { TestBed, inject } from '@angular/core/testing';
-import { AngularFire } from 'angularfire2';
-import { AuthService, UserService } from './';
+import { UserService } from './';
+import { createAngularFireFake, createAuthServiceFake, createUiMessageServiceFake } from '../../testing/fakes';
 
-describe('Service: User', () => {
+describe('Service: UserService', () => {
+
+    let service: UserService;
+
     beforeEach(() => {
-        TestBed.configureTestingModule({
-            providers: [
-                UserService,
-                {provide: AngularFire, useValue: {}},
-                {provide: AuthService, useValue: {}}
-            ]
-        });
+        service = new UserService(
+            createAngularFireFake(),
+            createAuthServiceFake(),
+            createUiMessageServiceFake());
     });
 
-    it('should ...', inject([UserService], (service: UserService) => {
+    it('should ...', () => {
         expect(service).toBeTruthy();
-    }));
+    });
+
 });

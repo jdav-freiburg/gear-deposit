@@ -1,18 +1,16 @@
-import { TestBed, inject } from '@angular/core/testing';
-import { AngularFire } from 'angularfire2';
 import { ItemService } from '.';
+import { createAngularFireFake } from '../../testing/fakes';
 
 describe('Service: Item', () => {
+
+    let service: ItemService;
+
     beforeEach(() => {
-        TestBed.configureTestingModule({
-            providers: [
-                ItemService,
-                {provide: AngularFire, useValue: {}}
-            ]
-        });
+        service = new ItemService(createAngularFireFake());
     });
 
-    it('should ...', inject([ItemService], (service: ItemService) => {
+    it('should ...', () => {
         expect(service).toBeTruthy();
-    }));
+    });
+
 });

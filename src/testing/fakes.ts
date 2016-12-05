@@ -8,7 +8,14 @@ import {
     MOCKED_USER_AUTH_STATUS
 } from './mocks';
 import { Item, RegisteredUser, Reservation } from '../app/model';
-import { AuthService, ItemService, ReservationService, UserAuthStatusService, UserService } from '../app/services';
+import {
+    AuthService,
+    ItemService,
+    ReservationService,
+    UiMessageService,
+    UserAuthStatusService,
+    UserService
+} from '../app/services';
 
 function createAngularFireAuthFake(): AngularFireAuth {
     return {
@@ -48,6 +55,15 @@ export function createAuthServiceFake(): AuthService {
             return Observable.from([true]);
         }
     } as AuthService;
+}
+
+export function createUiMessageServiceFake(): UiMessageService {
+    return {
+        emitInfo: (message: string) => {
+        },
+        emitError: (message: string) => {
+        }
+    } as UiMessageService;
 }
 
 export function createUserAuthStatusServiceFake(): UserAuthStatusService {

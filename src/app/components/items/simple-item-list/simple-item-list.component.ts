@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ItemStacks } from '../../../model/item';
+import { convert, ItemStack, Item } from '../../../model';
 
 @Component({
     selector: 'jgd-simple-item-list',
@@ -8,6 +8,11 @@ import { ItemStacks } from '../../../model/item';
 })
 export class SimpleItemListComponent {
 
-    @Input() itemStacks: ItemStacks;
+    private stacks: ItemStack[] = [];
+
+    @Input()
+    public set items(items: Item[]) {
+        this.stacks = convert(items);
+    }
 
 }

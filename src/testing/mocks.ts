@@ -37,6 +37,16 @@ export function createMockItem(id: number): Item {
     );
 }
 
+export function createMockItems(count: number): Item[] {
+    let items: Item[] = [];
+    let i = count;
+    while (i > 0) {
+        i = i--;
+        items.push(createMockItem(count - i));
+    }
+    return items;
+}
+
 export function createMockReservation(id: number): Reservation {
     return <Reservation>{
         id: `${id}`,

@@ -4,7 +4,7 @@ import { createAngularFireFake, createUserServiceFake, createItemServiceFake } f
 import { MOCKED_REGISTERED_USER, createMockItem } from '../../testing/mocks';
 import { Item } from '../model/item';
 
-describe('Service: Reservation', () => {
+describe('Service: ReservationService', () => {
 
     let service: ReservationService;
 

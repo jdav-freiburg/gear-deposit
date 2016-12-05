@@ -1,11 +1,11 @@
 <div class="form-group">
     <label for="filter">Gegenstände auswählen</label>
     <i class="material-icon md-36">search</i>
-    <input #filter (input)="filterChanged(filter.value)" class="form-control" type="search"
+    <input #filter (input)="onFilterChanged(filter.value)" class="form-control" type="search"
            id="filter" name="filter" placeholder="Auswahl">
 </div>
 <ul class="list-unstyled">
-    <li *ngFor="let stack of filteredStacks">
+    <li *ngFor="let stack of filtered">
         <input #i class="form-control" type="number" name="itemCount" min="1"
                [placeholder]="stack.blocked ? 0 : 1"
                [value]="stack.blocked ? 0 : 1"

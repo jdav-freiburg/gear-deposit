@@ -1,23 +1,19 @@
-/* tslint:disable:no-unused-variable */
-
-import { TestBed, inject } from '@angular/core/testing';
 import { UserAuthStatusService } from './user-auth-status.service';
-import { AuthService } from './auth.service';
-import { UserService } from './user.service';
+import { createUserServiceFake, createAuthServiceFake } from '../../testing/fakes';
 
-describe('Service: UserAuthStatus', () => {
+describe('Service: UserAuthStatusService', () => {
+
+    let service: UserAuthStatusService;
+
     beforeEach(() => {
-        TestBed.configureTestingModule({
-            providers: [
-                UserAuthStatusService,
-                {provide: AuthService, useValue: {}},
-                {provide: UserService, useValue: {}}
-            ]
-        })
-        ;
+        service = new UserAuthStatusService(
+            createAuthServiceFake(),
+            createUserServiceFake()
+        );
     });
 
-    it('should ...', inject([UserAuthStatusService, AuthService, UserService], (service: UserAuthStatusService) => {
+    it('should ...', () => {
         expect(service).toBeTruthy();
-    }));
+    });
+
 });

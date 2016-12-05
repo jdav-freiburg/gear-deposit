@@ -13,11 +13,8 @@
             <span>{{reservation.user.name}}</span>:
             <span>{{reservation.name}}</span>
         </p>
-        <ul class="list-unstyled">
-            <li *ngFor="let stack of reservation.itemStacks.list">
-                <jgd-item-stack [itemStack]="stack" [countStyle]="0"></jgd-item-stack>
-            </li>
-        </ul>
+
+        <jgd-simple-item-list [items]="reservation.items"></jgd-simple-item-list>
     </div>
 </div>
 
