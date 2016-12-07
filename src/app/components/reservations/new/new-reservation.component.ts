@@ -86,6 +86,14 @@ export class NewReservationComponent implements OnInit {
         });
     }
 
+    private get state(): ReservationStateService {
+        return this.reservationState;
+    }
+
+    private get reservation(): Reservation {
+        return this.reservationState.reservation;
+    }
+
     private onSelected(stacks: ItemStack[]): void {
         console.debug('#onSelected();', stacks);
         this.reservationState.select(stacks);

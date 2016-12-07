@@ -58,6 +58,10 @@ class Reservation implements IReservation {
     public get end(): Date {
         return this._end;
     }
+
+    public get isValid(): boolean {
+        return this.name && this.begin && this.end && this.items.length > 0;
+    }
 }
 
 @Injectable()
@@ -67,12 +71,12 @@ export class ReservationStateService {
     private _allItems: Item[];
     private _filteredItems: ItemStack[];
 
-    private _selected: Set<ItemStack> = new Set();
     private _added: Set<ItemStack> = new Set();
-
     public addedCount: number = 0;
 
-    public initialized: EventEmitter<void> = new EventEmitter<void>();
+    public readonly selected: Set<ItemStack> = new Set();
+    public readonly initialized: EventEmitter<void> = new EventEmitter<void>();
+
     public reservation: Reservation;
 
     public stacks: ItemStack[];
@@ -170,29 +174,25 @@ export class ReservationStateService {
     }
 
     public select(stacks: ItemStack[]): void {
-        stacks.forEach(s => this._selected.add(s));
+        stacks.forEach(s => this.selected.add(s));
     }
 
     public deselect(stacks: ItemStack[]): void {
-        stacks.forEach(s => this._selected.delete(s));
+        stacks.forEach(s => this.selected.delete(s));
     }
 
     public pushSelectedToReservation(): void {
-        this._selected.forEach((stack: ItemStack) => {
+        this.selected.forEach((stack: ItemStack) => {
             this._added.add(stack);
             this.addedCount += stack.selectedCount;
         });
-        this._selected.clear();
+        this.selected.clear();
     }
 
     public filter(query: string): ItemStack[] {
         let filtered: Item[] = this.itemFilter.transform(this._allItems, query);
         this._filteredItems = convert(filtered);
         return this._filteredItems;
-    }
-
-    get selected(): Set<ItemStack> {
-        return this._selected;
     }
 
     get added(): Item[] {

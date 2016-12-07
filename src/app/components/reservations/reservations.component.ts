@@ -23,11 +23,11 @@ export class ReservationsComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.loadingService.emitLoading(this.loading);
+        this.loadingService.emitLoading(true);
         this.subscription = this.reservationService.all$().subscribe((reservations: Set<Reservation>) => {
             this.loading = false;
-            this.loadingService.emitLoading(this.loading);
             this.reservations = reservations;
+            this.loadingService.emitLoading(false);
         });
     }
 

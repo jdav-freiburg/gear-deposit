@@ -5,7 +5,7 @@ export function convert(items: Item[]): ItemStack[] {
     let stacks: ItemStack[] = [];
 
     function add(item: Item) {
-        let stackFound = this.tryToAddToCorrespondingStack(item);
+        let stackFound = tryToAddToCorrespondingStack(item);
         if (!stackFound) {
             stacks.push(new ItemStack(item));
         }
