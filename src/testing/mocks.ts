@@ -41,11 +41,32 @@ export function createMockItems(count: number): Item[] {
     let items: Item[] = [];
     let i = count;
     while (i > 0) {
-        i = i--;
+        i--;
         items.push(createMockItem(count - i));
     }
     return items;
 }
+
+/**
+ * Creates a list with in total `stackSize` * `stackItemSize` items.
+ * The list will contain "stacks" of items, each "stack" has equal `item.description` and `item.type`.
+ * The list will contain in total `stackSize` "stacks" of items and each "stack" consists of `stackItemSize` items.
+ */
+export function createComplexMockItems(stackSize: number, stackItemSize: number): Item[] {
+    let items: Item[] = [];
+    let stackItems: Item[] = [];
+    let i = 0;
+    while (i < stackSize) {
+        stackItems = createMockItems(stackItemSize);
+        stackItems.forEach((item) => {
+            item.description = `${item.description}_stack${i + 1}`;
+            item.type = `${item.type}_stack${i + 1}`;
+        });
+        items = items.concat(stackItems);
+        i++;
+    }
+    return items;
+};
 
 export function createMockReservation(id: number): Reservation {
     return <Reservation>{

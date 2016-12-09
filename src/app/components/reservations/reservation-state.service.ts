@@ -195,10 +195,11 @@ export class ReservationStateService {
         return this._filteredItems;
     }
 
+    // FIXME should not be rebuilt all the time
     get added(): Item[] {
         let items: Item[] = [];
         this._added.forEach((stack: ItemStack) => {
-            items.concat(Array.from(stack.items).slice(0, stack.selectedCount));
+            items = items.concat(Array.from(stack.items).slice(0, stack.selectedCount));
         });
 
         return items;
