@@ -1,12 +1,8 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { Item, ItemStack } from '../../model/item';
+import { Item, ItemStack, RegisteredUser, Reservation as IReservation } from '../../model';
 import { convert } from '../../model/item-stack-factory';
-import { Reservation as IReservation } from '../../model/reservation';
-import { RegisteredUser } from '../../model/user';
-import { ItemService } from '../../services/item.service';
-import { UserService } from '../../services/user.service';
-import { ReservationService } from '../../services/reservation.service';
-import { ItemFilterPipe } from '../../pipes/item-filter.pipe';
+import { ItemService, ReservationService, UserService } from '../../services';
+import { ItemFilterPipe } from '../../pipes';
 
 interface OnDateChange {
     onBeginChange(date: Date): void;
@@ -67,7 +63,7 @@ class Reservation implements IReservation {
 @Injectable()
 export class ReservationStateService {
 
-    private _allReservations: Set<Reservation>;
+    private _allReservations: Reservation[];
     private _allItems: Item[];
     private _filteredItems: ItemStack[];
 
@@ -95,34 +91,26 @@ export class ReservationStateService {
         this.userService.getRegisteredUser$().subscribe((user: RegisteredUser) => {
             this.reservation = new Reservation(user, {
                 onBeginChange: (date: Date) => {
-                    if (this.reservation.dates.end === null) {
-                        return;
-                    }
-
                     this.unblockAll();
                     this._allReservations.forEach((reservation: Reservation) => {
-                        if ((date >= reservation.begin && this.reservation.dates.end <= reservation.end) ||
-                            (date <= reservation.end && this.reservation.dates.begin >= reservation.begin )) {
+                        let begin = date;
+                        let end = this.reservation.dates.end;
+                        if ((begin <= reservation.end && begin >= reservation.begin ) ||
+                            (end && begin >= reservation.begin && end <= reservation.end)) {
                             this.block(reservation.items);
                         }
                     });
-
-                    // this.itemsComponent.blocked = this.itemStacks.blocked;
                 },
                 onEndChange: (date: Date) => {
-                    if (this.reservation.dates.begin === null) {
-                        return;
-                    }
-
                     this.unblockAll();
                     this._allReservations.forEach((reservation: Reservation) => {
-                        if ((date >= reservation.begin && this.reservation.dates.end <= reservation.end) ||
-                            (date <= reservation.end && this.reservation.dates.begin >= reservation.begin )) {
+                        let begin = this.reservation.dates.begin;
+                        let end = date;
+                        if ((end >= reservation.begin && end <= reservation.end) ||
+                            (begin && end >= reservation.end && begin >= reservation.begin )) {
                             this.block(reservation.items);
                         }
                     });
-
-                    // this.itemsComponent.block(blocked);
                 }
             });
 
@@ -133,7 +121,7 @@ export class ReservationStateService {
             this._allItems = items;
             this.stacks = convert(items);
 
-            this.reservationService.all$().subscribe((reservations: Set<Reservation>) => {
+            this.reservationService.all$().subscribe((reservations: Reservation[]) => {
                 this._allReservations = reservations;
                 this.checkInitialized();
             });
@@ -146,30 +134,23 @@ export class ReservationStateService {
         }
     }
 
-    public block(items: Item[]): void {
+    private block(items: Item[]): void {
         console.debug('#block();', items);
         this.stacks.forEach((stack: ItemStack) => {
+            let leftover: Item[] = [];
             items.forEach((i: Item) => {
-                if (stack.canJoin(i)) {
-                    i.blocked = true;
-                    stack.blockedCount++;
+                if (!stack.block(i)) {
+                    leftover.push(i);
                 }
             });
+            items = leftover;
         });
     }
 
-    public unblockAll(): void {
+    private unblockAll(): void {
         console.debug('#unblockAll();');
         this.stacks.forEach((stack: ItemStack) => {
-            let items: Item[] = Array.from(stack.items);
-            let index = 0;
-            while (stack.blockedCount > 0) {
-                if (items[index].blocked) {
-                    items[index].blocked = false;
-                    stack.blockedCount--;
-                }
-                index++;
-            }
+            stack.unblockAll();
         });
     }
 

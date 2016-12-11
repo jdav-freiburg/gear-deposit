@@ -15,7 +15,7 @@ export class ReservationsComponent implements OnInit, OnDestroy {
     private loading: boolean = true;
 
     private subscription: Subscription;
-    private reservations: Set<Reservation>;
+    private reservations: Reservation[];
 
     constructor(private reservationService: ReservationService, private uiMessageService: UiMessageService,
                 private loadingService: LoadingService,
@@ -24,7 +24,7 @@ export class ReservationsComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.loadingService.emitLoading(true);
-        this.subscription = this.reservationService.all$().subscribe((reservations: Set<Reservation>) => {
+        this.subscription = this.reservationService.all$().subscribe((reservations: Reservation[]) => {
             this.loading = false;
             this.reservations = reservations;
             this.loadingService.emitLoading(false);
@@ -45,7 +45,9 @@ export class ReservationsComponent implements OnInit, OnDestroy {
 
     remove(reservation: Reservation) {
         this.reservationService.remove(reservation.id).then(() => {
-            this.reservations.delete(reservation);
+            this.reservations = this.reservations.filter((r: Reservation) => {
+                return r.id !== reservation.id;
+            });
             this.uiMessageService.emitInfo(`Reservierung '${reservation.name}' gelöscht`);
         });
     }

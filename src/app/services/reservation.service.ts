@@ -49,15 +49,15 @@ export class ReservationService {
         };
     }
 
-    public all$(): Observable<Set<Reservation>> {
+    public all$(): Observable<Reservation[]> {
         let now: number = Date.now();
 
         return this.af.database.list('/reservations').map((reservations: any[]) => {
-            let result: Set<Reservation> = new Set<Reservation>();
+            let result: Reservation[] = [];
 
             reservations.forEach((reservation: any) => {
                 if (reservation.begin >= now || reservation.end >= now) {
-                    result.add(this.convertFromDB(reservation));
+                    result.push(this.convertFromDB(reservation));
                 }
             });
 

@@ -22,7 +22,7 @@ export class Item extends ItemMetadata {
 
 export class ItemStack extends ItemMetadata {
 
-    blockedCount: number = 0;
+    private _blockedCount: number = 0;
 
     items: Set<Item> = new Set<Item>();
     selectedCount?: number;
@@ -47,12 +47,39 @@ export class ItemStack extends ItemMetadata {
         //FIXME labels missing...
     }
 
+    block(item: Item): boolean {
+        let belongsToStack = false;
+        if (this.canJoin(item)) {
+            belongsToStack = true;
+            item.blocked = true;
+            this._blockedCount++;
+
+        }
+        return belongsToStack;
+    }
+
+    unblockAll(): void {
+        let items: Item[] = Array.from(this.items);
+        let index = 0;
+        while (this.blockedCount > 0) {
+            if (items[index].blocked) {
+                items[index].blocked = false;
+                this._blockedCount--;
+            }
+            index++;
+        }
+    }
+
+    get blockedCount(): number {
+        return this._blockedCount;
+    }
+
     get blocked(): boolean {
-        return this.blockedCount === this.items.size;
+        return this._blockedCount === this.items.size;
     }
 
     get availableItemCount(): number {
-        return this.items.size - this.blockedCount;
+        return this.items.size - this._blockedCount;
     }
 
 }

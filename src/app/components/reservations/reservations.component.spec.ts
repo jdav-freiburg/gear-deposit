@@ -3,15 +3,18 @@ import { Router } from '@angular/router';
 import { ReservationsComponent } from './reservations.component';
 import { ItemStackComponent } from '../items';
 import { LoadingService, ReservationService, UiMessageService } from '../../services';
-import { createReservationServiceFake } from '../../../testing';
+import { createReservationServiceFake, MOCKED_RESERVATIONS } from '../../../testing';
 import { SimpleItemListComponent } from '../items/simple-item-list/simple-item-list.component';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 
 describe('ReservationsComponent', () => {
+
     let fixture: ComponentFixture<ReservationsComponent>;
     let debugElement: DebugElement;
+
+    let reservationService: ReservationService;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -32,6 +35,8 @@ describe('ReservationsComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(ReservationsComponent);
         debugElement = fixture.debugElement;
+
+        reservationService = debugElement.injector.get(ReservationService);
     });
 
     it('should emit loading while requesting data and report when data was loaded', () => {
@@ -47,7 +52,7 @@ describe('ReservationsComponent', () => {
 
     it('should show message when there are no reservations', () => {
         let reservationService: ReservationService = debugElement.injector.get(ReservationService);
-        spyOn(reservationService, 'all$').and.returnValue(Observable.of(new Set()));
+        spyOn(reservationService, 'all$').and.returnValue(Observable.of([]));
         fixture.detectChanges();
 
         expect(debugElement.query(By.css('p')).nativeElement.textContent).toContain('Keine aktuellen Reservierungen');
@@ -58,9 +63,8 @@ describe('ReservationsComponent', () => {
 
         let reservations: DebugElement[] = debugElement.queryAll(By.css('.card'));
         expect(reservations).toBeDefined();
-        expect(reservations.length).toEqual(2);
-
-        expect(debugElement.queryAll(By.css('jgd-simple-item-list')).length).toEqual(2);
+        expect(reservations.length).toEqual(MOCKED_RESERVATIONS.length);
+        expect(debugElement.queryAll(By.css('jgd-simple-item-list')).length).toEqual(MOCKED_RESERVATIONS.length);
     });
 
 });

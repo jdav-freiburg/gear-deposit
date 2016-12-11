@@ -82,7 +82,8 @@ export function createMockReservation(id: number): Reservation {
     };
 }
 
-export const MOCKED_RESERVATIONS: Set<Reservation> = new Set<Reservation>([
+export const MOCKED_RESERVATIONS: Reservation[] = [
     createMockReservation(1),
-    createMockReservation(2)
-]);
+    createMockReservation(2),
+    createMockReservation(3)
+];

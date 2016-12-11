@@ -70,4 +70,58 @@ describe('Class: ItemStack', () => {
         expect(itemStack.items.has(item1)).toBe(true);
     });
 
+    it('should block item if it belongs to stack', () => {
+        let blocked = itemStack.block(item1);
+        expect(blocked).toBe(true);
+        expect(item1.blocked).toBe(true);
+        expect(itemStack.blockedCount).toEqual(1);
+    });
+
+    it('should not block item if it doesn\'t belong to stack', () => {
+        let item2 = createMockItem(2);
+        item2.type = `changed ${MOCK_ITEM_TYPE}`;
+        let blocked = itemStack.block(item2);
+        expect(blocked).toBe(false);
+        expect(item1.blocked).toBeFalsy(); // blocked is optional and only set when it was set to true once
+        expect(itemStack.blockedCount).toEqual(0);
+    });
+
+    it('should block entire stack if all items are blocked', () => {
+        let item2 = createMockItem(2);
+        itemStack.add(item2);
+        itemStack.block(item1);
+        itemStack.block(item2);
+        expect(itemStack.blockedCount).toEqual(2);
+        expect(itemStack.availableItemCount).toEqual(0);
+        expect(itemStack.blocked).toBe(true);
+    });
+
+    it('should not block entire stack if only a few items are blocked', () => {
+        let item2 = createMockItem(2);
+        let item3 = createMockItem(3);
+        itemStack.add(item2);
+        itemStack.block(item1);
+        itemStack.block(item2);
+        itemStack.add(item3);
+        expect(itemStack.blockedCount).toEqual(2);
+        expect(itemStack.availableItemCount).toEqual(1);
+        expect(itemStack.blocked).toBe(false);
+    });
+
+    it('should unblock all', () => {
+        let item2 = createMockItem(2);
+        let item3 = createMockItem(3);
+        itemStack.add(item2);
+        itemStack.add(item3);
+        itemStack.block(item1);
+        itemStack.block(item2);
+        itemStack.unblockAll();
+        expect(itemStack.blockedCount).toEqual(0);
+        expect(itemStack.availableItemCount).toEqual(3);
+        expect(itemStack.blocked).toBe(false);
+        expect(item1.blocked).toBeFalsy();
+        expect(item2.blocked).toBeFalsy();
+        expect(item3.blocked).toBeFalsy();
+    });
+
 });
