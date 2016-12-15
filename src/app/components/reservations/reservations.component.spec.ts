@@ -67,4 +67,21 @@ describe('ReservationsComponent', () => {
         expect(debugElement.queryAll(By.css('jgd-simple-item-list')).length).toEqual(MOCKED_RESERVATIONS.length);
     });
 
+    // FIXME enable test
+    xit('should remove reservation', () => {
+        fixture.detectChanges();
+
+        let reservations: DebugElement[] = debugElement.queryAll(By.css('.card'));
+        let deleteButton = reservations[1].query(By.css('button'));
+        spyOn(reservationService, 'remove').and.callThrough();
+
+        deleteButton.triggerEventHandler('click', null);
+        fixture.detectChanges();
+
+        expect(reservationService.remove).toHaveBeenCalledWith(MOCKED_RESERVATIONS[1].id);
+        reservations = debugElement.queryAll(By.css('.card'));
+        expect(reservations.length).toEqual(MOCKED_RESERVATIONS.length - 1);
+        expect(debugElement.queryAll(By.css('jgd-simple-item-list')).length).toEqual(MOCKED_RESERVATIONS.length - 1);
+    });
+
 });
