@@ -4,17 +4,17 @@ import { convert } from '../../model/item-stack-factory';
 import { ItemService, ReservationService, UserService } from '../../services';
 import { ItemFilterPipe } from '../../pipes';
 
-interface OnDateChange {
+export interface OnDateChange {
     onBeginChange(date: Date): void;
     onEndChange(date: Date): void;
 }
 
-interface ReservationDates {
+export interface ReservationDates {
     begin: Date;
     end: Date;
 }
 
-class Reservation implements IReservation {
+export class Reservation implements IReservation {
 
     name: string;
     items: Item[] = [];

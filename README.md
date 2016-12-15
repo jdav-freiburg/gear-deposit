@@ -8,9 +8,7 @@
 [![DevDependency Status](https://david-dm.org/jdav-freiburg/gear-deposit/dev-status.svg)](https://david-dm.org/jdav-freiburg/gear-deposit?type=dev)
 [![GitHub version](https://badge.fury.io/gh/jdav-freiburg%2Fgear-deposit.svg)](https://badge.fury.io/gh/jdav-freiburg%2Fgear-deposit)
 
-Status: Alpha
-
-*This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.19-3.*
+**Status: Alpha**
 
 ## Install
 Run `npm install -g angular-cli`.

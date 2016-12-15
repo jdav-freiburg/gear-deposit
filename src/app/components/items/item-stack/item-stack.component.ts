@@ -7,8 +7,8 @@ export enum Style {
 
 @Component({
     selector: 'jgd-item-stack',
-    templateUrl: 'item-stack.component.html',
-    styleUrls: ['item-stack.component.scss']
+    templateUrl: './item-stack.component.html',
+    styleUrls: ['./item-stack.component.scss']
 })
 export class ItemStackComponent {
 

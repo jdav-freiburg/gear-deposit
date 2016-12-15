@@ -42,7 +42,6 @@
     "no-switch-case-fall-through": true,
     "no-trailing-whitespace": true,
     "no-unused-expression": true,
-    "no-unreachable": true,
     "no-use-before-declare": true,
     "no-var-keyword": true,
     "object-literal-sort-keys": false,
@@ -84,29 +83,17 @@
       "check-separator",
       "check-type"
     ],
-    "directive-selector-prefix": [
+    "directive-selector": [
       true,
-      "jgd"
-    ],
-    "component-selector-prefix": [
-      true,
-      "jgd"
-    ],
-    "directive-selector-name": [
-      true,
+      "attribute",
+      "jgd",
       "camelCase"
     ],
-    "component-selector-name": [
+    "component-selector": [
       true,
+      "element",
+      "jgd",
       "kebab-case"
-    ],
-    "directive-selector-type": [
-      true,
-      "attribute"
-    ],
-    "component-selector-type": [
-      true,
-      "element"
     ],
     "use-input-property-decorator": true,
     "use-output-property-decorator": true,
@@ -122,6 +109,7 @@
     ],
     "component-class-suffix": true,
     "directive-class-suffix": true,
+    "no-access-missing-member": true,
     "templates-use-public": true,
     "invoke-injectable": true
   }

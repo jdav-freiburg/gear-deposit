@@ -7,7 +7,7 @@ import { UiMessage, UiMessageType } from '../../../model/ui-message';
 import { ItemsComponent } from '../../items';
 import { ReservationStateService } from '../reservation-state.service';
 
-class ReservationValidation {
+export class ReservationValidation {
 
     constructor(private reservation: Reservation) {
     }
@@ -32,7 +32,7 @@ class ReservationValidation {
     }
 }
 
-class FooterState {
+export class FooterState {
 
     constructor(private reservationState: ReservationStateService) {
     }
@@ -67,7 +67,7 @@ export class NewReservationComponent implements OnInit {
 
     private minDateValue: string = new Intl.DateTimeFormat('de-DE').format(new Date());
 
-    private reservationValidation: ReservationValidation;
+    private validation: ReservationValidation;
     private footerState: FooterState;
 
     constructor(private appRouter: AppRouterService,
@@ -81,7 +81,7 @@ export class NewReservationComponent implements OnInit {
     ngOnInit() {
         this.loadingService.emitLoading(true);
         this.reservationState.initialized.subscribe(() => {
-            this.reservationValidation = new ReservationValidation(this.reservationState.reservation);
+            this.validation = new ReservationValidation(this.reservationState.reservation);
             this.loadingService.emitLoading(false);
         });
     }
