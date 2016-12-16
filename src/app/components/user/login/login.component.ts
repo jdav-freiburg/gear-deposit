@@ -14,15 +14,15 @@ export class LoginComponent {
     constructor(private authService: AuthService) {
     }
 
-    private showForm() {
+    showForm() {
         this.isFormVisible = true;
     }
 
-    private loginGoogle(): void {
+    loginGoogle(): void {
         this.authService.loginGoogle();
     }
 
-    private onSubmit(event: Event, form: NgForm): void {
+    onSubmit(event: Event, form: NgForm): void {
         event.preventDefault();
         this.authService.loginPW(form.value.email, form.value.password).catch((e: Error) => {
             console.error('couldn\'t login with email/pw', form.value.email, form.value.password, e);

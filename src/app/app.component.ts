@@ -58,7 +58,7 @@ export class AppComponent implements OnInit {
         });
     }
 
-    private hideMessage(): void {
+    hideMessage(): void {
         this.showMessage = false;
         this.message = null;
     }

@@ -9,12 +9,11 @@ import { Item } from '../../../../model/item';
 })
 export class EditItemsComponent implements OnInit {
 
-    private items: Item[];
-
-    private filter: string;
+    items: Item[];
+    changed: number = 0;
+    filter: string;
 
     private changedItems: Map<string, Item> = new Map<string, Item>();
-    private changed: number = 0;
 
     constructor(private itemService: ItemService, private uiMessage: UiMessageService) {
     }
@@ -41,7 +40,7 @@ export class EditItemsComponent implements OnInit {
         return item1.type === item2.type && item1.description === item2.description && item1.shape === item2.shape;
     }
 
-    private onItemTypeChanged(item: Item, value: string): void {
+    onItemTypeChanged(item: Item, value: string): void {
         let alreadyChanged: Item = this.changedItems.get(item.id);
         item.flagged = true;
         if (alreadyChanged !== undefined) {
@@ -62,7 +61,7 @@ export class EditItemsComponent implements OnInit {
         this.changed = this.changedItems.size;
     }
 
-    private onItemDescriptionChanged(item: Item, value: string) {
+    onItemDescriptionChanged(item: Item, value: string) {
         let alreadyChanged: Item = this.changedItems.get(item.id);
         item.flagged = true;
         if (alreadyChanged !== undefined) {
@@ -83,7 +82,7 @@ export class EditItemsComponent implements OnInit {
         this.changed = this.changedItems.size;
     }
 
-    private onItemShapeChanged(item: Item, value: string) {
+    onItemShapeChanged(item: Item, value: string) {
         let alreadyChanged: Item = this.changedItems.get(item.id);
         item.flagged = true;
         if (alreadyChanged !== undefined) {
@@ -104,11 +103,11 @@ export class EditItemsComponent implements OnInit {
         this.changed = this.changedItems.size;
     }
 
-    private saveChanged() {
+    saveChanged() {
         console.time('#saveChanged');
-        let error: boolean = false;
+        let error = false;
         let changedCount = this.changedItems.size;
-        let responseCount: number = 0;
+        let responseCount = 0;
         this.changedItems.forEach((item: Item, id: string, map: Map<string, Item>) => {
             this.itemService.update(id, item)
                 .then(() => {

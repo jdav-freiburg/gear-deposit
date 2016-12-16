@@ -17,17 +17,17 @@ export class FooterComponent {
 
     @Output() submitted: EventEmitter<any> = new EventEmitter<any>();
 
-    private toggled: boolean = true;
+    toggled: boolean = true;
 
-    private submit(): void {
+    submit(): void {
         this.submitted.emit();
     }
 
-    private toggle(): void {
+    toggle(): void {
         this.toggled = !this.toggled;
     }
 
-    private onGlobalClick(event: MouseEvent): void {
+    onGlobalClick(event: MouseEvent): void {
         if (!this.toggled) {
             console.log(event);
         }

@@ -25,10 +25,49 @@ export class ItemsComponent implements OnInit {
         });
     }
 
-    private onFilterChanged(filter: string) {
+    onFilterChanged(filter: string) {
         console.debug('#onFilterChanged(); > ', filter);
         this.filtered = this.reservationState.filter(filter);
         this.sort();
+    }
+
+    stackSelectedChanged(stack: ItemStack, count: number) {
+        stack.selectedCount = count;
+        if (stack.flagged) {
+            this.emitSelectedChange([stack], true);
+        }
+    }
+
+    // FIXME selectedCount missing
+    onClick(stack: ItemStack, event: MouseEvent) {
+        let selected = !stack.flagged;
+        let selectedStacks: ItemStack[] = [stack];
+
+        if (this.selectedLast !== undefined && !stack.flagged && event.shiftKey) {
+            selected = true;
+            let indexOfLastSelected = this.filtered.indexOf(this.selectedLast);
+            let indexOfClickedStack = this.filtered.indexOf(stack);
+            if (indexOfLastSelected < indexOfClickedStack) {
+                selectedStacks = this.filtered
+                    .slice(indexOfLastSelected, indexOfClickedStack + 1)
+                    .filter(_stack => !_stack.blocked);
+            } else {
+                selectedStacks = this.filtered
+                    .slice(indexOfClickedStack, indexOfLastSelected + 1)
+                    .filter(_stack => !_stack.blocked);
+            }
+        }
+
+        if (this.selectedLast === undefined && !stack.flagged) {
+            this.selectedLast = stack;
+        } else if (!stack.flagged && !event.shiftKey) {
+            this.selectedLast = stack;
+        } else if (stack.flagged && !event.shiftKey) {
+            this.selectedLast = undefined;
+            selected = false;
+        }
+
+        this.emitSelectedChange(selectedStacks, selected);
     }
 
     private sort() {
@@ -45,45 +84,6 @@ export class ItemsComponent implements OnInit {
 
             return 0;
         });
-    }
-
-    private stackSelectedChanged(stack: ItemStack, count: number) {
-        stack.selectedCount = count;
-        if (stack.flagged) {
-            this.emitSelectedChange([stack], true);
-        }
-    }
-
-    // FIXME selectedCount missing
-    private onClick(stack: ItemStack, event: MouseEvent) {
-        let selected = !stack.flagged;
-        let selectedStacks: ItemStack[] = [stack];
-
-        if (this.selectedLast !== undefined && !stack.flagged && event.shiftKey) {
-            selected = true;
-            let indexOfLastSelected = this.filtered.indexOf(this.selectedLast);
-            let indexOfClickedStack = this.filtered.indexOf(stack);
-            if (indexOfLastSelected < indexOfClickedStack) {
-                selectedStacks = this.filtered
-                    .slice(indexOfLastSelected, indexOfClickedStack + 1)
-                    .filter(stack => !stack.blocked);
-            } else {
-                selectedStacks = this.filtered
-                    .slice(indexOfClickedStack, indexOfLastSelected + 1)
-                    .filter(stack => !stack.blocked);
-            }
-        }
-
-        if (this.selectedLast === undefined && !stack.flagged) {
-            this.selectedLast = stack;
-        } else if (!stack.flagged && !event.shiftKey) {
-            this.selectedLast = stack;
-        } else if (stack.flagged && !event.shiftKey) {
-            this.selectedLast = undefined;
-            selected = false;
-        }
-
-        this.emitSelectedChange(selectedStacks, selected);
     }
 
     private emitSelectedChange(stacks: ItemStack[], selected: boolean) {

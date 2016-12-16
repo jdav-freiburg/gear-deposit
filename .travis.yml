@@ -17,6 +17,7 @@ before_script:
   - npm start &
   - sleep 5
 script:
+  - ng lint
   - ng test --watch=false --code-coverage=true
   #- npm run e2e
   - ng build --prod

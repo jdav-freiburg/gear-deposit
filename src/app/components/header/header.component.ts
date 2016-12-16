@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
         });
     }
 
-    private logout(): void {
+    logout(): void {
         console.log('#logout();');
         this.authService.logout();
         this.userAuthStatus = undefined;

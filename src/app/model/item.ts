@@ -44,7 +44,7 @@ export class ItemStack extends ItemMetadata {
         return this.type === item.type &&
             this.description === item.description &&
             this.shape === item.shape;
-        //FIXME labels missing...
+        // FIXME labels missing...
     }
 
     block(item: Item): boolean {

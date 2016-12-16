@@ -1,4 +1,4 @@
-<jgd-nav-bar #footer (jgdGlobalClick)="onGlobalClick($event)"
+<jgd-nav-bar #footer jgdGlobalClick (globalClick)="onGlobalClick($event)"
              [class.open]="!toggled"
              [class.empty]="!enableToggle && !description">
     <button type="button" class="btn btn-accent btn-floating"

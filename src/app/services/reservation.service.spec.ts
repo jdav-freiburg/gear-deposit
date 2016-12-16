@@ -7,11 +7,20 @@ import { Item } from '../model/item';
 describe('Service: ReservationService', () => {
 
     let service: ReservationService;
+    let items: Item[];
 
     beforeEach(() => {
+        let itemService = createItemServiceFake();
+        items = [
+            createMockItem(1),
+            createMockItem(2)
+        ];
+
+        spyOn(itemService, 'items$').and.returnValue(Observable.from([items]));
+
         service = new ReservationService(
             createAngularFireFake(),
-            createItemServiceFake(),
+            itemService,
             createUserServiceFake());
     });
 
@@ -20,19 +29,6 @@ describe('Service: ReservationService', () => {
     });
 
     it('should get items', () => {
-        let service;
-        let itemService = createItemServiceFake();
-        let items: Item[] = [
-            createMockItem(1),
-            createMockItem(2)
-        ];
-        spyOn(itemService, 'items$').and.returnValue(Observable.from([items]));
-
-        service = new ReservationService(
-            createAngularFireFake(),
-            itemService,
-            createUserServiceFake());
-
         expect(service.items).toEqual(items);
     });
 

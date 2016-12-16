@@ -51,7 +51,6 @@ describe('ReservationsComponent', () => {
     });
 
     it('should show message when there are no reservations', () => {
-        let reservationService: ReservationService = debugElement.injector.get(ReservationService);
         spyOn(reservationService, 'all$').and.returnValue(Observable.of([]));
         fixture.detectChanges();
 

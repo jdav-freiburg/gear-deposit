@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ItemStack, Reservation } from '../../../model';
+import { ItemStack, Reservation, UiMessage, UiMessageType } from '../../../model';
 import { AppRouterService, LoadingService, ReservationService, UiMessageService } from '../../../services';
-import { ROUTE } from '../../../app.routes';
+import { ROUTE } from '../../..';
 import { FooterComponent } from '../../footer/footer.component';
-import { UiMessage, UiMessageType } from '../../../model/ui-message';
 import { ItemsComponent } from '../../items';
 import { ReservationStateService } from '../reservation-state.service';
 
@@ -65,10 +64,10 @@ export class NewReservationComponent implements OnInit {
     @ViewChild('footerComponent') private footerComponent: FooterComponent;
     @ViewChild('itemsComponent') private itemsComponent: ItemsComponent;
 
-    private minDateValue: string = new Intl.DateTimeFormat('de-DE').format(new Date());
+    minDateValue: string = new Intl.DateTimeFormat('de-DE').format(new Date());
 
-    private validation: ReservationValidation;
-    private footerState: FooterState;
+    validation: ReservationValidation;
+    footerState: FooterState;
 
     constructor(private appRouter: AppRouterService,
                 private reservationService: ReservationService,
@@ -86,31 +85,31 @@ export class NewReservationComponent implements OnInit {
         });
     }
 
-    private get state(): ReservationStateService {
+    get state(): ReservationStateService {
         return this.reservationState;
     }
 
-    private get reservation(): Reservation {
+    get reservation(): Reservation {
         return this.reservationState.reservation;
     }
 
-    private onSelected(stacks: ItemStack[]): void {
+    onSelected(stacks: ItemStack[]): void {
         console.debug('#onSelected();', stacks);
         this.reservationState.select(stacks);
     }
 
-    private onDeselected(stacks: ItemStack[]): void {
+    onDeselected(stacks: ItemStack[]): void {
         console.debug('#onDeselected();', stacks);
         this.reservationState.deselect(stacks);
     }
 
-    private onFooterSubmit(): void {
+    onFooterSubmit(): void {
         console.log('#onFooterSubmit();');
         this.reservationState.pushSelectedToReservation();
         this.footerComponent.open();
     }
 
-    private saveReservation(): void {
+    saveReservation(): void {
         console.time('#saveReservation();');
 
         let reservation: Reservation = {

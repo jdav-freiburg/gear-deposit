@@ -13,7 +13,7 @@ describe('Service: UiMessage', () => {
         service.messages.subscribe((m: UiMessage) => {
             message = m;
         });
-        service.emitInfo('test')
+        service.emitInfo('test');
         expect(message).toBeDefined();
         expect(message.message).toEqual('test');
         expect(message.type).toEqual(UiMessageType.INFO);
@@ -24,7 +24,7 @@ describe('Service: UiMessage', () => {
         service.messages.subscribe((m: UiMessage) => {
             message = m;
         });
-        service.emitError('test')
+        service.emitError('test');
         expect(message).toBeDefined();
         expect(message.message).toEqual('test');
         expect(message.type).toEqual(UiMessageType.ERROR);

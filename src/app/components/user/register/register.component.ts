@@ -11,9 +11,10 @@ import { RegisteredUser, AuthUser } from '../../../model/user';
 })
 export class RegisterComponent implements OnInit {
 
-    private submitted: boolean = false;
+    submitted: boolean = false;
+    user: RegisteredUser;
+
     private uid: string;
-    private user: RegisteredUser;
 
     constructor(private authService: AuthService, private userService: UserService, private router: Router) {
     }

@@ -8,10 +8,10 @@ import { UiMessage, UiMessageType } from '../../model';
 })
 export class UiMessageComponent {
 
-    @Input() private asPopup: boolean = false;
-    @Input() private message: UiMessage;
+    @Input() asPopup: boolean = false;
+    @Input() message: UiMessage;
 
-    @Output() private click = new EventEmitter<any>();
+    @Output() click = new EventEmitter<any>();
 
     get isInfo(): boolean {
         return this.message !== undefined && this.message.type === UiMessageType.INFO;
@@ -25,7 +25,7 @@ export class UiMessageComponent {
         return this.message !== undefined && this.message.type === UiMessageType.ERROR;
     }
 
-    private onClick(): void {
+    onClick(): void {
         this.click.emit();
     }
 

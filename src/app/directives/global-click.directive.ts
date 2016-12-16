@@ -5,7 +5,7 @@ import { Directive, HostListener, Output, EventEmitter } from '@angular/core';
 })
 export class GlobalClickDirective {
 
-    @Output('jgdGlobalClick') globalClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+    @Output() globalClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
 
     @HostListener('document:click', ['$event'])
     onGlobalClick(event: MouseEvent): void {

@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../services/user.service';
-import { RegisteredUser } from '../../model/user';
-import { UiMessageType, UiMessage } from '../../model/ui-message';
-import { UiMessageService } from '../../services/ui-message.service';
+import { UserService, UiMessageService } from '../../services';
+import { RegisteredUser, UiMessageType, UiMessage } from '../../model';
 
 @Component({
     selector: 'jgd-home',
@@ -11,7 +9,7 @@ import { UiMessageService } from '../../services/ui-message.service';
 })
 export class HomeComponent implements OnInit {
 
-    private messages: any = {
+    messages: any = {
         unconfirmedWarning: <UiMessage>{
             message: 'Du bist noch nicht freigeschaltet.',
             type: UiMessageType.WARNING
@@ -22,8 +20,9 @@ export class HomeComponent implements OnInit {
         }
     };
 
-    private registeredUser: RegisteredUser;
-    private unconfirmedUsers: Set<RegisteredUser>;
+    registeredUser: RegisteredUser;
+
+    unconfirmedUsers: Set<RegisteredUser>;
 
     constructor(private userService: UserService, private uiMessages: UiMessageService) {
     }
@@ -38,8 +37,8 @@ export class HomeComponent implements OnInit {
         });
     }
 
-    private confirmUser(user: RegisteredUser): void {
-        console.debug('#confirmUser();')
+    confirmUser(user: RegisteredUser): void {
+        console.debug('#confirmUser();');
         this.userService.confirmUser(user.uid)
             .then(() => {
                 this.unconfirmedUsers.delete(user);

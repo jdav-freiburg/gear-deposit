@@ -10,7 +10,7 @@ import { ReservationService } from '../../../services';
 })
 export class EditReservationComponent implements OnInit {
 
-    private reservation: Reservation;
+    reservation: Reservation;
 
     constructor(private activatedRoute: ActivatedRoute, private reservationService: ReservationService) {
     }
