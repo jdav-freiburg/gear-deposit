@@ -51,9 +51,10 @@ export class ItemStack extends ItemMetadata {
         let belongsToStack = false;
         if (this.canJoin(item)) {
             belongsToStack = true;
-            item.blocked = true;
-            this._blockedCount++;
-
+            if (!item.blocked) {
+                item.blocked = true;
+                this._blockedCount++;
+            }
         }
         return belongsToStack;
     }
@@ -61,13 +62,14 @@ export class ItemStack extends ItemMetadata {
     unblockAll(): void {
         let items: Item[] = Array.from(this.items);
         let index = 0;
-        while (this.blockedCount > 0) {
+        while (this._blockedCount > 0 && index < items.length) {
             if (items[index].blocked) {
                 items[index].blocked = false;
                 this._blockedCount--;
             }
             index++;
         }
+        this._blockedCount = 0;
     }
 
     get blockedCount(): number {

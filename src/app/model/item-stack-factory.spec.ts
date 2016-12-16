@@ -5,7 +5,7 @@ import {
     MOCK_ITEM_DESCRIPTION,
     MOCK_ITEM_SHAPE,
     MOCK_ITEM_LABELS
-} from '../../testing/mocks';
+} from '../../testing';
 import { convert } from './item-stack-factory';
 
 describe('item-stack-factory#convert', () => {

@@ -5,7 +5,7 @@ import {
     MOCK_ITEM_DESCRIPTION,
     MOCK_ITEM_SHAPE,
     MOCK_ITEM_LABELS
-} from '../../testing/mocks';
+} from '../../testing';
 
 describe('Class: Item', () => {
     let item: Item;
