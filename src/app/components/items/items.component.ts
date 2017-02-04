@@ -45,8 +45,8 @@ export class ItemsComponent implements OnInit {
 
         if (this.selectedLast !== undefined && !stack.flagged && event.shiftKey) {
             selected = true;
-            let indexOfLastSelected = this.filtered.indexOf(this.selectedLast);
-            let indexOfClickedStack = this.filtered.indexOf(stack);
+            const indexOfLastSelected = this.filtered.indexOf(this.selectedLast);
+            const indexOfClickedStack = this.filtered.indexOf(stack);
             if (indexOfLastSelected < indexOfClickedStack) {
                 selectedStacks = this.filtered
                     .slice(indexOfLastSelected, indexOfClickedStack + 1)

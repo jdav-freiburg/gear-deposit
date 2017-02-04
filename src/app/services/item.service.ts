@@ -11,7 +11,7 @@ export class ItemService {
 
     public items$(): Observable<Item[]> {
         return this.af.database.list('/items').map((items: any[]) => {
-            let result: Item[] = [];
+            const result: Item[] = [];
             items.forEach((item: any) => {
                 result.push(new Item(
                     item.$key,

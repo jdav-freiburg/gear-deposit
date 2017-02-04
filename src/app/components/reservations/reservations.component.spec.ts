@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { ReservationsComponent } from './reservations.component';
 import { ItemStackComponent } from '../items';
@@ -16,7 +16,7 @@ describe('ReservationsComponent', () => {
 
     let reservationService: ReservationService;
 
-    beforeEach(async(() => {
+    beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [
                 ReservationsComponent,
@@ -29,10 +29,8 @@ describe('ReservationsComponent', () => {
                 {provide: ReservationService, useValue: createReservationServiceFake()},
                 {provide: Router, useValue: {}}
             ]
-        }).compileComponents();
-    }));
+        });
 
-    beforeEach(() => {
         fixture = TestBed.createComponent(ReservationsComponent);
         debugElement = fixture.debugElement;
 
@@ -40,8 +38,8 @@ describe('ReservationsComponent', () => {
     });
 
     it('should emit loading while requesting data and report when data was loaded', () => {
-        let loadingService: LoadingService = fixture.debugElement.injector.get(LoadingService);
-        let loadEmitted: boolean[] = [];
+        const loadingService: LoadingService = fixture.debugElement.injector.get(LoadingService);
+        const loadEmitted: boolean[] = [];
         loadingService.loading.subscribe(l => loadEmitted.push(l));
         fixture.detectChanges();
 
@@ -60,7 +58,7 @@ describe('ReservationsComponent', () => {
     it('should render reservations', () => {
         fixture.detectChanges();
 
-        let reservations: DebugElement[] = debugElement.queryAll(By.css('.card'));
+        const reservations: DebugElement[] = debugElement.queryAll(By.css('.card'));
         expect(reservations).toBeDefined();
         expect(reservations.length).toEqual(MOCKED_RESERVATIONS.length);
         expect(debugElement.queryAll(By.css('jgd-simple-item-list')).length).toEqual(MOCKED_RESERVATIONS.length);
@@ -71,7 +69,7 @@ describe('ReservationsComponent', () => {
         fixture.detectChanges();
 
         let reservations: DebugElement[] = debugElement.queryAll(By.css('.card'));
-        let deleteButton = reservations[1].query(By.css('button'));
+        const deleteButton = reservations[1].query(By.css('button'));
         spyOn(reservationService, 'remove').and.callThrough();
 
         deleteButton.triggerEventHandler('click', null);

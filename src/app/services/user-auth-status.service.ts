@@ -21,7 +21,7 @@ export class UserAuthStatusService {
             this.userAuthStatus.isAuthorized = isAuthorized;
             this.userService.getRegisteredUser$().subscribe((user: RegisteredUser) => {
                 if (user !== undefined) {
-                    let roles = user.roles ? user.roles : [];
+                    const roles = user.roles ? user.roles : [];
                     this.userAuthStatus.isRegistered = true;
                     this.userAuthStatus.hasAdminRole = !!roles.find((role: Role) => {
                         return role === Role.ADMIN;

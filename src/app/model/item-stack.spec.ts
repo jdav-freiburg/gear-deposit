@@ -27,7 +27,7 @@ describe('Class: ItemStack', () => {
     });
 
     it('should add item to stack and return \'true\' when it equals metadata', () => {
-        let item2 = createMockItem(2);
+        const item2 = createMockItem(2);
         expect(itemStack.add(item2)).toBe(true);
         expect(itemStack.items.size).toEqual(2);
         expect(itemStack.items.has(item2)).toBe(true);
@@ -76,7 +76,7 @@ describe('Class: ItemStack', () => {
         });
 
         it('should block item if it belongs to stack', () => {
-            let blocked = itemStack.block(item1);
+            const blocked = itemStack.block(item1);
             expect(blocked).toBe(true);
             expect(item1.blocked).toBe(true);
             expect(itemStack.blockedCount).toEqual(1);
@@ -84,7 +84,7 @@ describe('Class: ItemStack', () => {
 
         it('should not block item if it doesn\'t belong to stack', () => {
             item2.type = `changed ${MOCK_ITEM_TYPE}`;
-            let blocked = itemStack.block(item2);
+            const blocked = itemStack.block(item2);
             expect(blocked).toBe(false);
             expect(item1.blocked).toBeFalsy(); // blocked is optional and only set when it was set to true once
             expect(itemStack.blockedCount).toEqual(0);

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../../services/auth.service';
 import { NgForm } from '@angular/forms';
+import { AuthService } from '../../../services';
 
 @Component({
     selector: 'jgd-login',
@@ -9,7 +9,7 @@ import { NgForm } from '@angular/forms';
 })
 export class LoginComponent {
 
-    private isFormVisible: boolean = false;
+    private isFormVisible = false;
 
     constructor(private authService: AuthService) {
     }

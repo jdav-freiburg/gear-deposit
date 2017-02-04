@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit {
         this.userAuthStatus = undefined;
         this.userAuthStatusService.reset();
 
-        let sub: Subscription = this.authService.isAuthorized$().subscribe((isAuthorized: boolean) => {
+        const sub: Subscription = this.authService.isAuthorized$().subscribe((isAuthorized: boolean) => {
             if (!isAuthorized) {
                 sub.unsubscribe();
                 this.router.navigate(['/login']);

@@ -6,5 +6,5 @@ import { Component, Input } from '@angular/core';
     styleUrls: ['./nav-bar.component.scss']
 })
 export class NavBarComponent {
-    @Input() dark: boolean = false;
+    @Input() dark = false;
 }

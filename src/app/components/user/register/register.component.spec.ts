@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -11,7 +11,7 @@ describe('RegisterComponent', () => {
     let component: RegisterComponent;
     let fixture: ComponentFixture<RegisterComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [
                 RegisterComponent,
@@ -25,10 +25,8 @@ describe('RegisterComponent', () => {
             imports: [
                 FormsModule
             ]
-        }).compileComponents();
-    }));
+        });
 
-    beforeEach(() => {
         fixture = TestBed.createComponent(RegisterComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
@@ -39,12 +37,12 @@ describe('RegisterComponent', () => {
     });
 
     it('should fill in user name', () => {
-        let nameInput = fixture.debugElement.query(By.css('#name')).nativeElement;
+        const nameInput = fixture.debugElement.query(By.css('#name')).nativeElement;
         expect(nameInput.placeholder).toEqual(MOCKED_AUTH_USER.displayName);
     });
 
     it('should fill in user email', () => {
-        let emailInput = fixture.debugElement.query(By.css('#email')).nativeElement;
+        const emailInput = fixture.debugElement.query(By.css('#email')).nativeElement;
         expect(emailInput.placeholder).toEqual(MOCKED_AUTH_USER.email);
     });
 

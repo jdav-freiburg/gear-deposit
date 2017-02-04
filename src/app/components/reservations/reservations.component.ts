@@ -12,7 +12,7 @@ import { LoadingService, ReservationService, UiMessageService } from '../../serv
 })
 export class ReservationsComponent implements OnInit, OnDestroy {
 
-    private loading: boolean = true;
+    private loading = true;
 
     private subscription: Subscription;
     private reservations: Reservation[];

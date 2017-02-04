@@ -38,7 +38,7 @@ export function createMockItem(id: number): Item {
 }
 
 export function createMockItems(count: number): Item[] {
-    let items: Item[] = [];
+    const items: Item[] = [];
     let i = count;
     while (i > 0) {
         i--;

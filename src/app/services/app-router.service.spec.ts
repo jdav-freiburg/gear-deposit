@@ -20,14 +20,14 @@ describe('Service: AppRouter', () => {
     });
 
     it('should navigate to \'/\'', () => {
-        let promise = appRouter.navigateToRoot();
+        const promise = appRouter.navigateToRoot();
         expect(promise).toBe(fakePromise);
         expect(router.navigateByUrl).toHaveBeenCalledWith('/');
         expect(router.navigateByUrl).toHaveBeenCalledTimes(1);
     });
 
     it('should navigate to given route', () => {
-        let promise = appRouter.navigate(ROUTE.RESERVATIONS);
+        const promise = appRouter.navigate(ROUTE.RESERVATIONS);
         expect(promise).toBe(fakePromise);
         expect(router.navigateByUrl).toHaveBeenCalledWith(`/${ROUTE.RESERVATIONS.path}`);
         expect(router.navigateByUrl).toHaveBeenCalledTimes(1);

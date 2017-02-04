@@ -22,7 +22,7 @@ export class Item extends ItemMetadata {
 
 export class ItemStack extends ItemMetadata {
 
-    private _blockedCount: number = 0;
+    private _blockedCount = 0;
 
     items: Set<Item> = new Set<Item>();
     selectedCount?: number;
@@ -60,7 +60,7 @@ export class ItemStack extends ItemMetadata {
     }
 
     unblockAll(): void {
-        let items: Item[] = Array.from(this.items);
+        const items: Item[] = Array.from(this.items);
         let index = 0;
         while (this._blockedCount > 0 && index < items.length) {
             if (items[index].blocked) {

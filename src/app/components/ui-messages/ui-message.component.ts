@@ -8,7 +8,7 @@ import { UiMessage, UiMessageType } from '../../model';
 })
 export class UiMessageComponent {
 
-    @Input() asPopup: boolean = false;
+    @Input() asPopup = false;
     @Input() message: UiMessage;
 
     @Output() click = new EventEmitter<any>();

@@ -112,7 +112,7 @@ export class NewReservationComponent implements OnInit {
     saveReservation(): void {
         console.time('#saveReservation();');
 
-        let reservation: Reservation = {
+        const reservation: Reservation = {
             user: this.reservationState.reservation.user,
             name: this.reservationState.reservation.name,
             begin: this.reservationState.reservation.dates.begin,

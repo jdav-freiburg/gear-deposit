@@ -1,6 +1,5 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { Item, ItemStack, RegisteredUser, Reservation as IReservation } from '../../model';
-import { convert } from '../../model/item-stack-factory';
+import { Item, ItemStack, RegisteredUser, Reservation as IReservation, convert } from '../../model';
 import { ItemService, ReservationService, UserService } from '../../services';
 import { ItemFilterPipe } from '../../pipes';
 
@@ -68,7 +67,8 @@ export class ReservationStateService {
     private _filteredItems: ItemStack[];
 
     private _added: Set<ItemStack> = new Set();
-    public addedCount: number = 0;
+
+    public addedCount = 0;
 
     public readonly selected: Set<ItemStack> = new Set();
     public readonly initialized: EventEmitter<void> = new EventEmitter<void>();
@@ -93,8 +93,8 @@ export class ReservationStateService {
                 onBeginChange: (date: Date) => {
                     this.unblockAll();
                     this._allReservations.forEach((reservation: Reservation) => {
-                        let begin = date;
-                        let end = this.reservation.dates.end;
+                        const begin = date;
+                        const end = this.reservation.dates.end;
                         if ((begin <= reservation.end && begin >= reservation.begin ) ||
                             (end && begin >= reservation.begin && end <= reservation.end)) {
                             this.block(reservation.items);
@@ -104,8 +104,8 @@ export class ReservationStateService {
                 onEndChange: (date: Date) => {
                     this.unblockAll();
                     this._allReservations.forEach((reservation: Reservation) => {
-                        let begin = this.reservation.dates.begin;
-                        let end = date;
+                        const begin = this.reservation.dates.begin;
+                        const end = date;
                         if ((end >= reservation.begin && end <= reservation.end) ||
                             (begin && end >= reservation.end && begin >= reservation.begin )) {
                             this.block(reservation.items);
@@ -137,7 +137,7 @@ export class ReservationStateService {
     private block(items: Item[]): void {
         console.debug('#block();', items);
         this.stacks.forEach((stack: ItemStack) => {
-            let leftover: Item[] = [];
+            const leftover: Item[] = [];
             items.forEach((i: Item) => {
                 if (!stack.block(i)) {
                     leftover.push(i);
@@ -171,7 +171,7 @@ export class ReservationStateService {
     }
 
     public filter(query: string): ItemStack[] {
-        let filtered: Item[] = this.itemFilter.transform(this._allItems, query);
+        const filtered: Item[] = this.itemFilter.transform(this._allItems, query);
         this._filteredItems = convert(filtered);
         return this._filteredItems;
     }

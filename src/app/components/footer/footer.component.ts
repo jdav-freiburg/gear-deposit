@@ -11,13 +11,13 @@ export class FooterComponent {
 
     @Input() description: string;
 
-    @Input() showSubmit: boolean = false;
-    @Input() submitIcon: string = 'save';
-    @Input() submitTitle: string = 'Änderungen speichern';
+    @Input() showSubmit = false;
+    @Input() submitIcon = 'save';
+    @Input() submitTitle = 'Änderungen speichern';
 
     @Output() submitted: EventEmitter<any> = new EventEmitter<any>();
 
-    toggled: boolean = true;
+    toggled = true;
 
     submit(): void {
         this.submitted.emit();

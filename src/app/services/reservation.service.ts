@@ -21,7 +21,7 @@ export class ReservationService {
     }
 
     public add(reservation: Reservation): firebase.Promise<void> {
-        let itemIds: string[] = [];
+        const itemIds: string[] = [];
         reservation.items.forEach(i => itemIds.push(i.id));
         return this.af.database.list('/reservations').push({
             uid: reservation.user.uid,
@@ -33,9 +33,9 @@ export class ReservationService {
     }
 
     private convertFromDB(dbReservation: any): Reservation {
-        let items: Item[] = [];
+        const items: Item[] = [];
         dbReservation.items.forEach((itemId: string) => {
-            let item = this.items.find(i => itemId === i.id);
+            const item = this.items.find(i => itemId === i.id);
             items.push(item);
         });
 
@@ -50,10 +50,10 @@ export class ReservationService {
     }
 
     public all$(): Observable<Reservation[]> {
-        let now: number = Date.now();
+        const now: number = Date.now();
 
         return this.af.database.list('/reservations').map((reservations: any[]) => {
-            let result: Reservation[] = [];
+            const result: Reservation[] = [];
 
             reservations.forEach((reservation: any) => {
                 if (reservation.begin >= now || reservation.end >= now) {

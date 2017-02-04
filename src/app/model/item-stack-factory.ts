@@ -2,10 +2,10 @@ import { Item, ItemStack } from './item';
 
 export function convert(items: Item[]): ItemStack[] {
 
-    let stacks: ItemStack[] = [];
+    const stacks: ItemStack[] = [];
 
     function add(item: Item) {
-        let stackFound = tryToAddToCorrespondingStack(item);
+        const stackFound = tryToAddToCorrespondingStack(item);
         if (!stackFound) {
             stacks.push(new ItemStack(item));
         }
@@ -13,7 +13,7 @@ export function convert(items: Item[]): ItemStack[] {
 
     function tryToAddToCorrespondingStack(item: Item): boolean {
         let found: boolean;
-        for (let stack of stacks) {
+        for (const stack of stacks) {
             found = stack.add(item);
             if (found) {
                 return true;

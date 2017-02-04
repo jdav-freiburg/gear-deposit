@@ -17,9 +17,9 @@ import { LoadingService } from './services/loading.service';
 })
 export class AppComponent implements OnInit {
 
-    loading: boolean = true;
+    loading = true;
+    showMessage = false;
 
-    showMessage: boolean = false;
     message: UiMessage;
 
     private delay: any;

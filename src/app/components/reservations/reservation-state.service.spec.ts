@@ -26,7 +26,7 @@ describe('Service: ReservationState', () => {
     let reservationState: ReservationStateService;
 
     beforeEach(() => {
-        let userService = createUserServiceFake();
+        const userService = createUserServiceFake();
 
         items = createComplexMockItems(MOCKED_STACKS_SIZE, MOCKED_STACK_ITEMS_SIZE);
         itemService = createItemServiceFake();
@@ -90,7 +90,7 @@ describe('Service: ReservationState', () => {
             selected.push(reservationState.stacks[2]);
             selected.push(reservationState.stacks[3]);
 
-            let deselected: ItemStack[] = [];
+            const deselected: ItemStack[] = [];
             deselected.push(reservationState.stacks[0]);
             deselected.push(reservationState.stacks[2]);
 

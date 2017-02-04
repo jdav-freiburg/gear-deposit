@@ -1,18 +1,17 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { TestBed, async, ComponentFixture } from '@angular/core/testing';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { AppComponent } from './app.component';
-import { AuthService, UiMessageService, UserAuthStatusService } from './services';
-import { LoadingService } from './services/loading.service';
+import { AuthService, UiMessageService, UserAuthStatusService, LoadingService } from './services';
 import { LoadingComponent } from './components/loading/loading.component';
-import { UiMessageComponent } from './components/ui-messages/ui-message.component';
-import { RouterStub } from '../testing/router-stubs';
+import { UiMessageComponent } from './components/ui-messages';
+import { RouterStub } from '../testing';
 
 describe('AppComponent', () => {
     let component: AppComponent;
     let fixture: ComponentFixture<AppComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [
                 AppComponent,
@@ -28,9 +27,7 @@ describe('AppComponent', () => {
             ],
             schemas: [NO_ERRORS_SCHEMA]
         });
-    }));
 
-    beforeEach(() => {
         fixture = TestBed.createComponent(AppComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();

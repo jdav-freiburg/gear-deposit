@@ -11,7 +11,7 @@ import { RegisteredUser, AuthUser } from '../../../model/user';
 })
 export class RegisterComponent implements OnInit {
 
-    submitted: boolean = false;
+    submitted = false;
     user: RegisteredUser;
 
     private uid: string;

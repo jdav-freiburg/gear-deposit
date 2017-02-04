@@ -38,8 +38,8 @@ function createAngularFireDatabaseFake(): AngularFireDatabase {
 }
 
 export function createAngularFireFake(): AngularFire {
-    let auth = createAngularFireAuthFake();
-    let database = createAngularFireDatabaseFake();
+    const auth = createAngularFireAuthFake();
+    const database = createAngularFireDatabaseFake();
     return {
         auth: auth,
         database: database

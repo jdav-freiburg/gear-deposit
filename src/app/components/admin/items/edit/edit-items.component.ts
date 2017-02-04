@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ItemService, UiMessageService } from '../../../../services';
-import { Item } from '../../../../model/item';
+import { Item } from '../../../../model';
 
 @Component({
     selector: 'jgd-edit-items',
@@ -10,7 +10,7 @@ import { Item } from '../../../../model/item';
 export class EditItemsComponent implements OnInit {
 
     items: Item[];
-    changed: number = 0;
+    changed = 0;
     filter: string;
 
     private changedItems: Map<string, Item> = new Map<string, Item>();
@@ -41,7 +41,7 @@ export class EditItemsComponent implements OnInit {
     }
 
     onItemTypeChanged(item: Item, value: string): void {
-        let alreadyChanged: Item = this.changedItems.get(item.id);
+        const alreadyChanged: Item = this.changedItems.get(item.id);
         item.flagged = true;
         if (alreadyChanged !== undefined) {
             alreadyChanged.type = value;
@@ -62,7 +62,7 @@ export class EditItemsComponent implements OnInit {
     }
 
     onItemDescriptionChanged(item: Item, value: string) {
-        let alreadyChanged: Item = this.changedItems.get(item.id);
+        const alreadyChanged: Item = this.changedItems.get(item.id);
         item.flagged = true;
         if (alreadyChanged !== undefined) {
             alreadyChanged.description = value;
@@ -83,7 +83,7 @@ export class EditItemsComponent implements OnInit {
     }
 
     onItemShapeChanged(item: Item, value: string) {
-        let alreadyChanged: Item = this.changedItems.get(item.id);
+        const alreadyChanged: Item = this.changedItems.get(item.id);
         item.flagged = true;
         if (alreadyChanged !== undefined) {
             alreadyChanged.shape = value;
@@ -105,8 +105,7 @@ export class EditItemsComponent implements OnInit {
 
     saveChanged() {
         console.time('#saveChanged');
-        let error = false;
-        let changedCount = this.changedItems.size;
+        const changedCount = this.changedItems.size;
         let responseCount = 0;
         this.changedItems.forEach((item: Item, id: string, map: Map<string, Item>) => {
             this.itemService.update(id, item)

@@ -1,8 +1,13 @@
 import { Observable } from 'rxjs/Rx';
 import { ReservationService } from './';
-import { createAngularFireFake, createUserServiceFake, createItemServiceFake } from '../../testing/fakes';
-import { MOCKED_REGISTERED_USER, createMockItem } from '../../testing/mocks';
-import { Item } from '../model/item';
+import {
+    createAngularFireFake,
+    createUserServiceFake,
+    createItemServiceFake,
+    MOCKED_REGISTERED_USER,
+    createMockItem
+} from '../../testing';
+import { Item } from '../model';
 
 describe('Service: ReservationService', () => {
 
@@ -10,7 +15,7 @@ describe('Service: ReservationService', () => {
     let items: Item[];
 
     beforeEach(() => {
-        let itemService = createItemServiceFake();
+        const itemService = createItemServiceFake();
         items = [
             createMockItem(1),
             createMockItem(2)

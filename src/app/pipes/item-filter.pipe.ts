@@ -26,7 +26,7 @@ export class ItemFilterPipe implements PipeTransform {
 
             // no match yet, we check labels for a match
             if (index === matches) {
-                for (let label of item.labels) {
+                for (const label of item.labels) {
                     if (label.toLocaleLowerCase().indexOf(filter) !== -1) {
                         matches++;
                         break;
@@ -38,8 +38,8 @@ export class ItemFilterPipe implements PipeTransform {
     }
 
     transform(items: Item[], filter: string, maxItems?: number): any {
+        let filterStrings: boolean;
         let filtered: Item[];
-        let filterStrings = false;
         let filters: string[];
 
         if (items === undefined) {

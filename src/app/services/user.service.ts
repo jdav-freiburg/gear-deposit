@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs/Rx';
 import { AngularFire } from 'angularfire2';
-import { RegisteredUser, AuthUser } from '../model/user';
+import { RegisteredUser, AuthUser } from '../model';
 import { AuthService } from './auth.service';
 import { UiMessageService } from './ui-message.service';
 
@@ -29,7 +29,7 @@ export class UserService {
 
     public getRegisteredUser$(): Observable<RegisteredUser> {
         if (this.registeredUser === undefined) {
-            let subject: Subject<RegisteredUser> = new Subject<RegisteredUser>();
+            const subject: Subject<RegisteredUser> = new Subject<RegisteredUser>();
 
             this.authService.getAuthUser$().subscribe((authUser: AuthUser) => {
                 if (authUser === null) {
@@ -51,8 +51,8 @@ export class UserService {
     }
 
     public getUnconfirmedUsers$(): Observable<Set<RegisteredUser>> {
-        let unconfirmedUsers: Set<RegisteredUser> = new Set<RegisteredUser>();
-        let subject: Subject<Set<RegisteredUser>> = new Subject<Set<RegisteredUser>>();
+        const unconfirmedUsers: Set<RegisteredUser> = new Set<RegisteredUser>();
+        const subject: Subject<Set<RegisteredUser>> = new Subject<Set<RegisteredUser>>();
         this.af.database.list('/users').subscribe((users: any[]) => {
             users.forEach((user: any) => {
                 if (!user.confirmed) {
@@ -106,7 +106,7 @@ export class UserService {
 
     private getUser(id: string): Observable<RegisteredUser> {
         return this.af.database.object(`/users/${id}`).map((user: any) => {
-            let exists: boolean = user.$exists();
+            const exists: boolean = user.$exists();
             console.debug(`#getUser(); id=${id}, exists=${exists}`);
             if (exists) {
                 this.registeredUser = <RegisteredUser>{
