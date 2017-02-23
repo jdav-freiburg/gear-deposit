@@ -8,11 +8,11 @@ export class AppRouterService {
     constructor(private router: Router) {
     }
 
-    public navigateToRoot(): Promise<boolean> {
+    navigateToRoot(): Promise<boolean> {
         return this.router.navigateByUrl('/');
     }
 
-    public navigate(route: AppRoute): Promise<boolean> {
+    navigate(route: AppRoute): Promise<boolean> {
         return this.router.navigateByUrl(`/${route.path}`);
     }
 

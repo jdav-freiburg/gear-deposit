@@ -20,7 +20,7 @@ export class ReservationService {
         });
     }
 
-    public add(reservation: Reservation): firebase.Promise<void> {
+    add(reservation: Reservation): firebase.Promise<void> {
         const itemIds: string[] = [];
         reservation.items.forEach(i => itemIds.push(i.id));
         return this.af.database.list('/reservations').push({
@@ -49,7 +49,7 @@ export class ReservationService {
         };
     }
 
-    public all$(): Observable<Reservation[]> {
+    all$(): Observable<Reservation[]> {
         const now: number = Date.now();
 
         return this.af.database.list('/reservations').map((reservations: any[]) => {
@@ -65,13 +65,13 @@ export class ReservationService {
         });
     }
 
-    public get$(id: string): Observable<Reservation> {
+    get$(id: string): Observable<Reservation> {
         return this.af.database.object(`/reservations/${id}`).map((reservation: any) => {
             return this.convertFromDB(reservation);
         });
     }
 
-    public remove(id: string): firebase.Promise<void> {
+    remove(id: string): firebase.Promise<void> {
         return this.af.database.object(`/reservations/${id}`).remove();
     }
 

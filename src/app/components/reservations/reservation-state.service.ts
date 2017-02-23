@@ -34,27 +34,27 @@ export class Reservation implements IReservation {
         };
     }
 
-    public set begin(date: Date) {
+    set begin(date: Date) {
         this._begin = date;
         this.dates.begin = new Date(date);
         this.onDateChange.onBeginChange(this.dates.begin);
     }
 
-    public get begin(): Date {
+    get begin(): Date {
         return this._begin;
     }
 
-    public set end(date: Date) {
+    set end(date: Date) {
         this._end = date;
         this.dates.end = new Date(date);
         this.onDateChange.onEndChange(this.dates.end);
     }
 
-    public get end(): Date {
+    get end(): Date {
         return this._end;
     }
 
-    public get isValid(): boolean {
+    get isValid(): boolean {
         return this.name && this.begin && this.end && this.items.length > 0;
     }
 }
@@ -68,14 +68,14 @@ export class ReservationStateService {
 
     private _added: Set<ItemStack> = new Set();
 
-    public addedCount = 0;
+    addedCount = 0;
 
-    public readonly selected: Set<ItemStack> = new Set();
-    public readonly initialized: EventEmitter<void> = new EventEmitter<void>();
+    readonly selected: Set<ItemStack> = new Set();
+    readonly initialized: EventEmitter<void> = new EventEmitter<void>();
 
-    public reservation: Reservation;
+    reservation: Reservation;
 
-    public stacks: ItemStack[];
+    stacks: ItemStack[];
 
     constructor(private userService: UserService,
                 private itemService: ItemService,
@@ -154,15 +154,15 @@ export class ReservationStateService {
         });
     }
 
-    public select(stacks: ItemStack[]): void {
+    select(stacks: ItemStack[]): void {
         stacks.forEach(s => this.selected.add(s));
     }
 
-    public deselect(stacks: ItemStack[]): void {
+    deselect(stacks: ItemStack[]): void {
         stacks.forEach(s => this.selected.delete(s));
     }
 
-    public pushSelectedToReservation(): void {
+    pushSelectedToReservation(): void {
         this.selected.forEach((stack: ItemStack) => {
             this._added.add(stack);
             this.addedCount += stack.selectedCount;
@@ -170,7 +170,7 @@ export class ReservationStateService {
         this.selected.clear();
     }
 
-    public filter(query: string): ItemStack[] {
+    filter(query: string): ItemStack[] {
         const filtered: Item[] = this.itemFilter.transform(this._allItems, query);
         this._filteredItems = convert(filtered);
         return this._filteredItems;

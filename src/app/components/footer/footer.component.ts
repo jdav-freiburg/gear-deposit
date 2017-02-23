@@ -33,7 +33,7 @@ export class FooterComponent {
         }
     }
 
-    public open(): void {
+    open(): void {
         this.toggled = false;
     }
 

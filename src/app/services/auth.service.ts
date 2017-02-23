@@ -12,7 +12,7 @@ export class AuthService {
     constructor(private af: AngularFire) {
     }
 
-    public getAuthUser$(): Observable<AuthUser> {
+    getAuthUser$(): Observable<AuthUser> {
         if (this.authUser === undefined) {
             return this.af.auth.map((authState: FirebaseAuthState) => {
                 this.authUser = (authState != null && authState.auth !== undefined) ? authState.auth : null;
@@ -24,7 +24,7 @@ export class AuthService {
         return Observable.from([this.authUser]);
     }
 
-    public isAuthorized$(): Observable<boolean> {
+    isAuthorized$(): Observable<boolean> {
         if (this.authorized === undefined) {
             return this.af.auth.map((authState: FirebaseAuthState) => {
                 this.authorized = authState != null && authState.auth !== undefined;
@@ -35,7 +35,7 @@ export class AuthService {
         return Observable.from([this.authorized]);
     }
 
-    public loginGoogle(): firebase.Promise<FirebaseAuthState> {
+    loginGoogle(): firebase.Promise<FirebaseAuthState> {
         console.debug('#loginGoogle()');
         return this.af.auth.login({
             provider: AuthProviders.Google,
@@ -47,7 +47,7 @@ export class AuthService {
         return value !== undefined || value.trim().length > 0;
     }
 
-    public loginPW(email: string, password: string): firebase.Promise<FirebaseAuthState> {
+    loginPW(email: string, password: string): firebase.Promise<FirebaseAuthState> {
         console.debug('#loginPW()');
         if (!this.isSet(email) || !this.isSet(password)) {
             throw new Error(`email, password not set: ${email}, ${password}`);
@@ -62,12 +62,12 @@ export class AuthService {
         });
     }
 
-    public logout(): void {
+    logout(): void {
         console.log('#logout()');
         this.af.auth.logout();
     }
 
-    public reset(): void {
+    reset(): void {
         this.authUser = undefined;
         this.authorized = undefined;
     }

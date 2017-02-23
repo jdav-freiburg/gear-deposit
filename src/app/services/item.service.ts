@@ -9,7 +9,7 @@ export class ItemService {
     constructor(private af: AngularFire) {
     }
 
-    public items$(): Observable<Item[]> {
+    items$(): Observable<Item[]> {
         return this.af.database.list('/items').map((items: any[]) => {
             const result: Item[] = [];
             items.forEach((item: any) => {
@@ -25,11 +25,11 @@ export class ItemService {
         });
     }
 
-    public types$(): Observable<string[]> {
+    types$(): Observable<string[]> {
         return this.af.database.list('/types');
     }
 
-    public update(id: string, item: Item): firebase.Promise<void> {
+    update(id: string, item: Item): firebase.Promise<void> {
         console.debug(`#update(); will update ${id} with:`, item);
         return this.af.database.object(`/items/${id}`).update({
             type: item.type,

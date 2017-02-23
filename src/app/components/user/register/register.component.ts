@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../services/auth.service';
-import { UserService } from '../../../services/user.service';
-import { RegisteredUser, AuthUser } from '../../../model/user';
+import { AuthService, UserService } from '../../../services';
+import { RegisteredUser, AuthUser } from '../../../model';
 
 @Component({
     selector: 'jgd-register',

@@ -11,7 +11,7 @@ export class SimpleItemListComponent {
     private stacks: ItemStack[] = [];
 
     @Input()
-    public set items(items: Item[]) {
+    set items(items: Item[]) {
         this.stacks = convert(items);
     }
 

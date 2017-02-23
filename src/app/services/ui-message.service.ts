@@ -6,7 +6,7 @@ export class UiMessageService {
 
     messages: EventEmitter<UiMessage> = new EventEmitter<UiMessage>();
 
-    public emitInfo(message: string): void {
+    emitInfo(message: string): void {
         console.debug(`#emitInfo(); will info: '${message}'`);
         this.messages.emit(<UiMessage>{
             type: UiMessageType.INFO,
@@ -14,7 +14,7 @@ export class UiMessageService {
         });
     }
 
-    public emitError(message: string): void {
+    emitError(message: string): void {
         console.debug(`#emitError(); will error: '${message}'`);
         this.messages.emit(<UiMessage>{
             type: UiMessageType.ERROR,

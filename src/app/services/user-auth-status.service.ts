@@ -33,11 +33,11 @@ export class UserAuthStatusService {
         });
     }
 
-    public getUserAuthStatus$(): Observable<UserAuthStatus> {
+    getUserAuthStatus$(): Observable<UserAuthStatus> {
         return Observable.from([this.userAuthStatus]);
     }
 
-    public reset(): void {
+    reset(): void {
         this.userAuthStatus.isAuthorized = false;
         this.userAuthStatus.isRegistered = false;
         this.userAuthStatus.hasAdminRole = false;

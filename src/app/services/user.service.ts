@@ -13,11 +13,11 @@ export class UserService {
     constructor(private af: AngularFire, private authService: AuthService, private uiMessageService: UiMessageService) {
     }
 
-    public reset(): void {
+    reset(): void {
         this.registeredUser = undefined;
     }
 
-    public isRegistered$(): Observable<boolean> {
+    isRegistered$(): Observable<boolean> {
         if (this.registeredUser === undefined) {
             return this.getRegisteredUser$().map((user: RegisteredUser) => {
                 return user !== undefined;
@@ -27,7 +27,7 @@ export class UserService {
         return Observable.from([this.registeredUser !== undefined]);
     }
 
-    public getRegisteredUser$(): Observable<RegisteredUser> {
+    getRegisteredUser$(): Observable<RegisteredUser> {
         if (this.registeredUser === undefined) {
             const subject: Subject<RegisteredUser> = new Subject<RegisteredUser>();
 
@@ -50,7 +50,7 @@ export class UserService {
         return Observable.from([this.registeredUser]);
     }
 
-    public getUnconfirmedUsers$(): Observable<Set<RegisteredUser>> {
+    getUnconfirmedUsers$(): Observable<Set<RegisteredUser>> {
         const unconfirmedUsers: Set<RegisteredUser> = new Set<RegisteredUser>();
         const subject: Subject<Set<RegisteredUser>> = new Subject<Set<RegisteredUser>>();
         this.af.database.list('/users').subscribe((users: any[]) => {
@@ -76,7 +76,7 @@ export class UserService {
         return subject;
     }
 
-    public confirmUser(id: string): firebase.Promise<void> {
+    confirmUser(id: string): firebase.Promise<void> {
         if (this.registeredUser === undefined) {
             console.error('#confirmUser(); current user is unknown.');
             this.uiMessageService.emitError('Ein Fehler ist aufgetreten.');
@@ -93,7 +93,7 @@ export class UserService {
         });
     }
 
-    public registerUser(id: string, user: RegisteredUser): firebase.Promise<void> {
+    registerUser(id: string, user: RegisteredUser): firebase.Promise<void> {
         console.debug(`#registerUser(); id=${id}, user=`, user);
         return this.af.database.object(`/users/${id}`).set({
             registered: Date.now(),
