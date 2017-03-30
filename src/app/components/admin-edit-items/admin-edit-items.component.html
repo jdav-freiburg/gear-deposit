@@ -6,7 +6,7 @@
 </div>
 
 <ul class="list-group">
-    <li *ngFor="let item of items | jgdItemFilter:filter" [class.changed]="item.flagged">
+    <li *ngFor="let item of items | jgdItemFilter:filter:20" [class.changed]="item.flagged">
         <div class="row">
             <div class="input-holder col-4">
                 <input [value]="item.type" class="form-control"
