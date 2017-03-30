@@ -1,0 +1,14 @@
+<ul class="list-unstyled">
+    <li *ngIf="userAuthStatus?.isRegistered">
+        <a class="btn btn-flat" routerLink="/reservations" routerLinkActive="active">Reservierungen</a>
+    </li>
+    <li *ngIf="userAuthStatus?.isRegistered">
+        <a class="btn btn-flat" routerLink="/reservations/new" routerLinkActive="active">Neue Reservierung</a>
+    </li>
+    <li *ngIf="userAuthStatus?.hasAdminRole">
+        <a class="btn btn-flat" routerLink="/admin/items/edit" routerLinkActive="active"> Material Liste </a>
+    </li>
+    <li>
+        <a (click)="logout()" class="btn btn-flat">Logout </a>
+    </li>
+</ul>

@@ -1,3 +1,5 @@
+/* tslint:disable:no-empty-interface */
+
 export enum Role {
     ADMIN = 1
 }

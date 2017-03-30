@@ -1,9 +1,18 @@
-<jgd-header></jgd-header>
+<jgd-header (appLogoClick)="onAppLogoClick()"></jgd-header>
 
 <jgd-loading *ngIf="loading"></jgd-loading>
 
+<div class="cdk-overlay-container" [class.hide]="hideBackdrop">
+    <div class="cdk-overlay-backdrop cdk-overlay-dark-backdrop"
+         [class.cdk-overlay-backdrop-showing]="showNavigation" (click)="onBackdropClick()"></div>
+    <div class="cdk-overlay-pane">
+        <jgd-navigation jgdTransitionEnd (transitionEnd)="onTransitionEnd()"
+                        [class.show]="showNavigation"></jgd-navigation>
+    </div>
+</div>
+
 <div class="container-fluid">
-    <div class="col-xs-12 col-md-10 col-xl-8 offset-md-1 offset-xl-2">
+    <div class="col-12 col-md-10 col-xl-8 offset-md-1 offset-xl-2">
         <jgd-ui-message *ngIf="showMessage"
                         [message]="message" [asPopup]="true"
                         (click)="hideMessage()"></jgd-ui-message>

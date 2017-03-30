@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
 import { AngularFire } from 'angularfire2';
-import { Item } from '../model/item';
+import { Observable } from 'rxjs/Rx';
+import { Item } from '../model';
 
 @Injectable()
 export class ItemService {

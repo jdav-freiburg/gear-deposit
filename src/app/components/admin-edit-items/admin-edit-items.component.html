@@ -1,0 +1,30 @@
+<div class="form-group">
+    <label for="filter">Gegenstände auswählen</label>
+    <i class="material-icon md-36">search</i>
+    <input class="form-control" type="search" id="filter" [(ngModel)]="filter" name="filter"
+           placeholder="Auswahl">
+</div>
+
+<ul class="list-group">
+    <li *ngFor="let item of items | jgdItemFilter:filter" [class.changed]="item.flagged">
+        <div class="row">
+            <div class="input-holder col-4">
+                <input [value]="item.type" class="form-control"
+                       (input)="onItemTypeChanged(item, $event.target.value)">
+            </div>
+            <div class="input-holder col-6">
+                <input [value]="item.description" class="form-control"
+                       (input)="onItemDescriptionChanged(item, $event.target.value)">
+            </div>
+            <div class="input-holder col-2">
+                <input [value]="item.shape" class="form-control"
+                       (input)="onItemShapeChanged(item, $event.target.value)">
+            </div>
+            <!--span *ngFor="let label of item.labels"> {{ label }}, </span-->
+        </div>
+    </li>
+</ul>
+
+<jgd-footer *ngIf="changed > 0"
+            [description]="changed + ' Einträge geändert'"
+            (submitted)="saveChanged()"></jgd-footer>

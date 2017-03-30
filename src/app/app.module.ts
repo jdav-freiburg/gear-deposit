@@ -1,38 +1,41 @@
-import { AngularFireModule } from 'angularfire2';
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { CommonModule } from './common.module';
-import { ROUTES } from './app.routes';
+import { AngularFireModule } from 'angularfire2';
 import { AppComponent } from './app.component';
+import { ROUTES } from './app.routes';
+import { CommonModule } from './common.module';
+import { EditItemsComponent } from './components/admin-edit-items';
 import { NoAccessComponent, NoContentComponent } from './components/error';
-import { EditItemsComponent } from './components/admin';
-import { LoginComponent, RegisterComponent } from './components/user';
 import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
-import { AppRouterService, AuthService, UserService, UserAuthStatusService } from './services';
+import { NavigationComponent } from './components/navigation';
+import { UserLoginComponent } from './components/user-login';
+import { UserRegisterComponent } from './components/user-register';
+import { UpdateMinHeightToViewportDirective } from './directives/update-min-height-to-viewport.directive';
 import {
-    ConfirmedUserGuard,
     AdminUserGuard,
+    ConfirmedUserGuard,
+    IsAlreadyAuthorizedGuard,
     IsAlreadyRegisteredGuard,
     IsAuthorizedGuard,
-    IsRegisteredGuard,
-    IsAlreadyAuthorizedGuard
+    IsRegisteredGuard
 } from './guards';
-import { ReservationModule } from './components/reservations/reservation.module';
+import { ReservationModule } from './modules/reservation';
+import { AppRouterService, AuthService, UserAuthStatusService, UserService } from './services';
 
 export const SHARED_DECLARATIONS = [
     AppComponent,
     NoContentComponent,
+    NavigationComponent,
     HomeComponent,
     EditItemsComponent,
     HeaderComponent,
-    RegisterComponent,
-    LoginComponent,
+    UserRegisterComponent,
+    UserLoginComponent,
     NoAccessComponent,
-
+    UpdateMinHeightToViewportDirective
 ];
 
 export const SHARED_GUARDS = [
@@ -70,7 +73,6 @@ export const SHARED_SERVICES = [
         }),
 
         BrowserModule,
-        FormsModule,
         HttpModule,
         RouterModule.forRoot(ROUTES, {useHash: true}),
 

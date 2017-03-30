@@ -1,5 +1,5 @@
+import { UiMessage, UiMessageType } from '../model';
 import { UiMessageService } from './ui-message.service';
-import { UiMessage, UiMessageType } from '../model/ui-message';
 
 describe('Service: UiMessage', () => {
     let service: UiMessageService;

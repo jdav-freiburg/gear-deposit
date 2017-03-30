@@ -1,17 +1,12 @@
 @import "../../../scss/variables";
-@import "variables";
-
-.container-fluid {
-  padding: 0;
-}
 
 nav {
-  background-color: $primary_700;
+  background-color: mat-color($jgd-mat-primary, 700);
   border-radius: 0;
-  color: $navbar-color;
+  color: white;
   height: 100%; // needed for usage in footer combined with `mobile-maximized` state
 
   &.dark {
-    background-color: $primary_900;
+    background-color: mat-color($jgd-mat-primary, 900);
   }
 }

@@ -1,0 +1,76 @@
+@import "variables";
+
+.btn {
+  @include material-shadow(1);
+  border: none;
+  cursor: pointer;
+
+  transition: all 200ms;
+
+  &:active, &:focus, &:active:focus {
+    outline: none;
+  }
+
+  &.btn-primary {
+    background-color: mat-color($jgd-mat-primary, 700);
+    color: white;
+
+    &:hover {
+      background-color: mat-color($jgd-mat-primary, 800);
+    }
+
+    &:active {
+      background-color: mat-color($jgd-mat-primary, 900);
+    }
+
+    &[disabled] {
+      background-color: mat-color($jgd-mat-primary, 700);
+    }
+  }
+
+  &.btn-accent {
+    background-color: mat-color($jgd-mat-accent, 700);
+    color: white;
+
+    &:hover {
+      background-color: mat-color($jgd-mat-accent, 800);
+    }
+
+    &:active {
+      background-color: mat-color($jgd-mat-accent, 900);
+    }
+
+    &[disabled] {
+      background-color: mat-color($jgd-mat-accent, 700);
+    }
+  }
+
+  &.btn-floating {
+    @include material-shadow(3);
+    border-radius: 100%;
+    height: 60px;
+    width: 60px;
+    position: fixed;
+    bottom: 20px;
+    right: .5em;
+    transition: all 150ms ease-out;
+
+    &:hover {
+      @include material-shadow(5);
+    }
+  }
+
+  &.btn-flat {
+    background-color: transparent;
+    box-shadow: none;
+    color: black;
+
+    &:hover, &:focus {
+      background-color: mat-color($mat-grey, 100);
+    }
+
+    &:active {
+      background-color: mat-color($mat-grey, 200);
+    }
+  }
+}

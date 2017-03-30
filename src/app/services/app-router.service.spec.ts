@@ -1,6 +1,6 @@
-import { Router, NavigationExtras, UrlTree } from '@angular/router';
-import { AppRouterService } from './';
+import { NavigationExtras, Router, UrlTree } from '@angular/router';
 import { ROUTE } from '../app.routes';
+import { AppRouterService } from './';
 
 describe('Service: AppRouter', () => {
 

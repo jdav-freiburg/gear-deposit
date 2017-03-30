@@ -1,13 +1,14 @@
-import { NgModule } from '@angular/core';
 import { CommonModule as AngularCommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { NavBarComponent } from './components/nav-bar/nav-bar.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { LoadingComponent } from './components/loading/loading.component';
-import { UiMessageComponent } from './components/ui-messages';
-import { ItemStackComponent, ItemsComponent, SimpleItemListComponent } from './components/items';
 import { DropdownDirective } from './attribute-directives';
+import { FooterComponent } from './components/footer/footer.component';
+import { ItemStackComponent, SimpleItemListComponent } from './components/items';
+import { LoadingComponent } from './components/loading/loading.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { UiMessageComponent } from './components/ui-messages';
 import { GlobalClickDirective } from './directives';
+import { TransitionEndDirective } from './directives/transition-end.directive';
 import { ItemFilterPipe } from './pipes';
 import { ItemService, LoadingService, UiMessageService } from './services';
 
@@ -21,12 +22,12 @@ import { ItemService, LoadingService, UiMessageService } from './services';
         FooterComponent,
         SimpleItemListComponent,
         ItemStackComponent,
-        ItemsComponent,
         LoadingComponent,
         ItemFilterPipe,
         UiMessageComponent,
         DropdownDirective,
-        GlobalClickDirective
+        GlobalClickDirective,
+        TransitionEndDirective
     ],
     providers: [
         ItemService,
@@ -35,16 +36,19 @@ import { ItemService, LoadingService, UiMessageService } from './services';
         UiMessageService
     ],
     exports: [
+        AngularCommonModule,
+        FormsModule,
+
         NavBarComponent,
         FooterComponent,
         SimpleItemListComponent,
         ItemStackComponent,
-        ItemsComponent,
         LoadingComponent,
         ItemFilterPipe,
         UiMessageComponent,
         DropdownDirective,
-        GlobalClickDirective
+        GlobalClickDirective,
+        TransitionEndDirective
     ]
 })
 export class CommonModule {

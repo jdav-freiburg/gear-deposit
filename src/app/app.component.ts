@@ -1,16 +1,13 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
-import { Router, NavigationEnd, NavigationStart } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { UiMessage } from './model';
-import { UiMessageService } from './services';
-import { LoadingService } from './services/loading.service';
+import { LoadingService, UiMessageService } from './services';
+
+const MESSAGE_HIDE_DELAY = 2000;
 
 @Component({
     selector: 'jgd-app',
-    encapsulation: ViewEncapsulation.None,
     styleUrls: [
-        '../scss/bootstrap/customized.scss',
-        '../scss/material.scss',
-        '../scss/material-icons.scss',
         './app.component.scss'
     ],
     templateUrl: './app.component.html'
@@ -18,17 +15,23 @@ import { LoadingService } from './services/loading.service';
 export class AppComponent implements OnInit {
 
     loading = true;
+
+    showNavigation = false;
+    hideBackdrop = true;
+
     showMessage = false;
 
     message: UiMessage;
 
     private delay: any;
 
-    constructor(private uiMessageService: UiMessageService, private loadingService: LoadingService,
+    constructor(private uiMessageService: UiMessageService,
+                private loadingService: LoadingService,
                 private router: Router) {
     }
 
-    ngOnInit(): void {
+    ngOnInit() {
+        // shows ui message and hides it after a short delay
         this.uiMessageService.messages.subscribe((message: UiMessage) => {
             this.showMessage = true;
             this.message = message;
@@ -41,16 +44,19 @@ export class AppComponent implements OnInit {
                 this.showMessage = false;
                 this.message = null;
                 this.delay = undefined;
-            }, 2000);
+            }, MESSAGE_HIDE_DELAY);
         });
 
+        // will handle loading state of the app
         this.loadingService.loading.subscribe((loading: boolean) => {
             this.loading = loading;
         });
 
+        // loading state & navigation state also depends on routing
         this.router.events.subscribe((event: any) => {
             if (event instanceof NavigationEnd) {
                 this.loading = false;
+                this.showNavigation = false;
             }
             if (event instanceof NavigationStart) {
                 this.loading = true;
@@ -58,7 +64,24 @@ export class AppComponent implements OnInit {
         });
     }
 
-    hideMessage(): void {
+    onAppLogoClick() {
+        this.showNavigation = !this.showNavigation;
+        if (this.showNavigation) {
+            this.hideBackdrop = false;
+        }
+    }
+
+    onBackdropClick() {
+        this.showNavigation = false;
+    }
+
+    onTransitionEnd() {
+        if (!this.showNavigation) {
+            this.hideBackdrop = true;
+        }
+    }
+
+    hideMessage() {
         this.showMessage = false;
         this.message = null;
     }

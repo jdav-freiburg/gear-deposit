@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
+import { AngularFire, AuthMethods, AuthProviders, FirebaseAuthState } from 'angularfire2';
 import { Observable } from 'rxjs/Rx';
-import { AngularFire, FirebaseAuthState, AuthProviders, AuthMethods } from 'angularfire2';
-import { AuthUser } from '../model/user';
+import { AuthUser } from '../model';
 
 @Injectable()
 export class AuthService {

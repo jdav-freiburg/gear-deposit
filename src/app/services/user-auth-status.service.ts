@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
+import { RegisteredUser, Role, UserAuthStatus } from '../model';
 import { AuthService } from './auth.service';
 import { UserService } from './user.service';
-import { UserAuthStatus, RegisteredUser, Role } from '../model/user';
 
 @Injectable()
 export class UserAuthStatusService {

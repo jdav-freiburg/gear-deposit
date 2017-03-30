@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs/Rx';
 import { AngularFire } from 'angularfire2';
-import { RegisteredUser, AuthUser } from '../model';
+import { Observable, Subject } from 'rxjs/Rx';
+import { AuthUser, RegisteredUser } from '../model';
 import { AuthService } from './auth.service';
 import { UiMessageService } from './ui-message.service';
 

@@ -1,72 +1,10 @@
 @import "variables";
-
-.btn {
-  @include material-shadow(1);
-  border: none;
-  transition: all 200ms;
-
-  &:active, &:focus, &:active:focus {
-    outline: none;
-  }
-
-  &.btn-primary {
-    background-color: $primary_700;
-    color: white;
-    &:hover {
-      background-color: $primary_800;
-    }
-    &:active {
-      background-color: $primary_900;
-    }
-    &[disabled] {
-      background-color: $primary_700;
-    }
-  }
-
-  &.btn-accent {
-    background-color: $accent_700;
-    color: white;
-    &:hover {
-      background-color: $accent_800;
-    }
-    &:active {
-      background-color: $accent_900;
-    }
-    &[disabled] {
-      background-color: $accent_700;
-    }
-  }
-
-  &.btn-floating {
-    @include material-shadow(3);
-    border-radius: 100%;
-    height: 60px;
-    width: 60px;
-    position: fixed;
-    bottom: 20px;
-    right: .5em;
-    transition: all 150ms ease-out;
-    &:hover {
-      @include material-shadow(5);
-    }
-  }
-
-  &.btn-flat {
-    background-color: transparent;
-    box-shadow: none;
-    &:hover, &:focus {
-      background-color: $accent_100;
-    }
-    &:active {
-      background-color: $accent_200;
-    }
-  }
-}
+@import "material-icons";
+@import "material-buttons";
 
 .card {
   @include material-shadow(1);
-  color: black;
   border-radius: 2px;
   border: none;
-  padding: 1em;
+  margin-bottom: 1em;
 }

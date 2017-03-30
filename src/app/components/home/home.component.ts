@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService, UiMessageService } from '../../services';
-import { RegisteredUser, UiMessageType, UiMessage } from '../../model';
+import { RegisteredUser, UiMessage, UiMessageType } from '../../model';
+import { UiMessageService, UserService } from '../../services';
 
 @Component({
     selector: 'jgd-home',

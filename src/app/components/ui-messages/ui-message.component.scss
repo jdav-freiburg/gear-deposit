@@ -1,7 +1,7 @@
 @import "../../../scss/variables";
 
 div {
-  background-color: $lime_600;
+  background-color: mat-color($mat-lime, 600);
   border-radius: $btn-border-radius;
   color: white;
   margin-bottom: 1em;
@@ -19,9 +19,9 @@ div {
 }
 
 .warning {
-  background-color: $accent_400;
+  background-color: mat-color($jgd-mat-accent, 400);
 }
 
 .error {
-  background-color: $red_500;
+  background-color: mat-color($jgd-mat-error, 500);
 }

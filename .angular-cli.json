@@ -20,6 +20,8 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "jgd",
       "styles": [
+        "scss/bootstrap.scss",
+        "scss/material.scss"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",

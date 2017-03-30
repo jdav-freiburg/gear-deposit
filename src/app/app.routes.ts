@@ -1,21 +1,25 @@
-import { Routes, Route } from '@angular/router';
-import { HomeComponent } from './components/home/home.component';
-import { EditItemsComponent } from './components/admin';
-import { LoginComponent, RegisterComponent } from './components/user';
+/* tslint:disable:no-empty-interface */
+
+import { Route, Routes } from '@angular/router';
+import { EditItemsComponent } from './components/admin-edit-items';
 import { NoAccessComponent, NoContentComponent } from './components/error';
-import { ReservationsComponent, EditReservationComponent, NewReservationComponent } from './components/reservations';
+import { HomeComponent } from './components/home/home.component';
+import { UserLoginComponent } from './components/user-login';
+import { UserRegisterComponent } from './components/user-register';
 import {
-    ConfirmedUserGuard,
     AdminUserGuard,
-    IsRegisteredGuard,
+    ConfirmedUserGuard,
+    IsAlreadyAuthorizedGuard,
     IsAlreadyRegisteredGuard,
     IsAuthorizedGuard,
-    IsAlreadyAuthorizedGuard
+    IsRegisteredGuard
 } from './guards';
+import { EditReservationComponent, NewReservationComponent, ReservationsComponent } from './modules/reservation';
 
 export interface AppRoute extends Route {
 }
 
+// FIXME remove this ... unusual for angular apps
 export const ROUTE = {
     HOME: <AppRoute>{
         path: 'home'
@@ -85,13 +89,13 @@ export const ROUTES: Routes = [
 
     {
         path: ROUTE.LOGIN.path,
-        component: LoginComponent,
+        component: UserLoginComponent,
         canActivate: [IsAlreadyAuthorizedGuard]
     },
 
     {
         path: ROUTE.REGISTER.path,
-        component: RegisterComponent,
+        component: UserRegisterComponent,
         canActivate: [
             IsAuthorizedGuard,
             IsAlreadyRegisteredGuard

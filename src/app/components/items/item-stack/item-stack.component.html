@@ -7,13 +7,13 @@
 <span *ngIf="countStyle === 0">
     {{itemStack.items.size}}x
 </span>
-<span *ngIf="countStyle === 1" class="tag tag-pill float-xs-right"
+<span *ngIf="countStyle === 1" class="badge badge-pill float-right"
       [class.one]="itemStack.availableItemCount === 1"
       [class.clickable]="itemStack.availableItemCount > 1"
       (click)="tagClicked.emit()">
     {{itemStack.availableItemCount}}
 </span>
-<span *ngIf="countStyle === 1 && itemStack.blockedCount > 0" class="tag tag-pill float-xs-right blocked">
+<span *ngIf="countStyle === 1 && itemStack.blockedCount > 0" class="badge badge-pill float-right blocked">
     {{itemStack.blockedCount}}
 </span>
 <span>

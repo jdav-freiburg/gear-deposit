@@ -1,4 +1,7 @@
 @import "../scss/variables";
+@import "~@angular/material/core/overlay/overlay";
+
+@include cdk-overlay();
 
 jgd-header {
   display: block;
@@ -11,3 +14,31 @@ jgd-ui-message .popup {
   right: $spacer;
   z-index: $zindex-popover;
 }
+
+jgd-navigation {
+  background-color: white;
+
+  position: absolute;
+  left: -180px;
+  top: 0;
+  bottom: 0;
+
+  transition: left 200ms ease-in;
+
+  &.show {
+    left: 0;
+  }
+}
+
+.cdk-overlay-pane {
+  height: 100%;
+}
+
+.cdk-overlay-container {
+  visibility: visible;
+  &.hide {
+    visibility: hidden;
+  }
+}
+
+

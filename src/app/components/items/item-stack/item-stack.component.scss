@@ -1,16 +1,16 @@
 @import "../../../../scss/_variables";
 
 div {
-  color: $red_900;
+  color: mat-color($jgd-mat-error, 900);
   float: left;
 }
 
-.tag {
-  background-color: $primary_400;
+.badge {
+  background-color: mat-color($jgd-mat-primary, 400);
   transition: background-color 50ms ease-in-out;
 
   &.clickable:hover {
-    background-color: $primary_700;
+    background-color: mat-color($jgd-mat-primary, 700);
   }
 
   &.one {
@@ -18,7 +18,7 @@ div {
   }
 
   &.blocked {
-    background-color: $red_400;
+    background-color: mat-color($jgd-mat-error, 400);
     margin-right: .5em;
   }
 }

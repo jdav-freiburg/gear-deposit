@@ -1,36 +1,6 @@
 <header>
     <jgd-nav-bar [dark]="true">
-        <img src="/assets/edelweiss.svg" width="38" height="38" alt="">
+        <img src="/assets/edelweiss.svg" width="38" height="38" alt="App Logo" (click)="appLogoClick.emit()">
         <a class="navbar-brand" routerLink="/home" routerLinkActive="active">JDAV Freiburg Depot</a>
-        <div class="nav float-xs-right" *ngIf="userAuthStatus?.isAuthorized">
-            <div jgdDropdown class="navHolder">
-                <i class="material-icon" id="navDropdown"
-                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">more_vert</i>
-                <div class="dropdown-menu" aria-labelledby="navDropdown">
-                    <ul class="nav">
-                        <li class="nav-item" *ngIf="userAuthStatus?.isRegistered">
-                            <a class="nav-link" routerLink="/reservations" routerLinkActive="active">
-                                Reservierungen
-                            </a>
-                        </li>
-                        <li class="nav-item" *ngIf="userAuthStatus?.isRegistered">
-                            <a class="nav-link" routerLink="/reservations/new" routerLinkActive="active">
-                                Neue Reservierung
-                            </a>
-                        </li>
-                        <li class="nav-item" *ngIf="userAuthStatus?.hasAdminRole">
-                            <a class="nav-link" routerLink="/admin/items/edit" routerLinkActive="active">
-                                Material Liste
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a (click)="logout()" class="nav-link">
-                                Logout
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
     </jgd-nav-bar>
 </header>
