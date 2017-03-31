@@ -1,3 +1,8 @@
 @import "../../../../../scss/variables";
 @import "../../../../components/footer/variables";
 
+label {
+  font-size: 75%;
+  opacity: .5;
+  padding-left: $input-padding-x;
+}

@@ -7,9 +7,7 @@
 <span *ngIf="countStyle === 0">
     {{itemStack.items.size}}x
 </span>
-<span *ngIf="countStyle === 1" class="badge badge-pill float-right"
-      [class.one]="itemStack.availableItemCount === 1"
-      [class.clickable]="itemStack.availableItemCount > 1"
+<span *ngIf="countStyle === 1 && itemStack.availableItemCount > 1" class="badge badge-pill float-right"
       (click)="tagClicked.emit()">
     {{itemStack.availableItemCount}}
 </span>
@@ -19,8 +17,6 @@
 <span>
     {{itemStack.type}}
 </span>
-<span>
-    <em>
-        ({{itemStack.description}})
-    </em>
-</span>
+<small>
+    ({{itemStack.description}})
+</small>

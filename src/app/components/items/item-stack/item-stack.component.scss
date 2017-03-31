@@ -1,7 +1,7 @@
 @import "../../../../scss/_variables";
 
 div {
-  color: mat-color($jgd-mat-error, 900);
+  color: mat-color($jgd-mat-warn, 900);
   float: left;
 }
 
@@ -9,16 +9,14 @@ div {
   background-color: mat-color($jgd-mat-primary, 400);
   transition: background-color 50ms ease-in-out;
 
-  &.clickable:hover {
-    background-color: mat-color($jgd-mat-primary, 700);
-  }
-
-  &.one {
-    opacity: .6;
+  @media #{$lg-breakpoint} {
+    &:hover {
+      background-color: mat-color($jgd-mat-primary, 700);
+    }
   }
 
   &.blocked {
-    background-color: mat-color($jgd-mat-error, 400);
+    background-color: mat-color($jgd-mat-warn, 400);
     margin-right: .5em;
   }
 }

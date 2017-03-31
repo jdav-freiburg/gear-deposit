@@ -1,9 +1,12 @@
 @import "../../node_modules/bootstrap/scss/variables";
 @import "~@angular/material/core/theming/theming";
 
+$md-breakpoint: only screen and (min-width: map-get($grid-breakpoints, md));
+$lg-breakpoint: only screen and (min-width: map-get($grid-breakpoints, lg));
+
 $jgd-mat-primary: $mat-green;
 $jgd-mat-accent: $mat-orange;
-$jgd-mat-error: $mat-red;
+$jgd-mat-warn: $mat-red;
 
 @mixin material-shadow($level: 1) {
   @if $level == 1 {

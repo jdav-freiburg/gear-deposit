@@ -15,12 +15,14 @@
     background-color: mat-color($jgd-mat-primary, 700);
     color: white;
 
-    &:hover {
-      background-color: mat-color($jgd-mat-primary, 800);
-    }
-
     &:active {
       background-color: mat-color($jgd-mat-primary, 900);
+    }
+
+    @media #{$lg-breakpoint} {
+      &:hover {
+        background-color: mat-color($jgd-mat-primary, 800);
+      }
     }
 
     &[disabled] {
@@ -32,12 +34,14 @@
     background-color: mat-color($jgd-mat-accent, 700);
     color: white;
 
-    &:hover {
-      background-color: mat-color($jgd-mat-accent, 800);
-    }
-
     &:active {
       background-color: mat-color($jgd-mat-accent, 900);
+    }
+
+    @media #{$lg-breakpoint} {
+      &:hover {
+        background-color: mat-color($jgd-mat-accent, 800);
+      }
     }
 
     &[disabled] {
@@ -55,22 +59,30 @@
     right: .5em;
     transition: all 150ms ease-out;
 
-    &:hover {
-      @include material-shadow(5);
+    @media #{$lg-breakpoint} {
+      &:hover {
+        @include material-shadow(5);
+      }
     }
   }
 
-  &.btn-flat {
+  &.jgd-btn-flat {
     background-color: transparent;
     box-shadow: none;
     color: black;
 
-    &:hover, &:focus {
+    &:focus {
       background-color: mat-color($mat-grey, 100);
     }
 
     &:active {
       background-color: mat-color($mat-grey, 200);
+    }
+
+    @media #{$lg-breakpoint} {
+      &:hover {
+        background-color: mat-color($mat-grey, 100);
+      }
     }
   }
 }

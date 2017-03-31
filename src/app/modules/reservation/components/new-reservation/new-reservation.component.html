@@ -1,46 +1,50 @@
-<div class="form-group">
-    <label for="reservationDescription">Beschreibung der Ausfahrt</label>
-    <input class="form-control" type="text" [(ngModel)]="reservation.name" id="reservationDescription"
-           placeholder="Name der Ausfahrt">
+<div class="input-group">
+    <i class="material-icon input-group-addon">description</i>
+    <input class="form-control" type="text" [(ngModel)]="reservation.name" placeholder="Name der Ausfahrt">
 </div>
-<div class="form-group">
-    <label for="reservationStart">Beginn der Reservierung</label>
-    <input class="form-control" type="date" id="reservationStart"
-           [(ngModel)]="reservation.begin" [min]="minDateValue" [placeholder]="minDateValue">
+
+<div class="jgd-divider"></div>
+
+<label class="jgd-align-with-input-group">Beginn der Reservierung</label>
+<div class="form-group input-group">
+    <i class="material-icon input-group-addon">date_range</i>
+    <input class="form-control" type="date" [(ngModel)]="reservation.begin" [min]="minDateValue">
 </div>
-<div class="form-group">
-    <label for="reservationEnd">Ende der Reservierung</label>
-    <input class="form-control" type="date" id="reservationEnd"
-           [(ngModel)]="reservation.end" [min]="minDateValue">
+
+<div class="form-group jgd-align-with-input-group">
+    <label>Ende der Reservierung</label>
+    <input class="form-control" type="date" [(ngModel)]="reservation.end" [min]="minDateValue">
 </div>
+
+<div class="jgd-divider"></div>
 
 <jgd-reservation-items (selected)="onSelected($event)" (deselected)="onDeselected($event)"></jgd-reservation-items>
 
-<jgd-footer #footerComponent
-            [enableToggle]="state.added.length > 0"
-            [showSubmit]="state.selected.size > 0"
-            [submitIcon]="footerState.submitIcon"
-            [submitTitle]="footerState.submitTitle"
-            (submitted)="onFooterSubmit()">
-    <div *ngIf="state.added.length > 0" class="card reserved-items">
+<!--<jgd-footer #footerComponent-->
+<!--[enableToggle]="state.added.length > 0"-->
+<!--[showSubmit]="state.selected.size > 0"-->
+<!--[submitIcon]="footerState.submitIcon"-->
+<!--[submitTitle]="footerState.submitTitle"-->
+<!--(submitted)="onFooterSubmit()">-->
+<!--<div *ngIf="state.added.length > 0" class="card reserved-items">-->
 
-        <jgd-ui-message *ngIf="!reservation.name"
-                        [message]="validation.messages.invalidName"></jgd-ui-message>
-        <p *ngIf="reservation.name">Ausfahrt: {{reservation.name}}</p>
+<!--<jgd-ui-message *ngIf="!reservation.name"-->
+<!--[message]="validation.messages.invalidName"></jgd-ui-message>-->
+<!--<p *ngIf="reservation.name">Ausfahrt: {{reservation.name}}</p>-->
 
-        <jgd-ui-message *ngIf="!reservation.begin && !reservation.end"
-                        [message]="validation.messages.invalidDate"></jgd-ui-message>
-        <p *ngIf="reservation.begin && reservation.end">
-            Zeitraum: {{reservation.begin | date:"dd.MM.yy"}} - {{reservation.end | date:"dd.MM.yy"}}
-        </p>
+<!--<jgd-ui-message *ngIf="!reservation.begin && !reservation.end"-->
+<!--[message]="validation.messages.invalidDate"></jgd-ui-message>-->
+<!--<p *ngIf="reservation.begin && reservation.end">-->
+<!--Zeitraum: {{reservation.begin | date:"dd.MM.yy"}} - {{reservation.end | date:"dd.MM.yy"}}-->
+<!--</p>-->
 
-        <p>{{footerState.description}}:</p>
-        <jgd-simple-item-list [items]="state.added"></jgd-simple-item-list>
+<!--<p>{{footerState.description}}:</p>-->
+<!--<jgd-simple-item-list [items]="state.added"></jgd-simple-item-list>-->
 
-        <button type="submit" class="btn btn-accent"
-                (click)="saveReservation()"
-                [disabled]="!reservation.name || !reservation.begin || !reservation.end">
-            Reservierung speichern
-        </button>
-    </div>
-</jgd-footer>
+<!--<button type="submit" class="btn btn-accent"-->
+<!--(click)="saveReservation()"-->
+<!--[disabled]="!reservation.name || !reservation.begin || !reservation.end">-->
+<!--Reservierung speichern-->
+<!--</button>-->
+<!--</div>-->
+<!--</jgd-footer>-->

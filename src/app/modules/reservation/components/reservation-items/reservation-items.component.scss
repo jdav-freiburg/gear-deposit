@@ -1,40 +1,41 @@
 @import "../../../../../scss/variables";
 
-.form-group {
-  // FIXME calc from label + input line height
-  height: 71px;
-
-  label {
-    display: block;
-  }
-  i {
-    float: left;
-  }
-  input {
-    float: right;
-    // FIXME use variables for 36px (material icon font-size)
-    width: calc(100% - 36px);
-  }
-}
-
 ul {
   margin-top: 1em;
+  margin-right: $grid-gutter-width-base / 2;
   user-select: none;
 
   li {
     border-bottom: 1px solid mat-color($mat-grey, 200);
+    padding-left: $input-padding-x;
+
     display: flex;
     align-items: baseline;
+
+    @media #{$lg-breakpoint} {
+      &:hover:not(.disabled) {
+        background-color: mat-color($mat-grey, 200);
+      }
+    }
+
+    &.flagged {
+      background-color: mat-color($mat-grey, 100);
+    }
+
+    .form-control {
+      background-color: transparent;
+      border-bottom: none;
+    }
+  }
+
+  li:last-child {
+    border-bottom: none;
   }
 }
 
 input[name="itemCount"] {
   padding: .25em 0 .25em .25em;
   width: 2em;
-
-  &[disabled] {
-    opacity: .6;
-  }
 }
 
 jgd-item-stack {
@@ -45,18 +46,14 @@ jgd-item-stack {
   transition: background-color 50ms ease-in-out;
   width: 100%;
 
-  &:hover:not(.disabled) {
-    background-color: mat-color($jgd-mat-accent, 100);
-  }
-
-  &.flagged {
-    background-color: mat-color($jgd-mat-accent, 300);
-  }
-
   &.disabled {
     cursor: not-allowed;
     opacity: .6;
   }
 }
 
+.jgd-pager {
+  margin-bottom: 1em;
+  margin-right: $grid-gutter-width-base / 2;
+}
 

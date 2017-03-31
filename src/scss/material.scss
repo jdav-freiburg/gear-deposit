@@ -1,4 +1,35 @@
 @import "variables";
+@import '~@angular/material/core/theming/all-theme';
+
+// Include the base styles for Angular Material core. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// @include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue.
+$jgd-primary: mat-palette($jgd-mat-primary);
+$jgd-accent: mat-palette($jgd-mat-accent, A200, A100, A400);
+$jgd-blue: mat-palette($mat-blue, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$jgd-warn: mat-palette($jgd-mat-warn);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$jgd-theme: mat-light-theme($jgd-primary, $jgd-blue, $jgd-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+// @include angular-material-theme($jgd-app-theme);
+
+@import "~@angular/material/core/core";
+@include cdk-a11y();
+
+@import "~@angular/material/checkbox/checkbox-theme";
+@include mat-checkbox-theme($jgd-theme);
+
+// custom additions
 @import "material-icons";
 @import "material-buttons";
 
@@ -7,4 +38,12 @@
   border-radius: 2px;
   border: none;
   margin-bottom: 1em;
+}
+
+.jgd-divider {
+  border-bottom: 1px solid mat-color($mat-grey, 300);
+  margin: 1em 0;
+
+  height: 1px;
+  wdith: 100%
 }

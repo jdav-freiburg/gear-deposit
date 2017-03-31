@@ -12,23 +12,33 @@ export class ReservationItemsComponent implements OnInit {
     @Output() selected: EventEmitter<ItemStack[]> = new EventEmitter<ItemStack[]>();
     @Output() deselected: EventEmitter<ItemStack[]> = new EventEmitter<ItemStack[]>();
 
+    all: ItemStack[];
     filtered: ItemStack[];
     selectedLast: ItemStack;
+
+    maxStacks = 20;
+    total: number;
+    page: number;
+    totalPages: number;
 
     constructor(private reservationState: ReservationStateService) {
     }
 
     ngOnInit(): void {
         this.reservationState.initialized.subscribe(() => {
-            this.filtered = this.reservationState.stacks;
+            this.all = this.reservationState.stacks;
+            this.page = 1;
             this.sort();
+            this.slice();
         });
     }
 
     onFilterChanged(filter: string) {
         console.debug('#onFilterChanged(); > ', filter);
-        this.filtered = this.reservationState.filter(filter);
+        this.all = this.reservationState.filter(filter);
+        this.page = 1;
         this.sort();
+        this.slice();
     }
 
     stackSelectedChanged(stack: ItemStack, count: number) {
@@ -39,11 +49,16 @@ export class ReservationItemsComponent implements OnInit {
     }
 
     // FIXME selectedCount missing
-    onClick(stack: ItemStack, event: MouseEvent) {
+    onClick(stack: ItemStack, event?: MouseEvent) {
+        let shiftKey = event ? event.shiftKey : false;
         let selected = !stack.flagged;
         let selectedStacks: ItemStack[] = [stack];
 
-        if (this.selectedLast !== undefined && !stack.flagged && event.shiftKey) {
+        if (stack.blocked) {
+            return;
+        }
+
+        if (this.selectedLast !== undefined && !stack.flagged && shiftKey) {
             selected = true;
             const indexOfLastSelected = this.filtered.indexOf(this.selectedLast);
             const indexOfClickedStack = this.filtered.indexOf(stack);
@@ -60,9 +75,9 @@ export class ReservationItemsComponent implements OnInit {
 
         if (this.selectedLast === undefined && !stack.flagged) {
             this.selectedLast = stack;
-        } else if (!stack.flagged && !event.shiftKey) {
+        } else if (!stack.flagged && !shiftKey) {
             this.selectedLast = stack;
-        } else if (stack.flagged && !event.shiftKey) {
+        } else if (stack.flagged && !shiftKey) {
             this.selectedLast = undefined;
             selected = false;
         }
@@ -70,8 +85,15 @@ export class ReservationItemsComponent implements OnInit {
         this.emitSelectedChange(selectedStacks, selected);
     }
 
+    showPage(page: number) {
+        if (page <= this.totalPages) {
+            this.page = page;
+            this.slice();
+        }
+    }
+
     private sort() {
-        this.filtered.sort((stack1: ItemStack, stack2: ItemStack) => {
+        this.all.sort((stack1: ItemStack, stack2: ItemStack) => {
             // type + description ordering
             if ((stack1.type < stack2.type) ||
                 (stack1.type === stack2.type && stack1.description < stack2.description)) {
@@ -84,6 +106,12 @@ export class ReservationItemsComponent implements OnInit {
 
             return 0;
         });
+    }
+
+    private slice() {
+        this.total = this.all.length;
+        this.totalPages = Math.ceil(this.total / this.maxStacks);
+        this.filtered = this.all.slice((this.page - 1) * this.maxStacks, this.maxStacks * this.page);
     }
 
     private emitSelectedChange(stacks: ItemStack[], selected: boolean) {
