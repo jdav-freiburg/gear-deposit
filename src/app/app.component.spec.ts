@@ -1,11 +1,10 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { AppComponent } from './app.component';
-import { AuthService, UiMessageService, UserAuthStatusService, LoadingService } from './services';
-import { LoadingComponent } from './components/loading/loading.component';
-import { UiMessageComponent } from './components/ui-messages';
 import { RouterStub } from '../testing';
+import { AppComponent } from './app.component';
+import { UiMessageComponent } from './components/ui-messages';
+import { AuthService, LoadingService, UiMessageService, UserAuthStatusService } from './services';
 
 describe('AppComponent', () => {
     let component: AppComponent;
@@ -15,7 +14,6 @@ describe('AppComponent', () => {
         TestBed.configureTestingModule({
             declarations: [
                 AppComponent,
-                LoadingComponent,
                 UiMessageComponent
             ],
             providers: [

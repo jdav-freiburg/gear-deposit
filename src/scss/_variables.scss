@@ -1,5 +1,14 @@
-@import "../../node_modules/bootstrap/scss/variables";
 @import "~@angular/material/core/theming/theming";
+
+//$text-color: ;
+
+//$body-bg: $white !default;
+$body-color: mat-color($mat-grey, 900) !default;
+
+$badge-font-weight: normal !default;
+$navbar-padding-x: 0 !default;
+
+@import "../../node_modules/bootstrap/scss/variables";
 
 $md-breakpoint: only screen and (min-width: map-get($grid-breakpoints, md));
 $lg-breakpoint: only screen and (min-width: map-get($grid-breakpoints, lg));
@@ -21,3 +30,4 @@ $jgd-mat-warn: $mat-red;
     box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
   }
 }
+

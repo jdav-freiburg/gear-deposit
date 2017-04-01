@@ -1,6 +1,13 @@
-<jgd-header (appLogoClick)="onAppLogoClick()"></jgd-header>
+<jgd-header *ngIf="showHeader">
+    <button class="mat-button">
+        <i class="material-icon" (click)="toggleMenu()">menu</i>
+    </button>
+    <a class="navbar-brand" routerLink="/home" routerLinkActive="active">JDAV Freiburg Depot</a>
+</jgd-header>
 
-<jgd-loading *ngIf="loading"></jgd-loading>
+<div *ngIf="loading" class="splash-container">
+    <img class="splash-screen" src="/assets/mountain.svg" width="200" height="200">
+</div>
 
 <div class="cdk-overlay-container" [class.hide]="hideBackdrop">
     <div class="cdk-overlay-backdrop cdk-overlay-dark-backdrop"

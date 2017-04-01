@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { Event, NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { UiMessage } from './model';
 import { LoadingService, UiMessageService } from './services';
 
@@ -15,6 +15,8 @@ const MESSAGE_HIDE_DELAY = 2000;
 export class AppComponent implements OnInit {
 
     loading = true;
+
+    showHeader = false;
 
     showNavigation = false;
     hideBackdrop = true;
@@ -53,10 +55,11 @@ export class AppComponent implements OnInit {
         });
 
         // loading state & navigation state also depends on routing
-        this.router.events.subscribe((event: any) => {
+        this.router.events.subscribe((event: Event) => {
             if (event instanceof NavigationEnd) {
                 this.loading = false;
                 this.showNavigation = false;
+                this.showHeader = (event as NavigationEnd).url === '/home';
             }
             if (event instanceof NavigationStart) {
                 this.loading = true;
@@ -64,7 +67,7 @@ export class AppComponent implements OnInit {
         });
     }
 
-    onAppLogoClick() {
+    toggleMenu() {
         this.showNavigation = !this.showNavigation;
         if (this.showNavigation) {
             this.hideBackdrop = false;

@@ -1,12 +1,6 @@
 <div *ngIf="!loading">
     <div class="card" *ngFor="let reservation of reservations">
         <div class="card-block">
-            <button class="btn jgd-btn-flat" (click)="remove(reservation)">
-                <i class="material-icon">delete</i>Löschen
-            </button>
-            <button class="btn jgd-btn-flat" (click)="navigateToEdit(reservation)">
-                <i class="material-icon">edit</i>Bearbeiten
-            </button>
             <span>{{reservation.begin | date:"dd.MM.yy"}}</span>
             -
             <span>{{reservation.end | date:"dd.MM.yy"}}</span>
@@ -14,7 +8,12 @@
                 <span>{{reservation.user.name}}</span>:
                 <span>{{reservation.name}}</span>
             </p>
-
+            <button class="mat-button" (click)="remove(reservation)">
+                <i class="material-icon">delete</i>
+            </button>
+            <button class="mat-button" (click)="navigateToEdit(reservation)">
+                <i class="material-icon">edit</i>
+            </button>
             <jgd-simple-item-list [items]="reservation.items"></jgd-simple-item-list>
         </div>
     </div>

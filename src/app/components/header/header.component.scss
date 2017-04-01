@@ -2,25 +2,22 @@
 
 header {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+
   position: fixed;
   left: 0;
   top: 0;
   width: 100%;
   z-index: 100;
 
-  img {
-    position: absolute;
+  &.primary {
+    background-color: mat-color($jgd-mat-primary, 700);
   }
 
-  .navbar-brand {
-    color: white;
-    margin-left: calc(38px + .5em);
+  &.accent {
+    background-color: mat-color($jgd-mat-accent, 700);
   }
+}
 
-  .navHolder {
-    display: flex;
-    align-items: center;
-    height: 38px;
-  }
-
+.height-placeholder {
+  margin-bottom: 1rem;
 }

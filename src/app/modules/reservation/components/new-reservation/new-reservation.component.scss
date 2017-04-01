@@ -1,5 +1,10 @@
 @import "../../../../../scss/variables";
-@import "../../../../components/footer/variables";
+
+header {
+  background-color: mat-color($jgd-mat-primary, 900);
+  color: white;
+  position: fixed;
+}
 
 label {
   font-size: 75%;

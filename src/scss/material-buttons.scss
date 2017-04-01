@@ -1,5 +1,6 @@
 @import "variables";
 
+// FIXME deprecated, replace with material mixins and classes
 .btn {
   @include material-shadow(1);
   border: none;

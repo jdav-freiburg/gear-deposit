@@ -1,58 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { UiMessageType } from 'app/model/ui-message';
+import { Location } from '@angular/common';
+import { AfterContentInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ROUTE } from '../../../../';
-import { FooterComponent } from '../../../../components/footer/footer.component';
-import { ItemStack, Reservation, UiMessage } from '../../../../model';
+import { Reservation } from '../../../../model';
 import { AppRouterService, LoadingService, ReservationService, UiMessageService } from '../../../../services';
 import { ReservationStateService } from '../../services/reservation-state.service';
-import { ReservationItemsComponent } from '../reservation-items/reservation-items.component';
-
-export class ReservationValidation {
-
-    constructor(private reservation: Reservation) {
-    }
-
-    get valid(): boolean {
-        return this.reservation.name &&
-            this.reservation.begin && this.reservation.end &&
-            this.reservation.items.length > 0;
-    }
-
-    get messages(): any {
-        return {
-            invalidName: <UiMessage>{
-                message: '"Beschreibung" der Ausfahrt fehlt.',
-                type: UiMessageType.WARNING
-            },
-            invalidDate: <UiMessage>{
-                message: '"Beginn" und "Ende" der Ausfahrt fehlt.',
-                type: UiMessageType.WARNING
-            }
-        };
-    }
-}
-
-export class FooterState {
-
-    constructor(private reservationState: ReservationStateService) {
-    }
-
-    get submitIcon(): string {
-        return 'add';
-    }
-
-    get submitTitle(): string {
-        return (this.reservationState.selected.size > 1 ? 'Gegenstände ' : 'Gegenstand ') + 'hinzufügen';
-    }
-
-    get description(): string {
-        if (this.reservationState.addedCount > 0) {
-            return this.reservationState.addedCount +
-                (this.reservationState.addedCount > 1 ? ' Gegenstände ' : ' Gegenstand ') + 'in Reservierung';
-        }
-    }
-
-}
 
 @Component({
     selector: 'jgd-new-reservation',
@@ -60,58 +11,63 @@ export class FooterState {
     styleUrls: ['./new-reservation.component.scss'],
     providers: [ReservationStateService]
 })
-export class NewReservationComponent implements OnInit {
+export class NewReservationComponent implements OnInit, AfterContentInit {
 
-    @ViewChild('footerComponent') private footerComponent: FooterComponent;
-    @ViewChild('itemsComponent') private itemsComponent: ReservationItemsComponent;
+    @ViewChild('nameInput') nameInput: ElementRef;
 
     minDateValue: string = new Intl.DateTimeFormat('de-DE').format(new Date());
 
-    validation: ReservationValidation;
-    footerState: FooterState;
-
-    constructor(private appRouter: AppRouterService,
+    constructor(private location: Location,
+                private appRouter: AppRouterService,
                 private reservationService: ReservationService,
                 private reservationState: ReservationStateService,
                 private uiMessage: UiMessageService,
                 private loadingService: LoadingService) {
-        this.footerState = new FooterState(this.reservationState);
     }
 
     ngOnInit() {
         this.loadingService.emitLoading(true);
         this.reservationState.initialized.subscribe(() => {
-            this.validation = new ReservationValidation(this.reservationState.reservation);
             this.loadingService.emitLoading(false);
         });
     }
 
-    get state(): ReservationStateService {
-        return this.reservationState;
+    ngAfterContentInit(): void {
+        this.nameInput.nativeElement.focus();
     }
 
     get reservation(): Reservation {
         return this.reservationState.reservation;
     }
 
-    onSelected(stacks: ItemStack[]): void {
-        console.debug('#onSelected();', stacks);
-        this.reservationState.select(stacks);
+    // FIXME may be extracted to Reservation class
+    isValid(): boolean {
+        return this.reservation.name &&
+            this.reservation.begin && this.reservation.end &&
+            this.reservationState.added.length > 0;
     }
 
-    onDeselected(stacks: ItemStack[]): void {
-        console.debug('#onDeselected();', stacks);
-        this.reservationState.deselect(stacks);
+    cancel() {
+        this.location.back();
     }
 
-    onFooterSubmit(): void {
-        console.log('#onFooterSubmit();');
-        this.reservationState.pushSelectedToReservation();
-        this.footerComponent.open();
-    }
-
-    saveReservation(): void {
-        console.time('#saveReservation();');
+    saveReservation() {
+        if (!this.isValid()) {
+            if (!this.reservation.name) {
+                console.warn('#saveReservation(); `name` is missing');
+            }
+            if (!this.reservation.begin) {
+                console.warn('#saveReservation(); `begin` is missing');
+            }
+            if (!this.reservation.end) {
+                console.warn('#saveReservation(); `end` is missing');
+            }
+            // FIXME may be called twice
+            if (this.reservationState.added.length === 0) {
+                console.warn('#saveReservation(); no items in reservation');
+            }
+            return;
+        }
 
         const reservation: Reservation = {
             user: this.reservationState.reservation.user,
@@ -122,6 +78,7 @@ export class NewReservationComponent implements OnInit {
         };
 
         console.log('#saveReservation();', reservation);
+        console.time('#saveReservation();');
         this.reservationService.add(reservation)
             .then(() => {
                 this.appRouter.navigate(ROUTE.RESERVATIONS);

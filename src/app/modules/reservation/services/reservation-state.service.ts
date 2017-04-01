@@ -66,11 +66,8 @@ export class ReservationStateService {
     private _allItems: Item[];
     private _filteredItems: ItemStack[];
 
-    private _added: Set<ItemStack> = new Set();
-
     addedCount = 0;
 
-    readonly selected: Set<ItemStack> = new Set();
     readonly initialized: EventEmitter<void> = new EventEmitter<void>();
 
     reservation: Reservation;
@@ -154,33 +151,19 @@ export class ReservationStateService {
         });
     }
 
-    select(stacks: ItemStack[]): void {
-        stacks.forEach(s => this.selected.add(s));
-    }
-
-    deselect(stacks: ItemStack[]): void {
-        stacks.forEach(s => this.selected.delete(s));
-    }
-
-    pushSelectedToReservation(): void {
-        this.selected.forEach((stack: ItemStack) => {
-            this._added.add(stack);
-            this.addedCount += stack.selectedCount;
-        });
-        this.selected.clear();
-    }
-
     filter(query: string): ItemStack[] {
         const filtered: Item[] = this.itemFilter.transform(this._allItems, query);
         this._filteredItems = convert(filtered);
         return this._filteredItems;
     }
 
-    // FIXME should not be rebuilt all the time
+    // FIXME better use a list specific for selected stacks that is updated all the time (save iterating all stacks)
     get added(): Item[] {
         let items: Item[] = [];
-        this._added.forEach((stack: ItemStack) => {
-            items = items.concat(Array.from(stack.items).slice(0, stack.selectedCount));
+        this.stacks.forEach((stack: ItemStack) => {
+            if (stack.selected) {
+                items = items.concat(Array.from(stack.items).slice(0, stack.selectedCount));
+            }
         });
 
         return items;

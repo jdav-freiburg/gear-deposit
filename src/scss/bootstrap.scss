@@ -1,13 +1,5 @@
 @import "variables";
 
-//$text-color: ;
-
-//$body-bg: $white !default;
-//$body-color: $text-color !default;
-
-$badge-font-weight: normal !default;
-$navbar-padding-x: 0 !default;
-
 @import "../../node_modules/bootstrap/scss/variables";
 @import "../../node_modules/bootstrap/scss/mixins";
 
@@ -26,6 +18,8 @@ $navbar-padding-x: 0 !default;
 @import "../../node_modules/bootstrap/scss/forms";
 
 .form-control {
+  background-color: transparent;
+
   border-radius: 0;
   border-top: none;
   border-right: none;
@@ -55,12 +49,6 @@ $navbar-padding-x: 0 !default;
 // fixes layout bug with date inputs when used within `input-group`
 .input-group .form-control {
   flex-direction: inherit;
-}
-
-// ensures correct alignment with other input wrapped into `input-group`
-// (these usually have a `material-icon` placed right left to them)
-.jgd-align-with-input-group {
-  margin-left: 48px
 }
 
 @import "../../node_modules/bootstrap/scss/custom-forms";

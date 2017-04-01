@@ -12,7 +12,7 @@
             margin: 0;
         }
 
-        .load-parent {
+        .splash-container {
             position: absolute;
             top: 0;
             bottom: 0;
@@ -22,38 +22,31 @@
             align-content: center;
         }
 
-        /* @credits to http://projects.lukehaas.me/css-loaders/*/
-        .load {
+        .splash-screen {
             margin: 0 auto;
-            position: relative;
-            z-index: 1;
-            border: 6px solid #ffa726; /*accent_400*/
-            border-left-color: #4caf50; /*primary_500*/
-            animation: lukehaas-load8 1s infinite linear;
+            animation: pulse 1.5s infinite ease-in-out;
         }
 
-        .load,
-        .load:after {
-            border-radius: 50%;
-            box-sizing: content-box;
-            width: 60px;
-            height: 60px;
-        }
-
-        @keyframes lukehaas-load8 {
+        @keyframes pulse {
             0% {
-                transform: rotate(0deg);
+                transform: scale(1);
+                opacity: .75;
+            }
+            50% {
+                transform: scale(1.02);
+                opacity: .9;
             }
             100% {
-                transform: rotate(360deg);
+                transform: scale(1);
+                opacity: .75;
             }
         }
     </style>
 </head>
 <body>
 <jgd-app>
-    <div class="load-parent">
-        <div class="load"></div>
+    <div class="splash-container">
+        <img class="splash-screen" src="/assets/mountain.svg" width="200" height="200">
     </div>
 </jgd-app>
 <script>

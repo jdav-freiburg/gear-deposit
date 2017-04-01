@@ -18,7 +18,7 @@ ul {
       }
     }
 
-    &.flagged {
+    &.selected {
       background-color: mat-color($mat-grey, 100);
     }
 

@@ -2,10 +2,8 @@ import { CommonModule as AngularCommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DropdownDirective } from './attribute-directives';
-import { FooterComponent } from './components/footer/footer.component';
+import { HeaderComponent } from './components/header/header.component';
 import { ItemStackComponent, SimpleItemListComponent } from './components/items';
-import { LoadingComponent } from './components/loading/loading.component';
-import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { UiMessageComponent } from './components/ui-messages';
 import { GlobalClickDirective } from './directives';
 import { TransitionEndDirective } from './directives/transition-end.directive';
@@ -18,11 +16,9 @@ import { ItemService, LoadingService, UiMessageService } from './services';
         FormsModule
     ],
     declarations: [
-        NavBarComponent,
-        FooterComponent,
+        HeaderComponent,
         SimpleItemListComponent,
         ItemStackComponent,
-        LoadingComponent,
         ItemFilterPipe,
         UiMessageComponent,
         DropdownDirective,
@@ -39,11 +35,9 @@ import { ItemService, LoadingService, UiMessageService } from './services';
         AngularCommonModule,
         FormsModule,
 
-        NavBarComponent,
-        FooterComponent,
+        HeaderComponent,
         SimpleItemListComponent,
         ItemStackComponent,
-        LoadingComponent,
         ItemFilterPipe,
         UiMessageComponent,
         DropdownDirective,

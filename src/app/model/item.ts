@@ -1,7 +1,7 @@
 export class ItemMetadata {
 
     constructor(public type: string, public description: string, public shape: string, public labels: string[],
-                public flagged?: boolean) {
+                public selected?: boolean) {
     }
 
     isOk(): boolean {
@@ -14,8 +14,8 @@ export class Item extends ItemMetadata {
     blocked?: boolean;
 
     constructor(public id: string, type: string, description: string, shape: string, labels: string[],
-                flagged?: boolean) {
-        super(type, description, shape, labels, flagged);
+                selected?: boolean) {
+        super(type, description, shape, labels, selected);
     }
 
 }
@@ -28,7 +28,7 @@ export class ItemStack extends ItemMetadata {
     selectedCount?: number;
 
     constructor(item: Item) {
-        super(item.type, item.description, item.shape, item.labels, item.flagged);
+        super(item.type, item.description, item.shape, item.labels, item.selected);
         this.items.add(item);
     }
 
@@ -54,6 +54,7 @@ export class ItemStack extends ItemMetadata {
             if (!item.blocked) {
                 item.blocked = true;
                 this._blockedCount++;
+                this.selected = false;
             }
         }
         return belongsToStack;

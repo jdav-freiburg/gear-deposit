@@ -1,12 +1,19 @@
 @import "../scss/variables";
-@import "~@angular/material/core/overlay/overlay";
-
-@include cdk-overlay();
 
 jgd-header {
-  display: block;
-  height: 54px;
-  margin-bottom: 1rem;
+
+  img {
+    position: absolute;
+  }
+
+  .navbar-brand {
+    color: white;
+  }
+
+}
+
+p {
+  text-align: center;
 }
 
 jgd-ui-message .popup {

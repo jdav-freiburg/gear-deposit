@@ -4,7 +4,6 @@ import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { createAuthServiceFake, MOCKED_AUTH_USER } from '../../../testing';
 import { AuthService, UserService } from '../../services';
-import { LoadingComponent } from '../loading/loading.component';
 import { UserRegisterComponent } from './';
 
 describe('RegisterComponent', () => {
@@ -14,8 +13,7 @@ describe('RegisterComponent', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [
-                UserRegisterComponent,
-                LoadingComponent
+                UserRegisterComponent
             ],
             providers: [
                 {provide: AuthService, useValue: createAuthServiceFake()},

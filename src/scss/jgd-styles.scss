@@ -1,0 +1,55 @@
+@import "variables";
+
+input {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid mat-color($mat-grey, 100);
+  color: $body-color;
+  display: block;
+  font-size: 1rem;
+  line-height: 1.25;
+  padding: 0.5rem 0.75rem;
+  transition: border-color ease-in-out .2s;
+  width: 100%;
+
+  &:focus {
+    outline: none;
+    border-bottom-color: mat-color($jgd-mat-accent, 400);
+  }
+
+  &::-webkit-input-placeholder,
+  &::placeholder {
+    opacity: .5;
+  }
+}
+
+jgd-header {
+
+  input {
+    border-bottom: none;
+
+    &::-webkit-input-placeholder,
+    &::placeholder {
+      color: white;
+    }
+  }
+
+  * {
+    color: white;
+  }
+
+}
+
+.jgd-divider {
+  border-bottom: 1px solid mat-color($mat-grey, 300);
+  margin: 1em 0;
+
+  height: 1px;
+  wdith: 100%
+}
+
+// ensures correct alignment with other input wrapped into `input-group`
+// (these usually have a `material-icon` placed right left to them)
+.jgd-align-with-input-group {
+  margin-left: 48px
+}

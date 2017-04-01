@@ -8,7 +8,6 @@ import { ROUTES } from './app.routes';
 import { CommonModule } from './common.module';
 import { EditItemsComponent } from './components/admin-edit-items';
 import { NoAccessComponent, NoContentComponent } from './components/error';
-import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
 import { NavigationComponent } from './components/navigation';
 import { UserLoginComponent } from './components/user-login';
@@ -31,7 +30,6 @@ export const SHARED_DECLARATIONS = [
     NavigationComponent,
     HomeComponent,
     EditItemsComponent,
-    HeaderComponent,
     UserRegisterComponent,
     UserLoginComponent,
     NoAccessComponent,
@@ -74,7 +72,7 @@ export const SHARED_SERVICES = [
 
         BrowserModule,
         HttpModule,
-        RouterModule.forRoot(ROUTES, {useHash: true}),
+        RouterModule.forRoot(ROUTES),
 
         // our own modules
         CommonModule,

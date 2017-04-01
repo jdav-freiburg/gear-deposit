@@ -1,6 +1,7 @@
-<header>
-    <jgd-nav-bar [dark]="true">
-        <img src="/assets/edelweiss.svg" width="38" height="38" alt="App Logo" (click)="appLogoClick.emit()">
-        <a class="navbar-brand" routerLink="/home" routerLinkActive="active">JDAV Freiburg Depot</a>
-    </jgd-nav-bar>
+<header #header [class]="color" class="no-gutters">
+    <div class="col-12 col-md-10 col-xl-8 offset-md-1 offset-xl-2">
+        <ng-content></ng-content>
+    </div>
 </header>
+
+<div #placeholder class="height-placeholder"></div>

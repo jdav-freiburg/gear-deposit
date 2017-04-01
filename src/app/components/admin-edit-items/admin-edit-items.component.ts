@@ -43,12 +43,12 @@ export class EditItemsComponent implements OnInit {
 
     onItemTypeChanged(item: Item, value: string): void {
         const alreadyChanged: Item = this.changedItems.get(item.id);
-        item.flagged = true;
+        item.selected = true;
         if (alreadyChanged !== undefined) {
             alreadyChanged.type = value;
             if (this.areEqual(item, alreadyChanged)) {
                 this.changedItems.delete(item.id);
-                item.flagged = false;
+                item.selected = false;
             }
         } else {
             this.changedItems.set(item.id, new Item(
@@ -64,12 +64,12 @@ export class EditItemsComponent implements OnInit {
 
     onItemDescriptionChanged(item: Item, value: string) {
         const alreadyChanged: Item = this.changedItems.get(item.id);
-        item.flagged = true;
+        item.selected = true;
         if (alreadyChanged !== undefined) {
             alreadyChanged.description = value;
             if (this.areEqual(item, alreadyChanged)) {
                 this.changedItems.delete(item.id);
-                item.flagged = false;
+                item.selected = false;
             }
         } else {
             this.changedItems.set(item.id, new Item(
@@ -85,12 +85,12 @@ export class EditItemsComponent implements OnInit {
 
     onItemShapeChanged(item: Item, value: string) {
         const alreadyChanged: Item = this.changedItems.get(item.id);
-        item.flagged = true;
+        item.selected = true;
         if (alreadyChanged !== undefined) {
             alreadyChanged.shape = value;
             if (this.areEqual(item, alreadyChanged)) {
                 this.changedItems.delete(item.id);
-                item.flagged = false;
+                item.selected = false;
             }
         } else {
             this.changedItems.set(item.id, new Item(

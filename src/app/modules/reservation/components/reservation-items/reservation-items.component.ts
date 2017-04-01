@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ItemStack } from '../../../../model';
 import { ReservationStateService } from '../../services/reservation-state.service';
 
@@ -8,9 +8,6 @@ import { ReservationStateService } from '../../services/reservation-state.servic
     styleUrls: ['./reservation-items.component.scss']
 })
 export class ReservationItemsComponent implements OnInit {
-
-    @Output() selected: EventEmitter<ItemStack[]> = new EventEmitter<ItemStack[]>();
-    @Output() deselected: EventEmitter<ItemStack[]> = new EventEmitter<ItemStack[]>();
 
     all: ItemStack[];
     filtered: ItemStack[];
@@ -41,24 +38,22 @@ export class ReservationItemsComponent implements OnInit {
         this.slice();
     }
 
-    stackSelectedChanged(stack: ItemStack, count: number) {
+    onSelectedCountChanged(stack: ItemStack, count: number) {
         stack.selectedCount = count;
-        if (stack.flagged) {
-            this.emitSelectedChange([stack], true);
-        }
+        stack.selected = true;
     }
 
     // FIXME selectedCount missing
     onClick(stack: ItemStack, event?: MouseEvent) {
         let shiftKey = event ? event.shiftKey : false;
-        let selected = !stack.flagged;
+        let selected = !stack.selected;
         let selectedStacks: ItemStack[] = [stack];
 
         if (stack.blocked) {
             return;
         }
 
-        if (this.selectedLast !== undefined && !stack.flagged && shiftKey) {
+        if (this.selectedLast !== undefined && !stack.selected && shiftKey) {
             selected = true;
             const indexOfLastSelected = this.filtered.indexOf(this.selectedLast);
             const indexOfClickedStack = this.filtered.indexOf(stack);
@@ -73,16 +68,18 @@ export class ReservationItemsComponent implements OnInit {
             }
         }
 
-        if (this.selectedLast === undefined && !stack.flagged) {
+        if (this.selectedLast === undefined && !stack.selected) {
             this.selectedLast = stack;
-        } else if (!stack.flagged && !shiftKey) {
+        } else if (!stack.selected && !shiftKey) {
             this.selectedLast = stack;
-        } else if (stack.flagged && !shiftKey) {
+        } else if (stack.selected && !shiftKey) {
             this.selectedLast = undefined;
             selected = false;
         }
 
-        this.emitSelectedChange(selectedStacks, selected);
+        selectedStacks.forEach((stack: ItemStack) => {
+            stack.selected = selected;
+        });
     }
 
     showPage(page: number) {
@@ -112,15 +109,6 @@ export class ReservationItemsComponent implements OnInit {
         this.total = this.all.length;
         this.totalPages = Math.ceil(this.total / this.maxStacks);
         this.filtered = this.all.slice((this.page - 1) * this.maxStacks, this.maxStacks * this.page);
-    }
-
-    private emitSelectedChange(stacks: ItemStack[], selected: boolean) {
-        stacks.forEach((stack: ItemStack) => {
-            stack.flagged = selected;
-        });
-
-        console.debug(`will emit ${selected ? 'selected' : 'deselected'} change`, stacks);
-        (selected ? this.selected : this.deselected).emit(stacks);
     }
 
 }

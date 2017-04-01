@@ -1,14 +1,14 @@
 <div class="form-group input-group">
     <i class="material-icon input-group-addon">search</i>
-    <input #filter (input)="onFilterChanged(filter.value)" class="form-control" type="search"
-           name="filter" placeholder="Gegenstände auswählen">
+    <input #filter (input)="onFilterChanged(filter.value)" type="search" placeholder="Gegenstände auswählen">
 </div>
 
 <div class="jgd-align-with-input-group">
     <ul class="list-unstyled">
-        <li *ngFor="let stack of filtered" [class.flagged]="stack.flagged">
+        <li *ngFor="let stack of filtered" [class.selected]="stack.selected">
             <md-checkbox disableRipple="true"
-                         [checked]="stack.flagged"
+                         [disabled]="stack.blocked"
+                         [checked]="stack.selected"
                          (change)="onClick(stack)"></md-checkbox>
             <jgd-item-stack (click)="onClick(stack, $event)"
                             (tagClicked)="i.value = stack.availableItemCount"
@@ -16,19 +16,19 @@
                             [class.disabled]="stack.blocked"></jgd-item-stack>
             <input #i class="form-control" type="number" name="itemCount" min="1"
                    [placeholder]="stack.blocked ? 0 : 1"
-                   [value]="stack.blocked ? 0 : 1"
+                   [value]="stack.selectedCount"
                    [max]="stack.availableItemCount"
                    [disabled]="stack.availableItemCount <= 1"
-                   (input)="stackSelectedChanged(stack, $event.target.value)">
+                   (input)="onSelectedCountChanged(stack, $event.target.value)">
         </li>
     </ul>
 
     <div *ngIf="page" class="jgd-pager float-right">
         <span>{{(page - 1) * maxStacks + 1}} - {{(page) * maxStacks}} von {{total}}</span>
-        <button [disabled]="page === 1" class="btn jgd-btn-flat btn-sm" (click)="showPage(page -1)">
+        <button [disabled]="page === 1" class="mat-button" (click)="showPage(page -1)">
             <i class="material-icon">navigate_before</i>
         </button>
-        <button [disabled]="page === totalPages" class="btn jgd-btn-flat btn-sm" (click)="showPage(page + 1)">
+        <button [disabled]="page === totalPages" class="mat-button" (click)="showPage(page + 1)">
             <i class="material-icon">navigate_next</i>
         </button>
     </div>

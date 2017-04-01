@@ -1,24 +1,27 @@
-<div class="input-group">
-    <i class="material-icon input-group-addon">description</i>
-    <input class="form-control" type="text" [(ngModel)]="reservation.name" placeholder="Name der Ausfahrt">
-</div>
-
-<div class="jgd-divider"></div>
+<jgd-header [color]="'accent'">
+    <button class="mat-button" (click)="cancel()">
+        <i class="material-icon">close</i>
+    </button>
+    <button class="mat-button float-right" (click)="saveReservation()">
+        Speichern
+    </button>
+    <input #nameInput type="text" [(ngModel)]="reservation.name" placeholder="Name der Ausfahrt">
+</jgd-header>
 
 <label class="jgd-align-with-input-group">Beginn der Reservierung</label>
 <div class="form-group input-group">
     <i class="material-icon input-group-addon">date_range</i>
-    <input class="form-control" type="date" [(ngModel)]="reservation.begin" [min]="minDateValue">
+    <input type="date" [(ngModel)]="reservation.begin" [min]="minDateValue">
 </div>
 
 <div class="form-group jgd-align-with-input-group">
     <label>Ende der Reservierung</label>
-    <input class="form-control" type="date" [(ngModel)]="reservation.end" [min]="minDateValue">
+    <input type="date" [(ngModel)]="reservation.end" [min]="minDateValue">
 </div>
 
 <div class="jgd-divider"></div>
 
-<jgd-reservation-items (selected)="onSelected($event)" (deselected)="onDeselected($event)"></jgd-reservation-items>
+<jgd-reservation-items></jgd-reservation-items>
 
 <!--<jgd-footer #footerComponent-->
 <!--[enableToggle]="state.added.length > 0"-->
