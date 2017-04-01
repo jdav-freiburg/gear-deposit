@@ -72,7 +72,10 @@ export const SHARED_SERVICES = [
 
         BrowserModule,
         HttpModule,
-        RouterModule.forRoot(ROUTES),
+
+        // currently # is needed for routes because I use firebase for hosting ...
+        // with proper webserver config # isn't needed anymore
+        RouterModule.forRoot(ROUTES, {useHash: true}),
 
         // our own modules
         CommonModule,
