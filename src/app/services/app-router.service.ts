@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppRoute } from '../app.routes';
 
+/**
+ * @deprecated use normal angular router
+ */
 @Injectable()
 export class AppRouterService {
 

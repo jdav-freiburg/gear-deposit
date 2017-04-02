@@ -35,9 +35,11 @@ export class Reservation implements IReservation {
     }
 
     set begin(date: Date) {
-        this._begin = date;
         this.dates.begin = new Date(date);
-        this.onDateChange.onBeginChange(this.dates.begin);
+        if (this.dates.begin !== this._begin) {
+            this._begin = date;
+            this.onDateChange.onBeginChange(this.dates.begin);
+        }
     }
 
     get begin(): Date {
@@ -45,18 +47,17 @@ export class Reservation implements IReservation {
     }
 
     set end(date: Date) {
-        this._end = date;
         this.dates.end = new Date(date);
-        this.onDateChange.onEndChange(this.dates.end);
+        if (this.dates.end !== this._end) {
+            this._end = date;
+            this.onDateChange.onEndChange(this.dates.end);
+        }
     }
 
     get end(): Date {
         return this._end;
     }
 
-    get isValid(): boolean {
-        return this.name && this.begin && this.end && this.items.length > 0;
-    }
 }
 
 @Injectable()

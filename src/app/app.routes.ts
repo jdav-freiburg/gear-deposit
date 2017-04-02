@@ -19,7 +19,9 @@ import { EditReservationComponent, NewReservationComponent, ReservationsComponen
 export interface AppRoute extends Route {
 }
 
-// FIXME remove this ... unusual for angular apps
+/**
+ * @deprecated use strings directly instead - this is unusual for angular routing
+ */
 export const ROUTE = {
     HOME: <AppRoute>{
         path: 'home'

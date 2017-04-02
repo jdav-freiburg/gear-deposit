@@ -59,7 +59,7 @@ export class AppComponent implements OnInit {
             if (event instanceof NavigationEnd) {
                 this.loading = false;
                 this.showNavigation = false;
-                this.showHeader = (event as NavigationEnd).url === '/home';
+                this.showHeader = (event as NavigationEnd).urlAfterRedirects === '/home';
             }
             if (event instanceof NavigationStart) {
                 this.loading = true;

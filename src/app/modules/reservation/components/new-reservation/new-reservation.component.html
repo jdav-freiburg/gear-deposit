@@ -1,27 +1,29 @@
-<jgd-header [color]="'accent'">
-    <button class="mat-button" (click)="cancel()">
-        <i class="material-icon">close</i>
-    </button>
-    <button class="mat-button float-right" (click)="saveReservation()">
-        Speichern
-    </button>
-    <input #nameInput type="text" [(ngModel)]="reservation.name" placeholder="Name der Ausfahrt">
-</jgd-header>
+<form [formGroup]="reservationForm" (ngSubmit)="saveReservation()">
+    <jgd-header [color]="'accent'">
+        <button class="mat-button" type="button" (click)="cancel()">
+            <i class="material-icon">close</i>
+        </button>
+        <button class="mat-button float-right" type="submit" [disabled]="reservationForm.pristine">
+            Speichern
+        </button>
+        <input #nameInput type="text" formControlName="name" placeholder="Name der Ausfahrt">
+    </jgd-header>
 
-<label class="jgd-align-with-input-group">Beginn der Reservierung</label>
-<div class="form-group input-group">
-    <i class="material-icon input-group-addon">date_range</i>
-    <input type="date" [(ngModel)]="reservation.begin" [min]="minDateValue">
-</div>
+    <label class="jgd-align-with-input-group">Beginn der Reservierung</label>
+    <div class="form-group input-group">
+        <i class="material-icon input-group-addon">date_range</i>
+        <input type="date" formControlName="begin">
+    </div>
 
-<div class="form-group jgd-align-with-input-group">
-    <label>Ende der Reservierung</label>
-    <input type="date" [(ngModel)]="reservation.end" [min]="minDateValue">
-</div>
+    <div class="form-group jgd-align-with-input-group">
+        <label>Ende der Reservierung</label>
+        <input type="date" formControlName="end">
+    </div>
 
-<div class="jgd-divider"></div>
+    <div class="jgd-divider"></div>
 
-<jgd-reservation-items></jgd-reservation-items>
+    <jgd-reservation-items></jgd-reservation-items>
+</form>
 
 <!--<jgd-footer #footerComponent-->
 <!--[enableToggle]="state.added.length > 0"-->
