@@ -1,6 +1,7 @@
 import { CommonModule as AngularCommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AppMaterialModule } from './app.material.module';
 import { HeaderComponent } from './components/header/header.component';
 import { ItemStackComponent, SimpleItemListComponent } from './components/items';
 import { UiMessageComponent } from './components/ui-messages';
@@ -10,6 +11,7 @@ import { ItemService, LoadingService, UiMessageService } from './services';
 
 @NgModule({
     imports: [
+        AppMaterialModule,
         AngularCommonModule,
         FormsModule
     ],
@@ -29,6 +31,7 @@ import { ItemService, LoadingService, UiMessageService } from './services';
         UiMessageService
     ],
     exports: [
+        AppMaterialModule,
         AngularCommonModule,
         FormsModule,
 

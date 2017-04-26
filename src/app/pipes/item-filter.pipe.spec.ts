@@ -1,6 +1,6 @@
+import { createMockItem } from '../../testing';
+import { Item } from '../model';
 import { ItemFilterPipe } from './item-filter.pipe';
-import { createMockItem } from '../../testing/mocks';
-import { Item } from '../model/item';
 
 describe('Pipe: ItemFilter', () => {
     let pipe: ItemFilterPipe;

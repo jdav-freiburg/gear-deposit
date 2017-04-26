@@ -4,7 +4,7 @@ node_js:
 before_install:
   # Updating NPM to relevant version >= 3 on Node.JS LTS
   - npm i -g npm@^3
-  - npm install -g @angular/cli
+  - npm install -g @angular/cli@latest
   - npm install -g firebase-tools
   - npm install -g coveralls
 install:

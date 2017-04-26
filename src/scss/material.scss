@@ -2,7 +2,7 @@
 
 $mat-body-font-size-base: $font-size-base !default;
 
-@import '~@angular/material/core/theming/all-theme';
+@import '~@angular/material/theming';
 
 // Include the base styles for Angular Material core. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
@@ -26,13 +26,9 @@ $jgd-theme: mat-light-theme($jgd-primary, $jgd-accent, $jgd-warn);
 // that you are using.
 // @include angular-material-theme($jgd-app-theme);
 
-@import "~@angular/material/core/core";
 @include cdk-a11y();
-
-@import "~@angular/material/core/overlay/overlay";
 @include cdk-overlay();
 
-@import "~@angular/material/checkbox/checkbox-theme";
 @include mat-checkbox-theme($jgd-theme);
 
 $mat-button-padding: 0.5rem 1rem !default;
@@ -45,7 +41,7 @@ $mat-button-border-radius: .25rem !default;
 //$mat-icon-button-border-radius: 50% !default;
 //$mat-icon-button-line-height: 24px !default;
 
-@import "~@angular/material/button/button";
+@include mat-button-theme($jgd-theme);
 
 .mat-button {
   background-color: transparent;

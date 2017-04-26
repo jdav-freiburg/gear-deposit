@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MaterialModule } from '@angular/material';
 import { CommonModule } from '../../common.module';
 import { ReservationService } from '../../services';
 import { EditReservationComponent } from './components/edit-reservation/edit-reservation.component';
@@ -11,7 +10,6 @@ import { ReservationsComponent } from './components/reservations/reservations.co
 @NgModule({
     imports: [
         CommonModule,
-        MaterialModule,
         ReactiveFormsModule
     ],
     declarations: [

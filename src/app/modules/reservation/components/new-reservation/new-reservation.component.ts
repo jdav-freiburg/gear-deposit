@@ -54,6 +54,8 @@ export class NewReservationComponent implements OnInit, AfterContentInit {
         }
     };
 
+    filterQuery: string;
+
     constructor(private formBuilder: FormBuilder,
                 private location: Location,
                 private router: Router,
@@ -111,6 +113,10 @@ export class NewReservationComponent implements OnInit, AfterContentInit {
         return this.reservationState.reservation;
     }
 
+    onFilterChanged(filterQuery: string) {
+        this.filterQuery = filterQuery;
+    }
+
     // needs to be here; otherwise we can't access the current begin value
     dateGreaterThanBegin(): ValidatorFn {
         return (control: AbstractControl): ValidationErrors => {
@@ -118,6 +124,11 @@ export class NewReservationComponent implements OnInit, AfterContentInit {
             const begin: Date = this.reservationForm ? new Date(this.reservationForm.value.begin) : undefined;
             return date <= begin ? {dateLowerThanBegin: {date, begin}} : null;
         };
+    }
+
+    moveFocus(el: any, event: KeyboardEvent) {
+        event.preventDefault();
+        el.focus();
     }
 
     cancel() {

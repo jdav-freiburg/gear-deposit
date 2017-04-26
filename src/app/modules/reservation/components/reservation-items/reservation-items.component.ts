@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ItemStack } from '../../../../model';
 import { ReservationStateService } from '../../services/reservation-state.service';
 
@@ -7,13 +7,15 @@ import { ReservationStateService } from '../../services/reservation-state.servic
     templateUrl: './reservation-items.component.html',
     styleUrls: ['./reservation-items.component.scss']
 })
-export class ReservationItemsComponent implements OnInit {
+export class ReservationItemsComponent implements OnInit, OnChanges {
+
+    @Input() query: string;
 
     all: ItemStack[];
     filtered: ItemStack[];
     selectedLast: ItemStack;
-
     maxStacks = 20;
+
     total: number;
     page: number;
     totalPages: number;
@@ -30,12 +32,14 @@ export class ReservationItemsComponent implements OnInit {
         });
     }
 
-    onFilterChanged(filter: string) {
-        console.debug('#onFilterChanged(); > ', filter);
-        this.all = this.reservationState.filter(filter);
-        this.page = 1;
-        this.sort();
-        this.slice();
+    ngOnChanges(changes: SimpleChanges): void {
+        if (this.query !== undefined) {
+            console.debug('#onFilterChanged(); > ', this.query);
+            this.all = this.reservationState.filter(this.query);
+            this.page = 1;
+            this.sort();
+            this.slice();
+        }
     }
 
     onSelectedCountChanged(stack: ItemStack, count: number) {

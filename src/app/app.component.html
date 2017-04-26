@@ -1,6 +1,6 @@
 <jgd-header *ngIf="showHeader">
-    <button class="mat-button">
-        <i class="material-icon" (click)="toggleMenu()">menu</i>
+    <button md-button disableRipple="true" (click)="toggleMenu()">
+        <i class="material-icon">menu</i>
     </button>
     <a class="navbar-brand" routerLink="/home" routerLinkActive="active">JDAV Freiburg Depot</a>
 </jgd-header>

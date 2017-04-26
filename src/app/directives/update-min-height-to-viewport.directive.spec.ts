@@ -10,7 +10,7 @@ const GALAXY_S5_PORTRAIT_WIDTH = 360;
 const DEVICE_KEYBOARD_HEIGHT = 300;
 
 @Component({
-    template: '<div idmUpdateMinHeightToViewport></div>'
+    template: '<div jgdUpdateMinHeightToViewport></div>'
 })
 class TestComponent {
 }

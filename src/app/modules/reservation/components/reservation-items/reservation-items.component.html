@@ -1,8 +1,3 @@
-<div class="form-group input-group">
-    <i class="material-icon input-group-addon">search</i>
-    <input #filter (input)="onFilterChanged(filter.value)" type="search" placeholder="Gegenstände auswählen">
-</div>
-
 <div class="jgd-align-with-input-group">
     <ul class="list-unstyled">
         <li *ngFor="let stack of filtered" [class.selected]="stack.selected">
