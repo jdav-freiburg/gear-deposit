@@ -30,10 +30,11 @@ jgd-navigation {
   top: 0;
   bottom: 0;
 
-  transition: left 200ms ease-in;
+  transition-duration: 200ms;
+  transition-timing-function: ease-in;
 
   &.show {
-    left: 0;
+    transform: translate3d(180px, 0, 0);
   }
 }
 
