@@ -1,36 +1,42 @@
-<form [formGroup]="reservationForm" (ngSubmit)="saveReservation()">
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
     <jgd-header [color]="'accent'">
         <button md-button type="button" (click)="cancel()">
             <i class="material-icon">close</i>
         </button>
-        <button md-button class="float-right" type="submit" [disabled]="reservationForm.pristine">
+        <button md-button class="float-right" type="submit" [disabled]="form.pristine">
             Speichern
         </button>
-        <input #nameInput type="text" formControlName="name" placeholder="Name der Ausfahrt"
-               (keydown.enter)="moveFocus(beginDate, $event)">
+        <md-input-container>
+            <input mdInput type="text" formControlName="name" placeholder="Name der Ausfahrt">
+            <md-error *ngIf="formErrors.name">{{formErrors.name}}</md-error>
+        </md-input-container>
     </jgd-header>
 
     <div class="form-group input-group">
         <i class="material-icon input-group-addon">date_range</i>
-        <input #beginDate type="date" formControlName="begin" placeholder="Beginn der Reservierung"
-               (keydown.enter)="moveFocus(endDate, $event)">
+        <md-input-container>
+            <input mdInput type="date" formControlName="begin" placeholder="Beginn der Reservierung">
+            <md-error *ngIf="formErrors.begin">{{formErrors.begin}}</md-error>
+        </md-input-container>
     </div>
 
     <div class="form-group jgd-align-with-input-group">
-        <input #endDate type="date" formControlName="end" placeholder="Ende der Reservierung"
-               (keydown.enter)="moveFocus(filter, $event)">
+        <md-input-container>
+            <input mdInput type="date" formControlName="end" placeholder="Ende der Reservierung">
+            <md-error *ngIf="formErrors.end">{{formErrors.end}}</md-error>
+        </md-input-container>
     </div>
 
     <div *ngIf="stacks">
         <div class="jgd-divider"></div>
-
         <div class="form-group input-group">
             <i class="material-icon input-group-addon">search</i>
-            <input #filter type="search" placeholder="Gegenstände auswählen"
-                   (input)="onFilterChanged(filter.value)"
-                   (keydown.enter)="$event.preventDefault()">
+            <md-input-container>
+                <input mdInput type="text" placeholder="Gegenstände auswählen"
+                       #filter (input)="onFilterChanged(filter.value)">
+                <md-hint *ngIf="formErrors.items">{{formErrors.items}}</md-hint>
+            </md-input-container>
         </div>
-
-        <jgd-reservation-items #items [stacks]="stacks"></jgd-reservation-items>
+        <jgd-reservation-items [stacks]="stacks"></jgd-reservation-items>
     </div>
 </form>

@@ -1,7 +1,9 @@
 import { Location } from '@angular/common';
-import { AfterContentInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterContentInit, Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { MdDialog } from '@angular/material';
 import { Router } from '@angular/router';
+import { ChangedWarningDialog } from '../../../../dialogs/changed-warning';
 import { ItemStack, Reservation } from '../../../../model';
 import { LoadingService, ReservationService, UiMessageService } from '../../../../services';
 import { ReservationStateService } from '../../services/reservation-state.service';
@@ -27,9 +29,7 @@ export namespace CustomValidators {
 })
 export class NewReservationComponent implements OnInit, AfterContentInit {
 
-    @ViewChild('nameInput') nameInput: ElementRef;
-
-    reservationForm: FormGroup;
+    form: FormGroup;
 
     formErrors = {
         name: '',
@@ -40,23 +40,28 @@ export class NewReservationComponent implements OnInit, AfterContentInit {
 
     validationMessages = {
         name: {
-            required: 'Name der Reservierung fehlt.',
-            minlength: 'Name muss mindestens 10 Zeichen lang sein.',
+            required: 'Der Name Deiner Ausfahrt fehlt.',
+            minlength: 'Der Name Deiner Ausfahrt sollte mindestens 5 Zeichen lang sein.',
         },
         begin: {
-            required: 'Beginn der Reservierung fehlt.',
-            dateInThePast: 'Beginn der Reservierung darf nicht in der Vergangenheit liegen.',
+            required: 'Du hast kein Reservierungs-Beginn ausgewählt.',
+            dateInThePast: 'Der Beginn der Reservierung darf nicht in der Vergangenheit liegen.',
         },
         end: {
-            required: 'Ende der Reservierung fehlt.',
-            dateInThePast: 'Ende der Reservierung darf nicht in der Vergangenheit liegen.',
-            dateLowerThanBegin: 'Beginn der Reservierung muss vor dem Ende liegen.'
+            required: 'Du hast kein Reservierungs-Ende ausgewählt.',
+            dateInThePast: 'Das Ende der Reservierung darf nicht in der Vergangenheit liegen.',
+            dateLowerThanBegin: 'Das Ende der Reservierung darf nicht vor dem Beginn liegen.'
         }
     };
 
     stacks: ItemStack[];
 
-    constructor(private formBuilder: FormBuilder,
+    filterQuery: string;
+
+    isValid = false;
+
+    constructor(private dialog: MdDialog,
+                private formBuilder: FormBuilder,
                 private location: Location,
                 private router: Router,
                 private reservationService: ReservationService,
@@ -77,7 +82,7 @@ export class NewReservationComponent implements OnInit, AfterContentInit {
             this.stacks = this.reservationState.stacks;
         });
 
-        this.reservationForm = this.formBuilder.group({
+        this.form = this.formBuilder.group({
             name: [
                 '',
                 [
@@ -104,13 +109,21 @@ export class NewReservationComponent implements OnInit, AfterContentInit {
     }
 
     ngAfterContentInit(): void {
-        this.nameInput.nativeElement.focus();
-        this.reservationForm.valueChanges.subscribe((value: any) => {
-            if (value.begin) {
+        this.form.valueChanges.subscribe((value: any) => {
+            if (value.begin && this.reservationState.reservation.begin !== value.begin) {
                 this.reservationState.reservation.begin = value.begin;
+                // FIXME
+                // this.onFilterChanged(this.filterQuery);
             }
-            if (value.end) {
+
+            if (value.end && this.reservationState.reservation.end !== value.end) {
                 this.reservationState.reservation.end = value.end;
+                // FIXME
+                // this.onFilterChanged(this.filterQuery);
+            }
+
+            if (this.form.dirty) {
+                this.validate();
             }
         });
     }
@@ -120,7 +133,9 @@ export class NewReservationComponent implements OnInit, AfterContentInit {
     }
 
     onFilterChanged(filterQuery: string) {
+        // FIXME blocked status gets lost ...
         console.debug('#ngOnChanges(); > ', filterQuery);
+        this.filterQuery = filterQuery;
         this.stacks = this.reservationState.filter(filterQuery);
     }
 
@@ -128,31 +143,33 @@ export class NewReservationComponent implements OnInit, AfterContentInit {
     dateGreaterThanBegin(): ValidatorFn {
         return (control: AbstractControl): ValidationErrors => {
             const date: Date = new Date(control.value);
-            const begin: Date = this.reservationForm ? new Date(this.reservationForm.value.begin) : undefined;
+            const begin: Date = this.form ? new Date(this.form.value.begin) : undefined;
             return date <= begin ? {dateLowerThanBegin: {date, begin}} : null;
         };
     }
 
-    moveFocus(el: any, event: KeyboardEvent) {
-        event.preventDefault();
-        el.focus();
+    cancel() {
+        if (this.form.dirty) {
+            const dialogRef = this.dialog.open(ChangedWarningDialog);
+            dialogRef.afterClosed().subscribe(cancelApproved => {
+                if (cancelApproved) {
+                    this.location.back();
+                }
+            });
+        } else {
+            this.location.back();
+        }
     }
 
-    cancel() {
-        if (this.reservationForm.dirty) {
-            alert('changed!?');
+    onSubmit() {
+        this.validate();
+        if (this.isValid) {
+            this.saveReservation();
         }
-
-        this.location.back();
     }
 
     saveReservation() {
-        if (!this.validated()) {
-            alert(JSON.stringify(this.formErrors));
-            return;
-        }
-
-        const formModel = this.reservationForm.value;
+        const formModel = this.form.value;
 
         const reservation: Reservation = {
             user: this.reservationState.reservation.user,
@@ -178,15 +195,15 @@ export class NewReservationComponent implements OnInit, AfterContentInit {
             });
     }
 
-    private validated(): boolean {
+    private validate() {
         let valid = true;
         Object.keys(this.formErrors).forEach(key => {
 
             // clear previous error message (if any)
             this.formErrors[key] = '';
-            const control = this.reservationForm.get(key);
+            const control = this.form.get(key);
 
-            // items can be picked too, but that is not a control ...
+            // `items` is present in `formErrors` too but that in `form` as it isn't a control ...
             if (control) {
                 control.updateValueAndValidity({
                     onlySelf: true,
@@ -203,12 +220,13 @@ export class NewReservationComponent implements OnInit, AfterContentInit {
             }
         });
 
+        // FIXME added isn't correct / stacks in reservationState have not correct selected state
         if (this.reservationState.added.length === 0) {
             this.formErrors.items = 'Du hast keine Gegenstände ausgewählt.';
             valid = false;
         }
 
-        return valid;
+        this.isValid = valid;
     }
 
 }

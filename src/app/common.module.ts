@@ -5,6 +5,7 @@ import { AppMaterialModule } from './app.material.module';
 import { HeaderComponent } from './components/header/header.component';
 import { ItemStackComponent, SimpleItemListComponent } from './components/items';
 import { UiMessageComponent } from './components/ui-messages';
+import { ChangedWarningDialog } from './dialogs/changed-warning';
 import { GlobalClickDirective, TransitionEndDirective } from './directives';
 import { ItemFilterPipe } from './pipes';
 import { ItemService, LoadingService, UiMessageService } from './services';
@@ -20,6 +21,7 @@ import { ItemService, LoadingService, UiMessageService } from './services';
         SimpleItemListComponent,
         ItemStackComponent,
         ItemFilterPipe,
+        ChangedWarningDialog,
         UiMessageComponent,
         GlobalClickDirective,
         TransitionEndDirective
@@ -39,9 +41,13 @@ import { ItemService, LoadingService, UiMessageService } from './services';
         SimpleItemListComponent,
         ItemStackComponent,
         ItemFilterPipe,
+        ChangedWarningDialog,
         UiMessageComponent,
         GlobalClickDirective,
         TransitionEndDirective
+    ],
+    entryComponents: [
+        ChangedWarningDialog
     ]
 })
 export class CommonModule {

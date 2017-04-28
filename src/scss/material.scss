@@ -21,11 +21,6 @@ $jgd-warn: mat-palette($jgd-mat-warn);
 // Create the theme object (a Sass map containing all of the palettes).
 $jgd-theme: mat-light-theme($jgd-primary, $jgd-accent, $jgd-warn);
 
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-// @include angular-material-theme($jgd-app-theme);
-
 @include cdk-a11y();
 @include cdk-overlay();
 
@@ -42,6 +37,10 @@ $mat-button-border-radius: .25rem !default;
 //$mat-icon-button-line-height: 24px !default;
 
 @include mat-button-theme($jgd-theme);
+
+@include mat-input-theme($jgd-theme);
+
+@include mat-dialog-theme($jgd-theme);
 
 .mat-button {
   background-color: transparent;
