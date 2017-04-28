@@ -21,14 +21,16 @@
                (keydown.enter)="moveFocus(filter, $event)">
     </div>
 
-    <div class="jgd-divider"></div>
+    <div *ngIf="stacks">
+        <div class="jgd-divider"></div>
 
-    <div class="form-group input-group">
-        <i class="material-icon input-group-addon">search</i>
-        <input #filter type="search" placeholder="Gegenstände auswählen"
-               (input)="onFilterChanged(filter.value)"
-               (keydown.enter)="$event.preventDefault()">
+        <div class="form-group input-group">
+            <i class="material-icon input-group-addon">search</i>
+            <input #filter type="search" placeholder="Gegenstände auswählen"
+                   (input)="onFilterChanged(filter.value)"
+                   (keydown.enter)="$event.preventDefault()">
+        </div>
+
+        <jgd-reservation-items #items [stacks]="stacks"></jgd-reservation-items>
     </div>
-
-    <jgd-reservation-items #items [query]="filterQuery"></jgd-reservation-items>
 </form>

@@ -1,11 +1,11 @@
-import { Item, ItemStack } from './item';
 import {
     createMockItem,
-    MOCK_ITEM_TYPE,
     MOCK_ITEM_DESCRIPTION,
+    MOCK_ITEM_LABELS,
     MOCK_ITEM_SHAPE,
-    MOCK_ITEM_LABELS
+    MOCK_ITEM_TYPE
 } from '../../testing';
+import { Item, ItemStack } from './item';
 
 describe('Class: ItemStack', () => {
 
@@ -76,7 +76,7 @@ describe('Class: ItemStack', () => {
         });
 
         it('should block item if it belongs to stack', () => {
-            const blocked = itemStack.block(item1);
+            const blocked = itemStack.block(item1.id);
             expect(blocked).toBe(true);
             expect(item1.blocked).toBe(true);
             expect(itemStack.blockedCount).toEqual(1);
@@ -84,7 +84,7 @@ describe('Class: ItemStack', () => {
 
         it('should not block item if it doesn\'t belong to stack', () => {
             item2.type = `changed ${MOCK_ITEM_TYPE}`;
-            const blocked = itemStack.block(item2);
+            const blocked = itemStack.block(item2.id);
             expect(blocked).toBe(false);
             expect(item1.blocked).toBeFalsy(); // blocked is optional and only set when it was set to true once
             expect(itemStack.blockedCount).toEqual(0);
@@ -92,8 +92,8 @@ describe('Class: ItemStack', () => {
 
         it('should block entire stack if all items are blocked', () => {
             itemStack.add(item2);
-            itemStack.block(item1);
-            itemStack.block(item2);
+            itemStack.block(item1.id);
+            itemStack.block(item2.id);
             expect(itemStack.blockedCount).toEqual(2);
             expect(itemStack.availableItemCount).toEqual(0);
             expect(itemStack.blocked).toBe(true);
@@ -101,8 +101,8 @@ describe('Class: ItemStack', () => {
 
         it('should not block entire stack if only a few items are blocked', () => {
             itemStack.add(item2);
-            itemStack.block(item1);
-            itemStack.block(item2);
+            itemStack.block(item1.id);
+            itemStack.block(item2.id);
             itemStack.add(item3);
             expect(itemStack.blockedCount).toEqual(2);
             expect(itemStack.availableItemCount).toEqual(1);
@@ -111,9 +111,9 @@ describe('Class: ItemStack', () => {
 
         it('shouldn\'t block the same item more than once', () => {
             itemStack.add(item2);
-            expect(itemStack.block(item1)).toBe(true);
-            expect(itemStack.block(item1)).toBe(true);
-            expect(itemStack.block(item1)).toBe(true);
+            expect(itemStack.block(item1.id)).toBe(true);
+            expect(itemStack.block(item1.id)).toBe(true);
+            expect(itemStack.block(item1.id)).toBe(true);
             expect(item1.blocked).toBe(true);
             expect(itemStack.blockedCount).toEqual(1);
             expect(itemStack.availableItemCount).toEqual(1);
@@ -124,8 +124,8 @@ describe('Class: ItemStack', () => {
             beforeEach(() => {
                 itemStack.add(item2);
                 itemStack.add(item3);
-                itemStack.block(item1);
-                itemStack.block(item2);
+                itemStack.block(item1.id);
+                itemStack.block(item2.id);
             });
 
             it('should unblock all (consistent state)', () => {

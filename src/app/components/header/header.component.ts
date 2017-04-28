@@ -16,7 +16,8 @@ export class HeaderComponent implements AfterContentInit {
     }
 
     ngAfterContentInit(): void {
-        this.renderer.setStyle(this.placeholder.nativeElement, 'height', `${this.header.nativeElement.offsetHeight}px`)
+        const headerHeight: number = this.header.nativeElement.offsetHeight;
+        this.renderer.setStyle(this.placeholder.nativeElement, 'height', `${headerHeight}px`);
     }
 
 }

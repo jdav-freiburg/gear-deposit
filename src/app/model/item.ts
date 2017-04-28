@@ -40,19 +40,22 @@ export class ItemStack extends ItemMetadata {
         return false;
     }
 
-    canJoin(item: Item): boolean {
+    private canJoin(item: Item): boolean {
         return this.type === item.type &&
             this.description === item.description &&
             this.shape === item.shape;
         // FIXME labels missing...
     }
 
-    block(item: Item): boolean {
+    block(itemId: string): boolean {
         let belongsToStack = false;
-        if (this.canJoin(item)) {
+        const filtered: Item[] = Array.from(this.items).filter(item => {
+            return item.id === itemId;
+        });
+        if (filtered.length > 0) {
             belongsToStack = true;
-            if (!item.blocked) {
-                item.blocked = true;
+            if (!filtered[0].blocked) {
+                filtered[0].blocked = true;
                 this._blockedCount++;
                 this.selected = false;
             }

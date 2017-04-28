@@ -2,7 +2,7 @@ import { Location } from '@angular/common';
 import { AfterContentInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Reservation } from '../../../../model';
+import { ItemStack, Reservation } from '../../../../model';
 import { LoadingService, ReservationService, UiMessageService } from '../../../../services';
 import { ReservationStateService } from '../../services/reservation-state.service';
 
@@ -54,7 +54,7 @@ export class NewReservationComponent implements OnInit, AfterContentInit {
         }
     };
 
-    filterQuery: string;
+    stacks: ItemStack[];
 
     constructor(private formBuilder: FormBuilder,
                 private location: Location,
@@ -66,12 +66,23 @@ export class NewReservationComponent implements OnInit, AfterContentInit {
     }
 
     ngOnInit() {
+        this.loadingService.emitLoading(true);
+
+        this.reservationState.initialized.subscribe(() => {
+            this.stacks = this.reservationState.stacks;
+            this.loadingService.emitLoading(false);
+        });
+
+        this.reservationState.blockedChange.subscribe(() => {
+            this.stacks = this.reservationState.stacks;
+        });
+
         this.reservationForm = this.formBuilder.group({
             name: [
                 '',
                 [
                     Validators.required,
-                    Validators.minLength(10)
+                    Validators.minLength(5)
                 ]
             ],
             begin: [
@@ -89,11 +100,6 @@ export class NewReservationComponent implements OnInit, AfterContentInit {
                     this.dateGreaterThanBegin()
                 ]
             ]
-        });
-
-        this.loadingService.emitLoading(true);
-        this.reservationState.initialized.subscribe(() => {
-            this.loadingService.emitLoading(false);
         });
     }
 
@@ -114,7 +120,8 @@ export class NewReservationComponent implements OnInit, AfterContentInit {
     }
 
     onFilterChanged(filterQuery: string) {
-        this.filterQuery = filterQuery;
+        console.debug('#ngOnChanges(); > ', filterQuery);
+        this.stacks = this.reservationState.filter(filterQuery);
     }
 
     // needs to be here; otherwise we can't access the current begin value
@@ -173,10 +180,11 @@ export class NewReservationComponent implements OnInit, AfterContentInit {
 
     private validated(): boolean {
         let valid = true;
-        for (const field in this.formErrors) {
+        Object.keys(this.formErrors).forEach(key => {
+
             // clear previous error message (if any)
-            this.formErrors[field] = '';
-            const control = this.reservationForm.get(field);
+            this.formErrors[key] = '';
+            const control = this.reservationForm.get(key);
 
             // items can be picked too, but that is not a control ...
             if (control) {
@@ -187,13 +195,13 @@ export class NewReservationComponent implements OnInit, AfterContentInit {
             }
 
             if (control && control.dirty && !control.valid) {
-                const messages = this.validationMessages[field];
-                for (const key in control.errors) {
-                    this.formErrors[field] += messages[key] + ' ';
+                const messages = this.validationMessages[key];
+                Object.keys(control.errors).forEach(errorKey => {
+                    this.formErrors[key] += messages[errorKey] + ' ';
                     valid = false;
-                }
+                });
             }
-        }
+        });
 
         if (this.reservationState.added.length === 0) {
             this.formErrors.items = 'Du hast keine Gegenstände ausgewählt.';

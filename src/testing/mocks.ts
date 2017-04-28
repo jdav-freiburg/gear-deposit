@@ -1,5 +1,7 @@
 import { AuthUser, Item, RegisteredUser, Reservation, UserAuthStatus } from '../app/model/';
 
+export const ONE_DAY = 24 * 60 * 60 * 1000;
+
 export const MOCKED_AUTH_USER = <AuthUser>{
     uid: 'test-id',
     providerId: 'test-provider',
@@ -27,9 +29,9 @@ export const MOCK_ITEM_LABELS = [
     'test-item-label1',
     'test-item-label2'
 ];
-export function createMockItem(id: number): Item {
+export function createMockItem(id?: number): Item {
     return new Item(
-        `${id}`,
+        `${id ? id : Math.random()}`,
         MOCK_ITEM_TYPE,
         MOCK_ITEM_DESCRIPTION,
         MOCK_ITEM_SHAPE,
@@ -42,7 +44,7 @@ export function createMockItems(count: number): Item[] {
     let i = count;
     while (i > 0) {
         i--;
-        items.push(createMockItem(count - i));
+        items.push(createMockItem());
     }
     return items;
 }
@@ -50,7 +52,7 @@ export function createMockItems(count: number): Item[] {
 /**
  * Creates a list with in total `stackSize` * `stackItemSize` items.
  * The list will contain "stacks" of items, each "stack" has equal `item.description` and `item.type`.
- * The list will contain in total `stackSize` "stacks" of items and each "stack" consists of `stackItemSize` items.
+ * The list will contain in total `stackSize` "stacks" and each "stack" consists of `stackItemSize` items.
  */
 export function createComplexMockItems(stackSize: number, stackItemSize: number): Item[] {
     let items: Item[] = [];
@@ -73,8 +75,8 @@ export function createMockReservation(id: number): Reservation {
         id: `${id}`,
         user: MOCKED_REGISTERED_USER,
         name: `test-reservation-${id}`,
-        begin: new Date(Date.now()),
-        end: new Date(Date.now() + 1000000),
+        begin: new Date(Date.now() + id * ONE_DAY),
+        end: new Date(Date.now() + id * 2 * ONE_DAY),
         items: [
             createMockItem(1),
             createMockItem(2)

@@ -1,6 +1,6 @@
 <div class="jgd-align-with-input-group">
     <ul class="list-unstyled">
-        <li *ngFor="let stack of filtered" [class.selected]="stack.selected">
+        <li *ngFor="let stack of slicedStacks" [class.selected]="stack.selected">
             <md-checkbox disableRipple="true"
                          [disabled]="stack.blocked"
                          [checked]="stack.selected"
@@ -19,7 +19,9 @@
     </ul>
 
     <div *ngIf="page" class="jgd-pager float-right">
-        <span>{{(page - 1) * maxStacks + 1}} - {{(page) * maxStacks}} von {{total}}</span>
+        <span>{{(page - 1) * maxStacks + 1}} - {{total > maxStacks ? (page) * maxStacks : total}}
+            <span *ngIf="total > maxStacks">von {{total}}</span>
+        </span>
         <button [disabled]="page === 1" class="mat-button" (click)="showPage(page -1)">
             <i class="material-icon">navigate_before</i>
         </button>

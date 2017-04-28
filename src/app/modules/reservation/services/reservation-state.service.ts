@@ -1,5 +1,7 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { ItemFilterPipe } from 'app/pipes';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { Subject } from 'rxjs/Subject';
 import { convert, Item, ItemStack, RegisteredUser, Reservation as IReservation } from '../../../model';
 import { ItemService, ReservationService, UserService } from '../../../services';
 
@@ -69,7 +71,8 @@ export class ReservationStateService {
 
     addedCount = 0;
 
-    readonly initialized: EventEmitter<void> = new EventEmitter<void>();
+    readonly initialized: Subject<void> = new ReplaySubject<void>();
+    readonly blockedChange: EventEmitter<void> = new EventEmitter<void>();
 
     reservation: Reservation;
 
@@ -88,27 +91,45 @@ export class ReservationStateService {
 
         this.userService.getRegisteredUser$().subscribe((user: RegisteredUser) => {
             this.reservation = new Reservation(user, {
+                // need to check whether reservation interferes with others or not
+                //      | b    |
+                //      | b  e |
+                //      | b    | e
+                // b  e |      |
+                //      |      | b  e
                 onBeginChange: (date: Date) => {
                     this.unblockAll();
                     this._allReservations.forEach((reservation: Reservation) => {
                         const begin = date;
                         const end = this.reservation.dates.end;
-                        if ((begin <= reservation.end && begin >= reservation.begin ) ||
+                        // #1 | b |
+                        // #2 | b  e |
+                        if ((begin >= reservation.begin && begin <= reservation.end) ||
                             (end && begin >= reservation.begin && end <= reservation.end)) {
                             this.block(reservation.items);
                         }
                     });
+                    this.blockedChange.emit();
                 },
+                // need to check whether reservation interferes with others or not
+                //      | b    |
+                //      | b  e |
+                //      | b    | e
+                // b  e |      |
+                //      |      | b  e
                 onEndChange: (date: Date) => {
                     this.unblockAll();
                     this._allReservations.forEach((reservation: Reservation) => {
                         const begin = this.reservation.dates.begin;
                         const end = date;
+                        // #1 | e |
+                        // #2 | b |
                         if ((end >= reservation.begin && end <= reservation.end) ||
-                            (begin && end >= reservation.end && begin >= reservation.begin )) {
+                            (begin && begin >= reservation.begin && begin <= reservation.end)) {
                             this.block(reservation.items);
                         }
                     });
+                    this.blockedChange.emit();
                 }
             });
 
@@ -128,7 +149,7 @@ export class ReservationStateService {
 
     private checkInitialized(): void {
         if (this.reservation && this._allItems && this.stacks && this._allReservations) {
-            this.initialized.emit();
+            this.initialized.next();
         }
     }
 
@@ -137,7 +158,7 @@ export class ReservationStateService {
         this.stacks.forEach((stack: ItemStack) => {
             const leftover: Item[] = [];
             items.forEach((i: Item) => {
-                if (!stack.block(i)) {
+                if (!stack.block(i.id)) {
                     leftover.push(i);
                 }
             });
