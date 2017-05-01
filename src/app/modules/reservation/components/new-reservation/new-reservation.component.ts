@@ -3,7 +3,7 @@ import { AfterContentInit, Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MdDialog } from '@angular/material';
 import { Router } from '@angular/router';
-import { ChangedWarningDialog } from '../../../../dialogs/changed-warning';
+import { ChangedWarningDialogComponent } from '../../../../dialogs/changed-warning';
 import { ItemStack, Reservation } from '../../../../model';
 import { LoadingService, ReservationService, UiMessageService } from '../../../../services';
 import { ReservationStateService } from '../../services/reservation-state.service';
@@ -150,7 +150,7 @@ export class NewReservationComponent implements OnInit, AfterContentInit {
 
     cancel() {
         if (this.form.dirty) {
-            const dialogRef = this.dialog.open(ChangedWarningDialog);
+            const dialogRef = this.dialog.open(ChangedWarningDialogComponent);
             dialogRef.afterClosed().subscribe(cancelApproved => {
                 if (cancelApproved) {
                     this.location.back();

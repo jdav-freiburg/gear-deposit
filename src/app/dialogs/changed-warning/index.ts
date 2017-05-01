@@ -1,1 +1,1 @@
-export * from './changed-warning.dialog';
+export * from './changed-warning.dialog.component';
