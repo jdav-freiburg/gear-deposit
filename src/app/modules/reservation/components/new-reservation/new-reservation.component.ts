@@ -24,8 +24,7 @@ export namespace CustomValidators {
 @Component({
     selector: 'jgd-new-reservation',
     templateUrl: './new-reservation.component.html',
-    styleUrls: ['./new-reservation.component.scss'],
-    providers: [ReservationStateService]
+    styleUrls: ['./new-reservation.component.scss']
 })
 export class NewReservationComponent implements OnInit, AfterContentInit {
 

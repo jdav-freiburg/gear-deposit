@@ -6,6 +6,7 @@ import { EditReservationComponent } from './components/edit-reservation/edit-res
 import { NewReservationComponent } from './components/new-reservation/new-reservation.component';
 import { ReservationItemsComponent } from './components/reservation-items/reservation-items.component';
 import { ReservationsComponent } from './components/reservations/reservations.component';
+import { ReservationStateService } from './services/reservation-state.service';
 
 @NgModule({
     imports: [
@@ -19,7 +20,8 @@ import { ReservationsComponent } from './components/reservations/reservations.co
         EditReservationComponent
     ],
     providers: [
-        ReservationService
+        ReservationService,
+        ReservationStateService
     ],
     exports: [
         ReservationsComponent,

@@ -6,7 +6,7 @@ import { MdDialog, MdDialogRef } from '@angular/material';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppMaterialModule } from 'app/app.material.module';
 import { Subject } from 'rxjs/Subject';
-import { click, DOM, Fakes, Utils } from '../../../../../testing';
+import { click, DOM, Fakes, ONE_DAY, Utils } from '../../../../../testing';
 import { HeaderComponent } from '../../../../components/header/header.component';
 import { ItemStackComponent } from '../../../../components/items/item-stack/item-stack.component';
 import { DialogModule } from '../../../../dialog.module';
@@ -17,7 +17,11 @@ import { ReservationStateService } from '../../services/reservation-state.servic
 import { ReservationItemsComponent } from '../reservation-items/reservation-items.component';
 import { NewReservationComponent } from './new-reservation.component';
 
+const NOW = Date.now();
+
 const RESERVATION_NAME = 'Test';
+const RESERVATION_BEGIN = new Date(NOW);
+const RESERVATION_END = new Date(NOW + ONE_DAY);
 
 describe('NewReservationComponent', () => {
 
@@ -45,7 +49,7 @@ describe('NewReservationComponent', () => {
         }
 
         static get itemListEntries(): DebugElement[] {
-            return Utils.debugElementsByCss(fixture, 'li');
+            return Utils.debugElementsByCss(fixture, 'jgd-item-stack');
         }
     }
 
@@ -71,6 +75,7 @@ describe('NewReservationComponent', () => {
                 PathLocationStrategy,
                 UiMessageService,
                 LoadingService,
+                ReservationStateService,
                 ItemFilterPipe,
                 ...Fakes.PROVIDERS
             ]
@@ -80,8 +85,6 @@ describe('NewReservationComponent', () => {
 
         reservationService = TestBed.get(ReservationService);
         reservationState = TestBed.get(ReservationStateService);
-
-        reservationState.initialized.next();
 
         fixture.detectChanges();
     });
@@ -158,6 +161,17 @@ describe('NewReservationComponent', () => {
             fixture.detectChanges();
             // gets changed to `null`
             expect(Page.saveButton.properties.disabled).toBeFalsy();
+        });
+
+        xit('should save when user successfully set data', () => {
+            spyOn(reservationService, 'add');
+            DOM.updateValue(Page.nameInput, RESERVATION_NAME);
+            DOM.updateValue(Page.beginInput, Utils.formatDate(RESERVATION_BEGIN));
+            DOM.updateValue(Page.endInput, Utils.formatDate(RESERVATION_END));
+            DOM.click(Page.itemListEntries[0]);
+            DOM.click(Page.itemListEntries[1]);
+            fixture.detectChanges();
+            expect(reservationService.add).toHaveBeenCalled();
         });
     });
 

@@ -49,10 +49,10 @@ export namespace Fakes {
     export function createAuthServiceFake(): AuthService {
         return {
             getAuthUser$: () => {
-                return Observable.from([Mocks.MOCKED_AUTH_USER]);
+                return Observable.of(Mocks.MOCKED_AUTH_USER);
             },
             isAuthorized$: () => {
-                return Observable.from([true]);
+                return Observable.of(true);
             }
         } as AuthService;
     }
@@ -69,7 +69,7 @@ export namespace Fakes {
     export function createUserAuthStatusServiceFake(): UserAuthStatusService {
         return {
             getUserAuthStatus$: () => {
-                return Observable.from([Mocks.MOCKED_USER_AUTH_STATUS]);
+                return Observable.of(Mocks.MOCKED_USER_AUTH_STATUS);
             },
             reset: {}
         } as UserAuthStatusService;
@@ -85,12 +85,7 @@ export namespace Fakes {
     export function createItemServiceFake(): ItemService {
         return {
             items$: () => {
-                return Observable.from([
-                    [
-                        Mocks.createMockItem(1),
-                        Mocks.createMockItem(2)
-                    ]
-                ]);
+                return Observable.of(Mocks.MOCK_ITEMS);
             },
             types$: () => {
             },
@@ -104,14 +99,14 @@ export namespace Fakes {
             add: (reservation: Reservation) => {
             },
             all$: () => {
-                return Observable.from([Mocks.MOCKED_RESERVATIONS]);
+                return Observable.of(Mocks.MOCKED_RESERVATIONS);
             },
             get$: (id: string) => {
-                return Observable.from([
+                return Observable.of(
                     Array.from(Mocks.MOCKED_RESERVATIONS).find((r: Reservation) => {
                         return r.id === id;
                     })
-                ]);
+                );
             },
             remove: (id: string) => {
             }
@@ -120,10 +115,14 @@ export namespace Fakes {
 
     export function createReservationStateServiceFake(): ReservationStateService {
         const initialized: Subject<void> = new ReplaySubject<void>();
+        const blockedChange: Subject<void> = new ReplaySubject<void>();
         return {
             initialized: initialized,
 
-            stacks: Mocks.createItemStacks(10)
+            blockedChange: blockedChange,
+
+            stacks: Mocks.createItemStacks(9)
+
         } as ReservationStateService;
     }
 
@@ -132,10 +131,10 @@ export namespace Fakes {
             reset: () => {
             },
             isRegistered$: () => {
-                return Observable.from([true]);
+                return Observable.of(true);
             },
             getRegisteredUser$: () => {
-                return Observable.from([Mocks.MOCKED_REGISTERED_USER]);
+                return Observable.of(Mocks.MOCKED_REGISTERED_USER);
             },
             registerUser: (id: string, user: RegisteredUser) => {
             }
@@ -148,10 +147,10 @@ export namespace Fakes {
 
     const RESERVATION_SERVICE_FAKE = {provide: ReservationService, useValue: createReservationServiceFake()};
 
-    const RESERVATION_STATE_SERVICE_FAKE = {
-        provide: ReservationStateService,
-        useValue: createReservationStateServiceFake()
-    };
+    // const RESERVATION_STATE_SERVICE_FAKE = {
+    //     provide: ReservationStateService,
+    //     useValue: createReservationStateServiceFake()
+    // };
 
     const USER_SERVICE_FAKE = {provide: UserService, useValue: createUserServiceFake()};
 
@@ -159,7 +158,7 @@ export namespace Fakes {
         AUTH_SERVICE_FAKE,
         ITEM_SERVICE_FAKE,
         RESERVATION_SERVICE_FAKE,
-        RESERVATION_STATE_SERVICE_FAKE,
+        // RESERVATION_STATE_SERVICE_FAKE,
         USER_SERVICE_FAKE
     ];
 

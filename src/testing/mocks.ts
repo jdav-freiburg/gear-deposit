@@ -32,6 +32,8 @@ export namespace Mocks {
         'test-item-label2'
     ];
 
+    export const MOCK_ITEMS = createComplexMockItems(2, 2);
+
     export function createMockItem(id?: number): Item {
         return new Item(
             `${id ? id : Math.random()}`,
