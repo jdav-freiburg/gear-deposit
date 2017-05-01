@@ -1,14 +1,7 @@
 import { async } from '@angular/core/testing';
 import { Observable } from 'rxjs/Rx';
-import { createItemServiceFake } from 'testing/fakes';
-import {
-    createComplexMockItems,
-    createMockReservation,
-    createReservationServiceFake,
-    createUserServiceFake,
-    MOCKED_REGISTERED_USER,
-    ONE_DAY
-} from '../../../../testing';
+import { Fakes } from 'testing/fakes';
+import { Mocks, ONE_DAY } from '../../../../testing';
 import { Item } from '../../../model';
 import { ItemFilterPipe } from '../../../pipes';
 import { ItemService, ReservationService } from '../../../services';
@@ -19,7 +12,7 @@ const MOCKED_STACK_ITEMS_SIZE = 4;
 
 const NOW = new Date().getTime();
 
-const CONCURRENT_RESERVATION = createMockReservation(1);
+const CONCURRENT_RESERVATION = Mocks.createMockReservation(1);
 
 describe('Service: ReservationState', () => {
 
@@ -29,13 +22,13 @@ describe('Service: ReservationState', () => {
     let reservationState: ReservationStateService;
 
     beforeEach(() => {
-        const userService = createUserServiceFake();
+        const userService = Fakes.createUserServiceFake();
 
-        items = createComplexMockItems(MOCKED_STACKS_SIZE, MOCKED_STACK_ITEMS_SIZE);
-        itemService = createItemServiceFake();
+        items = Mocks.createComplexMockItems(MOCKED_STACKS_SIZE, MOCKED_STACK_ITEMS_SIZE);
+        itemService = Fakes.createItemServiceFake();
         spyOn(itemService, 'items$').and.returnValue(Observable.from([items]));
 
-        reservationService = createReservationServiceFake();
+        reservationService = Fakes.createReservationServiceFake();
         spyOn(reservationService, 'all$').and.returnValue(Observable.of([CONCURRENT_RESERVATION]));
 
         reservationState = new ReservationStateService(userService, itemService, reservationService,
@@ -51,7 +44,7 @@ describe('Service: ReservationState', () => {
             expect(reservationState.reservation.name).not.toBeDefined();
             expect(reservationState.reservation.begin).not.toBeDefined();
             expect(reservationState.reservation.end).not.toBeDefined();
-            expect(reservationState.reservation.user).toBe(MOCKED_REGISTERED_USER);
+            expect(reservationState.reservation.user).toBe(Mocks.MOCKED_REGISTERED_USER);
             expect(reservationState.reservation.items.length).toEqual(0);
 
             expect(reservationState.stacks).toBeDefined();

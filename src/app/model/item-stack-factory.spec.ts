@@ -1,11 +1,5 @@
+import { Mocks } from '../../testing';
 import { Item, ItemStack } from './item';
-import {
-    createMockItem,
-    MOCK_ITEM_TYPE,
-    MOCK_ITEM_DESCRIPTION,
-    MOCK_ITEM_SHAPE,
-    MOCK_ITEM_LABELS
-} from '../../testing';
 import { convert } from './item-stack-factory';
 
 describe('item-stack-factory#convert', () => {
@@ -15,28 +9,28 @@ describe('item-stack-factory#convert', () => {
 
     beforeEach(() => {
         items = [
-            createMockItem(1),
-            createMockItem(2),
+            Mocks.createMockItem(1),
+            Mocks.createMockItem(2),
             new Item(
                 '3',
-                `changed ${MOCK_ITEM_TYPE}`,
-                MOCK_ITEM_DESCRIPTION,
-                MOCK_ITEM_SHAPE,
-                MOCK_ITEM_LABELS
+                `changed ${Mocks.MOCK_ITEM_TYPE}`,
+                Mocks.MOCK_ITEM_DESCRIPTION,
+                Mocks.MOCK_ITEM_SHAPE,
+                Mocks.MOCK_ITEM_LABELS
             ),
             new Item(
                 '4',
-                MOCK_ITEM_TYPE,
-                `changed ${MOCK_ITEM_DESCRIPTION}`,
-                MOCK_ITEM_SHAPE,
-                MOCK_ITEM_LABELS
+                Mocks.MOCK_ITEM_TYPE,
+                `changed ${Mocks.MOCK_ITEM_DESCRIPTION}`,
+                Mocks.MOCK_ITEM_SHAPE,
+                Mocks.MOCK_ITEM_LABELS
             ),
             new Item(
                 '5',
-                MOCK_ITEM_TYPE,
-                MOCK_ITEM_DESCRIPTION,
-                `changed ${MOCK_ITEM_SHAPE}`,
-                MOCK_ITEM_LABELS
+                Mocks.MOCK_ITEM_TYPE,
+                Mocks.MOCK_ITEM_DESCRIPTION,
+                `changed ${Mocks.MOCK_ITEM_SHAPE}`,
+                Mocks.MOCK_ITEM_LABELS
             )
         ];
         itemStacks = convert(items);

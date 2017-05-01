@@ -12,6 +12,16 @@ label {
   padding-left: $input-padding-x;
 }
 
+button {
+  min-width: inherit;
+  margin-left: -16px;
+}
+
+button[type="submit"] {
+  margin-left: inherit;
+  margin-right: -16px;
+}
+
 md-input-container {
   width: 100%;
 }

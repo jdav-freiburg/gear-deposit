@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { createAuthServiceFake } from '../../../testing';
+import { Fakes } from '../../../testing';
 import { AuthService } from '../../services';
 import { UserLoginComponent } from './user-login.component';
 
@@ -13,7 +13,7 @@ describe('UserLoginComponent', () => {
         TestBed.configureTestingModule({
             declarations: [UserLoginComponent],
             providers: [
-                {provide: AuthService, useValue: createAuthServiceFake()}
+                {provide: AuthService, useValue: Fakes.createAuthServiceFake()}
             ],
             imports: [
                 FormsModule

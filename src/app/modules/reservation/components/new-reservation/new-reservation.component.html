@@ -1,6 +1,6 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <jgd-header [color]="'accent'">
-        <button md-button type="button" (click)="cancel()">
+        <button md-button id="cancel" type="button" (click)="cancel()">
             <i class="material-icon">close</i>
         </button>
         <button md-button class="float-right" type="submit" [disabled]="form.pristine">

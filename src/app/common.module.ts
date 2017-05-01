@@ -5,6 +5,7 @@ import { AppMaterialModule } from './app.material.module';
 import { HeaderComponent } from './components/header/header.component';
 import { ItemStackComponent, SimpleItemListComponent } from './components/items';
 import { UiMessageComponent } from './components/ui-messages';
+import { DialogModule } from './dialog.module';
 import { ChangedWarningDialogComponent } from './dialogs/changed-warning';
 import { GlobalClickDirective, TransitionEndDirective } from './directives';
 import { ItemFilterPipe } from './pipes';
@@ -14,14 +15,14 @@ import { ItemService, LoadingService, UiMessageService } from './services';
     imports: [
         AppMaterialModule,
         AngularCommonModule,
-        FormsModule
+        FormsModule,
+        DialogModule
     ],
     declarations: [
         HeaderComponent,
         SimpleItemListComponent,
         ItemStackComponent,
         ItemFilterPipe,
-        ChangedWarningDialogComponent,
         UiMessageComponent,
         GlobalClickDirective,
         TransitionEndDirective
@@ -45,9 +46,6 @@ import { ItemService, LoadingService, UiMessageService } from './services';
         UiMessageComponent,
         GlobalClickDirective,
         TransitionEndDirective
-    ],
-    entryComponents: [
-        ChangedWarningDialogComponent
     ]
 })
 export class CommonModule {

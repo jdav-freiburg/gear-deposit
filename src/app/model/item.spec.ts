@@ -1,25 +1,19 @@
+import { Mocks } from '../../testing';
 import { Item } from './item';
-import {
-    createMockItem,
-    MOCK_ITEM_TYPE,
-    MOCK_ITEM_DESCRIPTION,
-    MOCK_ITEM_SHAPE,
-    MOCK_ITEM_LABELS
-} from '../../testing';
 
 describe('Class: Item', () => {
     let item: Item;
 
     beforeEach(() => {
-        item = createMockItem(1);
+        item = Mocks.createMockItem(1);
     });
 
     it('should have attributes set', () => {
         expect(item.id).toEqual('1');
-        expect(item.type).toEqual(MOCK_ITEM_TYPE);
-        expect(item.description).toEqual(MOCK_ITEM_DESCRIPTION);
-        expect(item.shape).toEqual(MOCK_ITEM_SHAPE);
-        expect(item.labels).toEqual(MOCK_ITEM_LABELS);
+        expect(item.type).toEqual(Mocks.MOCK_ITEM_TYPE);
+        expect(item.description).toEqual(Mocks.MOCK_ITEM_DESCRIPTION);
+        expect(item.shape).toEqual(Mocks.MOCK_ITEM_SHAPE);
+        expect(item.labels).toEqual(Mocks.MOCK_ITEM_LABELS);
     });
 
     it('should return true when shape equals \'ok\'', () => {

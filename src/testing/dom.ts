@@ -5,10 +5,31 @@ export const ButtonClickEvents = {
     right: {button: 2}
 };
 
-export function click(el: DebugElement | HTMLElement, eventObj: any = ButtonClickEvents.left): void {
-    if (el instanceof HTMLElement) {
-        el.click();
-    } else {
-        el.triggerEventHandler('click', eventObj);
+export namespace DOM {
+
+    export function updateValue(element: DebugElement, value: string) {
+        element.nativeElement.value = value;
+        dispatchEvent(element, 'input');
     }
+
+    export function dispatchEvent(element: DebugElement, eventType: string) {
+        element.nativeElement.dispatchEvent(createEvent(eventType));
+    }
+
+    export function createEvent(eventType: string): Event {
+        const evt: Event = document.createEvent('Event');
+        evt.initEvent(eventType, true, true);
+        return evt;
+    }
+
+    export function click(el: DebugElement | HTMLElement, eventObj: any = ButtonClickEvents.left): void {
+        if (el instanceof HTMLElement) {
+            el.click();
+        } else {
+            el.triggerEventHandler('click', eventObj);
+        }
+    }
+
 }
+
+

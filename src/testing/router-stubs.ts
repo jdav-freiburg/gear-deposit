@@ -1,17 +1,23 @@
 /* tslint:disable:directive-selector component-selector use-host-property-decorator no-input-rename */
-
 /*
  Copyright 2016 Google Inc. All Rights Reserved.
  Use of this source code is governed by an MIT-style license that
  can be found in the LICENSE file at http://angular.io/license
  */
-
 // export for convenience.
-export { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
-
 import { Component, Directive, Injectable, Input } from '@angular/core';
-import { NavigationExtras, NavigationStart } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs/Rx';
+import {
+    ActivatedRoute,
+    Event,
+    NavigationExtras,
+    NavigationStart,
+    Router,
+    RouterState,
+    RouterStateSnapshot,
+    UrlSegment,
+    UrlTree
+} from '@angular/router';
+import { BehaviorSubject, Subject } from 'rxjs/Rx';
 
 @Directive({
     selector: '[routerLink]',
@@ -34,25 +40,55 @@ export class RouterOutletStubComponent {
 
 @Injectable()
 export class RouterStub {
+
+    _events: Subject<Event> = new BehaviorSubject<Event>(new NavigationStart(1, '/'));
+
+    _url: string;
+
     navigate(commands: any[], extras?: NavigationExtras) {
     }
 
+    navigateByUrl(url: string | UrlTree, extras?: NavigationExtras) {
+    }
+
+    get routerState() {
+        return {
+            snapshot: {
+                url: this._url ? this._url : window.location.pathname + window.location.search + window.location.hash
+            } as RouterStateSnapshot
+        } as RouterState;
+    }
+
     get events() {
-        return Observable.from([new NavigationStart(1, '/')]);
+        return this._events.asObservable();
     }
 }
 
-// Only implements params and part of snapshot.params
+export class ActivatedRouteStubBase {
 
-@Injectable()
-export class ActivatedRouteStub {
+    snapshot = new ActivatedRouteSnapshotStub();
 
-    // ActivatedRoute.params is Observable
-    private subject = new BehaviorSubject(this.testParams);
-    params = this.subject.asObservable();
+    url: UrlSegment[] = [
+        new UrlSegment('/', {})
+    ];
 
-    // Test parameters
+    private subjectParams = new BehaviorSubject(this.testParams);
+    private subjectQueryParams = new BehaviorSubject(this.testQueryParams);
+    private subjectData = new BehaviorSubject(this.testData);
+
+    params = this.subjectParams.asObservable();
+    queryParams = this.subjectQueryParams.asObservable();
+    data = this.subjectData.asObservable();
+
     private _testParams: {};
+    private _testQueryParams: {};
+    private _testData: {};
+
+    constructor() {
+        this.testParams = {};
+        this.testQueryParams = {};
+        this.testData = {};
+    }
 
     get testParams() {
         return this._testParams;
@@ -60,11 +96,45 @@ export class ActivatedRouteStub {
 
     set testParams(params: {}) {
         this._testParams = params;
-        this.subject.next(params);
+        this.subjectParams.next(params);
     }
 
-    // ActivatedRoute.snapshot.params
-    get snapshot() {
-        return {params: this.testParams};
+    get testQueryParams() {
+        return this._testQueryParams;
     }
+
+    set testQueryParams(queryParams: {}) {
+        this._testQueryParams = queryParams;
+        this.subjectQueryParams.next(queryParams);
+    }
+
+    get testData() {
+        return this._testData;
+    }
+
+    set testData(data: {}) {
+        this._testData = data;
+        this.subjectData.next(data);
+    }
+
 }
+
+@Injectable()
+export class ActivatedRouteStub extends ActivatedRouteStubBase {
+    parent = new ActivatedRouteStubBase();
+}
+
+export class ActivatedRouteSnapshotStubBase {
+    url: UrlSegment[] = [
+        new UrlSegment('/', {})
+    ];
+}
+
+@Injectable()
+export class ActivatedRouteSnapshotStub extends ActivatedRouteSnapshotStubBase {
+    parent = new ActivatedRouteSnapshotStubBase();
+}
+
+export const ROUTER_STUB = {provide: Router, useClass: RouterStub};
+
+export const ACTIVATED_ROUTE_STUB = {provide: ActivatedRoute, useClass: ActivatedRouteStub};

@@ -1,10 +1,4 @@
-import {
-    createMockItem,
-    MOCK_ITEM_DESCRIPTION,
-    MOCK_ITEM_LABELS,
-    MOCK_ITEM_SHAPE,
-    MOCK_ITEM_TYPE
-} from '../../testing';
+import { Mocks } from '../../testing';
 import { Item, ItemStack } from './item';
 
 describe('Class: ItemStack', () => {
@@ -13,21 +7,21 @@ describe('Class: ItemStack', () => {
     let item1: Item;
 
     beforeEach(() => {
-        item1 = createMockItem(1);
+        item1 = Mocks.createMockItem(1);
         itemStack = new ItemStack(item1);
     });
 
     it('should have attributes set', () => {
-        expect(itemStack.type).toEqual(MOCK_ITEM_TYPE);
-        expect(itemStack.description).toEqual(MOCK_ITEM_DESCRIPTION);
-        expect(itemStack.shape).toEqual(MOCK_ITEM_SHAPE);
-        expect(itemStack.labels).toEqual(MOCK_ITEM_LABELS);
+        expect(itemStack.type).toEqual(Mocks.MOCK_ITEM_TYPE);
+        expect(itemStack.description).toEqual(Mocks.MOCK_ITEM_DESCRIPTION);
+        expect(itemStack.shape).toEqual(Mocks.MOCK_ITEM_SHAPE);
+        expect(itemStack.labels).toEqual(Mocks.MOCK_ITEM_LABELS);
         expect(itemStack.items.size).toEqual(1);
         expect(itemStack.items.has(item1)).toBe(true);
     });
 
     it('should add item to stack and return \'true\' when it equals metadata', () => {
-        const item2 = createMockItem(2);
+        const item2 = Mocks.createMockItem(2);
         expect(itemStack.add(item2)).toBe(true);
         expect(itemStack.items.size).toEqual(2);
         expect(itemStack.items.has(item2)).toBe(true);
@@ -37,26 +31,26 @@ describe('Class: ItemStack', () => {
         let item2: Item;
 
         beforeEach(() => {
-            item2 = createMockItem(2);
+            item2 = Mocks.createMockItem(2);
         });
 
         it('should not add item to stack and return \'false\' when it doesn\'t equal metadata', () => {
-            item2.type = `changed ${MOCK_ITEM_TYPE}`;
+            item2.type = `changed ${Mocks.MOCK_ITEM_TYPE}`;
             expect(itemStack.add(item2)).toBe(false);
         });
 
         it('should not add item to stack and return \'false\' when its type doesn\'t match', () => {
-            item2.type = `changed ${MOCK_ITEM_TYPE}`;
+            item2.type = `changed ${Mocks.MOCK_ITEM_TYPE}`;
             expect(itemStack.add(item2)).toBe(false);
         });
 
         it('should not add item to stack and return \'false\' when its description doesn\'t match', () => {
-            item2.description = `changed ${MOCK_ITEM_DESCRIPTION}`;
+            item2.description = `changed ${Mocks.MOCK_ITEM_DESCRIPTION}`;
             expect(itemStack.add(item2)).toBe(false);
         });
 
         it('should not add item to stack and return \'false\' when its shape doesn\'t match', () => {
-            item2.shape = `changed ${MOCK_ITEM_SHAPE}`;
+            item2.shape = `changed ${Mocks.MOCK_ITEM_SHAPE}`;
             expect(itemStack.add(item2)).toBe(false);
         });
 
@@ -71,8 +65,8 @@ describe('Class: ItemStack', () => {
         let item3: Item;
 
         beforeEach(() => {
-            item2 = createMockItem(2);
-            item3 = createMockItem(3);
+            item2 = Mocks.createMockItem(2);
+            item3 = Mocks.createMockItem(3);
         });
 
         it('should block item if it belongs to stack', () => {
@@ -83,7 +77,7 @@ describe('Class: ItemStack', () => {
         });
 
         it('should not block item if it doesn\'t belong to stack', () => {
-            item2.type = `changed ${MOCK_ITEM_TYPE}`;
+            item2.type = `changed ${Mocks.MOCK_ITEM_TYPE}`;
             const blocked = itemStack.block(item2.id);
             expect(blocked).toBe(false);
             expect(item1.blocked).toBeFalsy(); // blocked is optional and only set when it was set to true once

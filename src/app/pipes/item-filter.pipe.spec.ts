@@ -1,4 +1,4 @@
-import { createMockItem } from '../../testing';
+import { Mocks } from '../../testing';
 import { Item } from '../model';
 import { ItemFilterPipe } from './item-filter.pipe';
 
@@ -10,12 +10,12 @@ describe('Pipe: ItemFilter', () => {
     beforeEach(() => {
         pipe = new ItemFilterPipe();
         items = [
-            createMockItem(1),
-            createMockItem(2),
-            createMockItem(3),
-            createMockItem(4),
-            createMockItem(5),
-            createMockItem(6)
+            Mocks.createMockItem(1),
+            Mocks.createMockItem(2),
+            Mocks.createMockItem(3),
+            Mocks.createMockItem(4),
+            Mocks.createMockItem(5),
+            Mocks.createMockItem(6)
         ];
     });
 

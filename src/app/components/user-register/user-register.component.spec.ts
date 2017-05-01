@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { createAuthServiceFake, MOCKED_AUTH_USER } from '../../../testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { Fakes, Mocks } from '../../../testing';
 import { AuthService, UserService } from '../../services';
 import { UserRegisterComponent } from './';
 
@@ -12,16 +12,16 @@ describe('RegisterComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
+            imports: [
+                FormsModule,
+                RouterTestingModule
+            ],
             declarations: [
                 UserRegisterComponent
             ],
             providers: [
-                {provide: AuthService, useValue: createAuthServiceFake()},
-                {provide: UserService, useValue: {}},
-                {provide: Router, useValue: {}}
-            ],
-            imports: [
-                FormsModule
+                {provide: AuthService, useValue: Fakes.createAuthServiceFake()},
+                {provide: UserService, useValue: {}}
             ]
         });
 
@@ -31,17 +31,17 @@ describe('RegisterComponent', () => {
     });
 
     it('should create', () => {
-        expect(component).toBeTruthy();
+        expect(component).toBeDefined();
     });
 
     it('should fill in user name', () => {
         const nameInput = fixture.debugElement.query(By.css('#name')).nativeElement;
-        expect(nameInput.placeholder).toEqual(MOCKED_AUTH_USER.displayName);
+        expect(nameInput.placeholder).toEqual(Mocks.MOCKED_AUTH_USER.displayName);
     });
 
     it('should fill in user email', () => {
         const emailInput = fixture.debugElement.query(By.css('#email')).nativeElement;
-        expect(emailInput.placeholder).toEqual(MOCKED_AUTH_USER.email);
+        expect(emailInput.placeholder).toEqual(Mocks.MOCKED_AUTH_USER.email);
     });
 
 });

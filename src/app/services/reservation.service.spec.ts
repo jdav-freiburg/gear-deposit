@@ -1,36 +1,28 @@
-import { Observable } from 'rxjs/Rx';
-import { ReservationService } from './';
-import {
-    createAngularFireFake,
-    createUserServiceFake,
-    createItemServiceFake,
-    MOCKED_REGISTERED_USER,
-    createMockItem
-} from '../../testing';
+import { async } from '@angular/core/testing';
+import { Fakes, Mocks } from '../../testing';
 import { Item } from '../model';
+import { ReservationService } from './';
 
 describe('Service: ReservationService', () => {
 
     let service: ReservationService;
     let items: Item[];
 
-    beforeEach(() => {
-        const itemService = createItemServiceFake();
-        items = [
-            createMockItem(1),
-            createMockItem(2)
-        ];
-
-        spyOn(itemService, 'items$').and.returnValue(Observable.from([items]));
+    beforeEach(async(() => {
+        const itemService = Fakes.createItemServiceFake();
 
         service = new ReservationService(
-            createAngularFireFake(),
+            Fakes.createAngularFireFake(),
             itemService,
-            createUserServiceFake());
-    });
+            Fakes.createUserServiceFake());
+
+        itemService.items$().subscribe(_items => {
+            items = _items;
+        });
+    }));
 
     it('should get registered user', () => {
-        expect(service.user).toBe(MOCKED_REGISTERED_USER);
+        expect(service.user).toBe(Mocks.MOCKED_REGISTERED_USER);
     });
 
     it('should get items', () => {
