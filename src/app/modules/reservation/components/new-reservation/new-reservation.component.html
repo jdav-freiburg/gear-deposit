@@ -3,7 +3,7 @@
         <button md-button id="cancel" type="button" (click)="cancel()">
             <i class="material-icon">close</i>
         </button>
-        <button md-button class="float-right" type="submit" [disabled]="form.pristine">
+        <button md-button class="float-right" type="submit" (click)="onSubmit()" [disabled]="form.pristine">
             Speichern
         </button>
         <md-input-container>

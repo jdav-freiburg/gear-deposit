@@ -9,13 +9,15 @@ import { LoadingService, ReservationService, UiMessageService } from '../../../.
 import { ReservationStateService } from '../../services/reservation-state.service';
 
 const TODAY = new Date();
+TODAY.setHours(0, 0, 0, 0);
 
 export namespace CustomValidators {
 
     export function dateNotInThePast(): ValidatorFn {
         return (control: AbstractControl): ValidationErrors => {
             const date: Date = new Date(control.value);
-            return date <= TODAY ? {dateInThePast: {date}} : null;
+            date.setHours(0, 0, 0, 0);
+            return date < TODAY ? {dateInThePast: {date}} : null;
         };
     }
 

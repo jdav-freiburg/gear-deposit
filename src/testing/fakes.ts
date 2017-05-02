@@ -95,8 +95,11 @@ export namespace Fakes {
     }
 
     export function createReservationServiceFake(): ReservationService {
+        const add = new Promise<void>(() => {
+        });
         return {
             add: (reservation: Reservation) => {
+                return add as any;
             },
             all$: () => {
                 return Observable.of(Mocks.MOCKED_RESERVATIONS);

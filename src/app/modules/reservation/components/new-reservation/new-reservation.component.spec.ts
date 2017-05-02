@@ -19,7 +19,7 @@ import { NewReservationComponent } from './new-reservation.component';
 
 const NOW = Date.now();
 
-const RESERVATION_NAME = 'Test';
+const RESERVATION_NAME = 'test description';
 const RESERVATION_BEGIN = new Date(NOW);
 const RESERVATION_END = new Date(NOW + ONE_DAY);
 
@@ -163,14 +163,15 @@ describe('NewReservationComponent', () => {
             expect(Page.saveButton.properties.disabled).toBeFalsy();
         });
 
-        xit('should save when user successfully set data', () => {
-            spyOn(reservationService, 'add');
+        it('should save when user successfully set data', () => {
+            spyOn(reservationService, 'add').and.callThrough();
             DOM.updateValue(Page.nameInput, RESERVATION_NAME);
             DOM.updateValue(Page.beginInput, Utils.formatDate(RESERVATION_BEGIN));
             DOM.updateValue(Page.endInput, Utils.formatDate(RESERVATION_END));
             DOM.click(Page.itemListEntries[0]);
-            DOM.click(Page.itemListEntries[1]);
             fixture.detectChanges();
+
+            DOM.click(Page.saveButton);
             expect(reservationService.add).toHaveBeenCalled();
         });
     });
