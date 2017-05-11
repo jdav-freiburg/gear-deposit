@@ -32,43 +32,41 @@ export class ReservationItemsComponent implements OnChanges {
         stack.selected = true;
     }
 
-    // FIXME selectedCount missing
     onClick(stack: ItemStack, event?: MouseEvent) {
-        const shiftKey = event ? event.shiftKey : false;
-        let selected = !stack.selected;
-        let selectedStacks: ItemStack[] = [stack];
-
-        if (stack.blocked) {
-            return;
+        if (!stack.blocked) {
+            stack.selected = !stack.selected;
+            ;
         }
 
-        if (this.selectedLast !== undefined && !stack.selected && shiftKey) {
-            selected = true;
-            const indexOfLastSelected = this.slicedStacks.indexOf(this.selectedLast);
-            const indexOfClickedStack = this.slicedStacks.indexOf(stack);
-            if (indexOfLastSelected < indexOfClickedStack) {
-                selectedStacks = this.slicedStacks
-                    .slice(indexOfLastSelected, indexOfClickedStack + 1)
-                    .filter(_stack => !_stack.blocked);
-            } else {
-                selectedStacks = this.slicedStacks
-                    .slice(indexOfClickedStack, indexOfLastSelected + 1)
-                    .filter(_stack => !_stack.blocked);
-            }
-        }
-
-        if (this.selectedLast === undefined && !stack.selected) {
-            this.selectedLast = stack;
-        } else if (!stack.selected && !shiftKey) {
-            this.selectedLast = stack;
-        } else if (stack.selected && !shiftKey) {
-            this.selectedLast = undefined;
-            selected = false;
-        }
-
-        selectedStacks.forEach((s: ItemStack) => {
-            s.selected = selected;
-        });
+        // FIXME rethink; selectedCount missing or throw away
+        // const shiftKey = event ? event.shiftKey : false;
+        // let selectedStacks: ItemStack[] = [stack];
+        // if (this.selectedLast !== undefined && !stack.selected && shiftKey) {
+        //     selected = true;
+        //     const indexOfLastSelected = this.slicedStacks.indexOf(this.selectedLast);
+        //     const indexOfClickedStack = this.slicedStacks.indexOf(stack);
+        //     if (indexOfLastSelected < indexOfClickedStack) {
+        //         selectedStacks = this.slicedStacks
+        //             .slice(indexOfLastSelected, indexOfClickedStack + 1)
+        //             .filter(_stack => !_stack.blocked);
+        //     } else {
+        //         selectedStacks = this.slicedStacks
+        //             .slice(indexOfClickedStack, indexOfLastSelected + 1)
+        //             .filter(_stack => !_stack.blocked);
+        //     }
+        // }
+        //
+        // if (this.selectedLast === undefined && !stack.selected) {
+        //     this.selectedLast = stack;
+        // } else if (!stack.selected && !shiftKey) {
+        //     this.selectedLast = stack;
+        // } else if (stack.selected && !shiftKey) {
+        //     this.selectedLast = undefined;
+        //     selected = false;
+        // }
+        // selectedStacks.forEach((s: ItemStack) => {
+        //     s.selected = selected;
+        // });
     }
 
     showPage(page: number) {
