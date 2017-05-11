@@ -1,20 +1,20 @@
-<div [class]="itemStack.shape | lowercase">
-    <i *ngIf="!itemStack.isOk()" class="material-icon"
-       [title]="itemStack.shape">
+<div *ngIf="!itemStack.isOk()" [class]="itemStack.shape | lowercase">
+    <i class="material-icon" [title]="itemStack.shape">
         priority_high
     </i>
 </div>
 <span *ngIf="countStyle === 0">
     {{itemStack.items.size}}x
 </span>
-<span *ngIf="countStyle === 1 && itemStack.availableItemCount > 1" class="badge badge-pill float-right"
-      (click)="tagClicked.emit()">
+<span *ngIf="countStyle === 1 && itemStack.availableItemCount > 1"
+      id="aB" class="badge badge-pill float-right" (click)="tagClicked.emit()">
     {{itemStack.availableItemCount}}
 </span>
-<span *ngIf="countStyle === 1 && itemStack.blockedCount > 0" class="badge badge-pill float-right blocked">
+<span *ngIf="countStyle === 1 && itemStack.blockedCount > 0"
+      class="badge badge-pill float-right blocked">
     {{itemStack.blockedCount}}
 </span>
-<span>
+<span id="iTL">
     {{itemStack.type}}
 </span>
 <small>

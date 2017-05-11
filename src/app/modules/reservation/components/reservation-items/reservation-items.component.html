@@ -19,13 +19,12 @@
     </ul>
 
     <div *ngIf="page" class="jgd-pager float-right">
-        <span>{{(page - 1) * maxStacks + 1}} - {{total > maxStacks ? (page) * maxStacks : total}}
-            <span *ngIf="total > maxStacks">von {{total}}</span>
-        </span>
-        <button [disabled]="page === 1" class="mat-button" (click)="showPage(page -1)">
+        <span id="pDL">{{(page - 1) * maxStacks + 1}} - {{total > maxStacks ? (page) * maxStacks : total}}</span>
+        <span *ngIf="total > maxStacks" id="mIL">von {{total}}</span>
+        <button id="pPB" [disabled]="page === 1" class="mat-button" (click)="showPage(page -1)">
             <i class="material-icon">navigate_before</i>
         </button>
-        <button [disabled]="page === totalPages" class="mat-button" (click)="showPage(page + 1)">
+        <button id="nPB" [disabled]="page === totalPages" class="mat-button" (click)="showPage(page + 1)">
             <i class="material-icon">navigate_next</i>
         </button>
     </div>

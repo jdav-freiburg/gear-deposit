@@ -163,16 +163,44 @@ describe('NewReservationComponent', () => {
             expect(Page.saveButton.properties.disabled).toBeFalsy();
         });
 
-        it('should save when user successfully set data', () => {
-            spyOn(reservationService, 'add').and.callThrough();
-            DOM.updateValue(Page.nameInput, RESERVATION_NAME);
-            DOM.updateValue(Page.beginInput, Utils.formatDate(RESERVATION_BEGIN));
-            DOM.updateValue(Page.endInput, Utils.formatDate(RESERVATION_END));
-            DOM.click(Page.itemListEntries[0]);
-            fixture.detectChanges();
+        describe('(user changed page)', () => {
 
-            DOM.click(Page.saveButton);
-            expect(reservationService.add).toHaveBeenCalled();
+            beforeEach(() => {
+                spyOn(reservationService, 'add').and.callThrough();
+                DOM.updateValue(Page.nameInput, RESERVATION_NAME);
+                DOM.updateValue(Page.beginInput, Utils.formatDate(RESERVATION_BEGIN));
+                DOM.updateValue(Page.endInput, Utils.formatDate(RESERVATION_END));
+                DOM.click(Page.itemListEntries[0]);
+                fixture.detectChanges();
+            });
+
+            describe('(incomplete form data)', () => {
+                it('shouldn\'t save when user missed to set name', () => {
+                    DOM.updateValue(Page.nameInput, null);
+                });
+
+                it('shouldn\'t save when user missed to set begin', () => {
+                    DOM.updateValue(Page.beginInput, null);
+                });
+
+                it('shouldn\'t save when user missed to set end', () => {
+                    DOM.updateValue(Page.endInput, null);
+                });
+
+                it('shouldn\'t save when user missed to select an item', () => {
+                    DOM.click(Page.itemListEntries[0]);
+                });
+
+                afterEach(() => {
+                    DOM.click(Page.saveButton);
+                    expect(reservationService.add).not.toHaveBeenCalled();
+                });
+            });
+
+            it('should save when user successfully set data', () => {
+                DOM.click(Page.saveButton);
+                expect(reservationService.add).toHaveBeenCalled();
+            });
         });
     });
 

@@ -1,4 +1,4 @@
-import { Component, Input, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ItemStack } from '../../../model/item';
 
 export enum Style {
@@ -12,9 +12,9 @@ export enum Style {
 })
 export class ItemStackComponent {
 
+    @Input() itemStack: ItemStack;
     @Input() countStyle: Style = Style.TAG;
 
-    @Input() itemStack: ItemStack;
     @Output() tagClicked: EventEmitter<void> = new EventEmitter<void>();
 
 }

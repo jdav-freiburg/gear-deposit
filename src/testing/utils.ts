@@ -14,6 +14,10 @@ export class Utils {
         return debugElements ? debugElements : [];
     }
 
+    static textContent(debugElement: DebugElement): string {
+        return debugElement.nativeElement.textContent.trim();
+    }
+
     static formatDate(date: Date): string {
         // return date.toLocaleDateString('de-DE', {
         //     year: 'numeric',
