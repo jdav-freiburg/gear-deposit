@@ -205,7 +205,9 @@ describe('ReservationItemsComponent', () => {
 
         function expectStackToBeNotSelected() {
             expect(Page.selected.length).toEqual(0);
-            expect(stack.selected).toBe(false);
+            // it is possible that it wasn't selected at all (undefined)...
+            // in that case when blocking a stack it isn't set to false
+            expect(stack.selected).toBeFalsy();
         }
 
         it('should select unselected stack when user clicks checkbox', () => {

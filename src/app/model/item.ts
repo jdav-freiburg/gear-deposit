@@ -57,7 +57,14 @@ export class ItemStack extends ItemMetadata {
             if (!filtered[0].blocked) {
                 filtered[0].blocked = true;
                 this._blockedCount++;
-                this.selected = false;
+
+                if (this.selected) {
+                    this.selected = this.blocked ? false : this.selected;
+                }
+
+                if (this.selectedCount > this.availableItemCount) {
+                    this.selectedCount -= 1;
+                }
             }
         }
         return belongsToStack;

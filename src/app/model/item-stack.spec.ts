@@ -60,7 +60,7 @@ describe('Class: ItemStack', () => {
         });
     });
 
-    describe('blocked items', () => {
+    describe('(blocked)', () => {
         let item2: Item;
         let item3: Item;
 
@@ -112,6 +112,32 @@ describe('Class: ItemStack', () => {
             expect(itemStack.blockedCount).toEqual(1);
             expect(itemStack.availableItemCount).toEqual(1);
             expect(itemStack.blocked).toBe(false);
+        });
+
+        describe('(selected)', () => {
+            beforeEach(() => {
+                itemStack.add(item1);
+                itemStack.add(item2);
+                itemStack.add(item3);
+                itemStack.selected = true;
+                itemStack.selectedCount = 3;
+            });
+
+            it('should deselect selected stack when stack gets blocked fully', () => {
+                itemStack.items.forEach(item => itemStack.block(item.id));
+                expect(itemStack.selected).toBe(false);
+                expect(itemStack.selectedCount).toEqual(0);
+            });
+
+            it('shouldn\'t deselect selected stack when stack gets only blocked partly', () => {
+                itemStack.block(item1.id);
+                expect(itemStack.selected).toBe(true);
+                expect(itemStack.selectedCount).toEqual(2);
+
+                itemStack.block(item2.id);
+                expect(itemStack.selected).toBe(true);
+                expect(itemStack.selectedCount).toEqual(1);
+            });
         });
 
         describe('unblock all', () => {
