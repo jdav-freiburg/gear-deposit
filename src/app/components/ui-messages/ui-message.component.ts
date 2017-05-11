@@ -1,6 +1,9 @@
-import { Component, Input, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { UiMessage, UiMessageType } from '../../model';
 
+/**
+ * @deprecated shall be replaced with something from material
+ */
 @Component({
     selector: 'jgd-ui-message',
     templateUrl: './ui-message.component.html',

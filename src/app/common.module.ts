@@ -7,7 +7,7 @@ import { ItemStackComponent, SimpleItemListComponent } from './components/items'
 import { UiMessageComponent } from './components/ui-messages';
 import { DialogModule } from './dialog.module';
 import { ChangedWarningDialogComponent } from './dialogs/changed-warning';
-import { GlobalClickDirective, TransitionEndDirective } from './directives';
+import { TransitionEndDirective } from './directives';
 import { ItemFilterPipe } from './pipes';
 import { ItemService, LoadingService, UiMessageService } from './services';
 
@@ -24,7 +24,6 @@ import { ItemService, LoadingService, UiMessageService } from './services';
         ItemStackComponent,
         ItemFilterPipe,
         UiMessageComponent,
-        GlobalClickDirective,
         TransitionEndDirective
     ],
     providers: [
@@ -44,7 +43,6 @@ import { ItemService, LoadingService, UiMessageService } from './services';
         ItemFilterPipe,
         ChangedWarningDialogComponent,
         UiMessageComponent,
-        GlobalClickDirective,
         TransitionEndDirective
     ]
 })

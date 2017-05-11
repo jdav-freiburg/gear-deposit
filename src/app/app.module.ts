@@ -22,7 +22,7 @@ import {
     IsRegisteredGuard
 } from './guards';
 import { ReservationModule } from './modules/reservation';
-import { AppRouterService, AuthService, UserAuthStatusService, UserService } from './services';
+import { AuthService, UserAuthStatusService, UserService } from './services';
 
 export const SHARED_DECLARATIONS = [
     AppComponent,
@@ -46,7 +46,6 @@ export const SHARED_GUARDS = [
 ];
 
 export const SHARED_SERVICES = [
-    AppRouterService,
     AuthService,
     UserService,
     UserAuthStatusService

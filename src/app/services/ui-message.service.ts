@@ -1,6 +1,9 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { UiMessage, UiMessageType } from '../model';
 
+/**
+ * @deprecated shall be replaced with something from material
+ */
 @Injectable()
 export class UiMessageService {
 
